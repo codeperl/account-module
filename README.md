@@ -11,11 +11,11 @@ composer require codeperl/account
    
 2. Run ```php artisan migrate --env=development```
 
-3. Run ```php artisan module:make-seed Role Account```
+3. Run ```php artisan make:seeder RoleTableSeeder```
 
 4. Update appropriate data to RoleTableSeeder class.
 
-5. Run ```php artisan module:make-seed Permission Account```
+5. Run ```php artisan make:seeder PermissionTableSeeder```
 
 6. Update appropriate data to PermissionTableSeeder class.
 
