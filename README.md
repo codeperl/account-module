@@ -1,4 +1,4 @@
-# Account
+# account-module for laravel
 User account management along with acl. A modular driven approach for laravel 5.8.
 
 ## Installation
