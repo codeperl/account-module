@@ -27,10 +27,14 @@ Done!
 
 Now you will get access of these urls:
 
+account
 account/login
 account/register
-account/routes
-account/routes/create
-account/routes/{id}/edit
-account/routes/{id}
-account/routes/{id}/destroy
+account/logout
+account/password/email
+account/password/reset
+account/password/reset/{token} 
+account/roles
+account/roles/create
+account/roles/{id}/edit
+account/roles/{id}
