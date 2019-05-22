@@ -11,7 +11,9 @@
     "keywords": [
         "framework",
         "laravel",
-        "module"
+        "module",
+        "user",
+        "account"
     ],
     "license": "MIT",
     "require": {
