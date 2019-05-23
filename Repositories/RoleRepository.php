@@ -2,12 +2,11 @@
 
 namespace Modules\Account\Repositories;
 
-use Illuminate\Support\Facades\Hash;
 use Modules\Account\Enums\RoleFields;
 use Spatie\Permission\Models\Role;
 
 /**
- * Class BackendCustomerUserRepository
+ * Class RoleRepository
  * @package Modules\Account\Repositories
  */
 class RoleRepository
@@ -19,7 +18,8 @@ class RoleRepository
     public function create(array $params): Role
     {
         return Role::create([
-            RoleFields::NAME => $params[RoleFields::NAME]
+            RoleFields::NAME => $params[RoleFields::NAME],
+            RoleFields::GUARD_NAME => $params[RoleFields::GUARD_NAME]
         ]);
     }
 }
