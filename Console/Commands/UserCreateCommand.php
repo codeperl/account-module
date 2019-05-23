@@ -26,7 +26,7 @@ class UserCreateCommand extends Command
      *
      * @var string
      */
-    protected $description = "Create user for backend. Example: php artisan user:create \ 
+    protected $description = "Create user for backend. Example: php artisan account:user:create \ 
     --name=[YOUR_UNIQUE_USER_NAME_FOR_LOGIN] --email=[YOUR_UNIQUE_EMAIL_FOR_LOGIN] \
      --phone=[YOUR_UNIQUE_PHONE_FOR_LOGIN]  --password=[YOUR_PASSWORD] --password_confirmation=[RE-TYPE_YOUR_PASSWORD]";
 

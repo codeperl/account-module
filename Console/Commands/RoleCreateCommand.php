@@ -25,7 +25,7 @@ class RoleCreateCommand extends Command
      *
      * @var string
      */
-    protected $description = "Create role. Example: php artisan role:create --name=[UNIQUE_ROLE] --guard_name=[GUARD_NAME]";
+    protected $description = "Create role. Example: php artisan account:role:create --name=[UNIQUE_ROLE] --guard_name=[GUARD_NAME]";
 
     /** @var RoleValidator */
     protected $roleValidator;
