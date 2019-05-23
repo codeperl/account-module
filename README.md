@@ -20,8 +20,9 @@ composer require codeperl/account
 
 ## Post installation
 1. Add 
-```'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
-   'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+```
+'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
 ```
 
    to $routeMiddleware in App\Http\Kernel.php.
