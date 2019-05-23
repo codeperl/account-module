@@ -5,8 +5,8 @@ namespace Modules\Account\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Modules\Account\Http\Controllers\Controller;
-use Shared\Concerns\Auth\RegistersUsers;
-use \Shared\Entities\User;
+use Modules\Account\Concerns\Auth\RegistersUsers;
+use Modules\Account\Entities\User;
 
 class RegisterController extends Controller
 {

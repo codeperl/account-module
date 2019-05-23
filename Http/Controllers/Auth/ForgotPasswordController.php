@@ -3,7 +3,7 @@
 namespace Modules\Account\Http\Controllers\Auth;
 
 use Modules\Account\Http\Controllers\Controller;
-use Shared\Concerns\Auth\SendsPasswordResetEmails;
+use Modules\Account\Concerns\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
 {

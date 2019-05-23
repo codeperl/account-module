@@ -3,7 +3,7 @@
 namespace Modules\Account\Http\Controllers\Auth;
 
 use Modules\Account\Http\Controllers\Controller;
-use Shared\Concerns\Auth\ResetsPasswords;
+use Modules\Account\Concerns\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
 {
