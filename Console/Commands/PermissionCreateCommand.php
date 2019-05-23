@@ -18,14 +18,14 @@ class PermissionCreateCommand extends Command
      *
      * @var string
      */
-    protected $signature = "permission";
+    protected $signature = "permission:create {--name= : Unique permission name} {--guard_name= : guard name}";
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = "create permission";
+    protected $description = "Create permission. Example: php artisan permission:create --name=[UNIQUE_PERMISSION] --guard_name=[GUARD_NAME]";
 
     /** @var PermissionValidator */
     protected $permissionValidator;
@@ -56,7 +56,7 @@ class PermissionCreateCommand extends Command
         try {
             $this->permissionValidator->validate($role);
             $this->permissionRepository->create($role);
-            $this->info("Role created successfully!");
+            $this->info("Permission created successfully!");
         } catch(\Exception $exception) {
             $messageBag = $this->permissionValidator->getMessageBag($role);
             $this->errorMessages($messageBag->getMessages());
