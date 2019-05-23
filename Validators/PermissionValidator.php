@@ -16,7 +16,7 @@ class PermissionValidator extends Validator
     protected function getRules(): array
     {
         return [
-            PermissionFields::NAME => 'required|string|max:255|unique:permissions',
+            PermissionFields::NAME => 'required|string|max:255',
             PermissionFields::GUARD_NAME => 'required|string|max:255'
         ];
     }
