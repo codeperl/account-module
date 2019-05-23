@@ -16,9 +16,9 @@ class UserRegisterValidator extends Validator
     protected function getRules(): array
     {
         return [
-            UserFields::NAME => 'required|string|max:255',
-            UserFields::EMAIL => 'required|string|email|max:255|unique:backend_customer_users',
-            UserFields::PHONE => 'required|string|min:4|max:20|unique:backend_customer_users',
+            UserFields::NAME => 'required|string|max:255|unique:users',
+            UserFields::EMAIL => 'required|string|email|max:255|unique:users',
+            UserFields::PHONE => 'required|string|min:4|max:20|unique:users',
             UserFields::PASSWORD => 'required|string|min:6|confirmed',
         ];
     }
