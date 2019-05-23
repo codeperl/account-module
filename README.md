@@ -19,8 +19,10 @@ It will be the location where laravel module will took place.
 composer require codeperl/account
 
 ## Post installation
-1. Add ```'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+1. Add 
+```'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
    'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,```
+
    to $routeMiddleware in App\Http\Kernel.php.
    
 2. Run ```php artisan migrate --env=development```
