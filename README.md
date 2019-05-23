@@ -1,6 +1,20 @@
 # account-module for laravel
 User account management along with acl. A modular driven approach for laravel 5.8.
 
+## Pre installation
+In composer.json file append:
+```javascript
+    "autoload": {
+        "psr-4": {
+            ....,
+            "Modules\\": "Modules/",
+        },
+        ...
+    },
+```
+
+It will be the location where laravel module will took place.
+
 ## Installation
 composer require codeperl/account
 
