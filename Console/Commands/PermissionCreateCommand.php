@@ -18,7 +18,7 @@ class PermissionCreateCommand extends Command
      *
      * @var string
      */
-    protected $signature = "permission:create {--name= : Unique permission name} {--guard_name= : guard name}";
+    protected $signature = "account:permission:create {--name= : Unique permission name} {--guard_name= : guard name}";
 
     /**
      * The console command description.

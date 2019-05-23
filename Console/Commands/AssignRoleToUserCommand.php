@@ -18,7 +18,7 @@ class AssignRoleToUserCommand extends Command
      *
      * @var string
      */
-    protected $signature = "assignroletouser";
+    protected $signature = "account:assignroletouser";
 
     /**
      * The console command description.

@@ -18,7 +18,7 @@ class RoleCreateCommand extends Command
      *
      * @var string
      */
-    protected $signature = "role:create {--name= : Unique role name} {--guard_name= : guard name}";
+    protected $signature = "account:role:create {--name= : Unique role name} {--guard_name= : guard name}";
 
     /**
      * The console command description.
