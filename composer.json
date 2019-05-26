@@ -21,7 +21,8 @@
         "laravel/framework": "5.8.*",
         "joshbrw/laravel-module-installer": "*",
         "spatie/laravel-permission": "^2.37",
-        "laravelcollective/html": "^5.8"
+        "laravelcollective/html": "^5.8",
+        "haydenpierce/class-finder": "^0.3.2"
     },
     "extra": {
         "laravel": {
