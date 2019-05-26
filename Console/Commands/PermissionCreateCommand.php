@@ -18,14 +18,14 @@ class PermissionCreateCommand extends Command
      *
      * @var string
      */
-    protected $signature = "permission:create {--name= : Unique permission name} {--guard_name= : guard name}";
+    protected $signature = "account:permission:create {--name= : Unique permission name} {--guard_name= : guard name}";
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = "Create permission. Example: php artisan permission:create --name=[UNIQUE_PERMISSION] --guard_name=[GUARD_NAME]";
+    protected $description = "Create permission. Example: php artisan account:permission:create --name=[UNIQUE_PERMISSION] --guard_name=[GUARD_NAME]";
 
     /** @var PermissionValidator */
     protected $permissionValidator;

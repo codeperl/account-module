@@ -18,7 +18,7 @@ class AssignPermissionToRoleCommand extends Command
      *
      * @var string
      */
-    protected $signature = "assignpermissiontorole";
+    protected $signature = "account:assignpermissiontorole";
 
     /**
      * The console command description.

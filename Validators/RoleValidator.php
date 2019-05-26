@@ -16,7 +16,7 @@ class RoleValidator extends Validator
     protected function getRules(): array
     {
         return [
-            RoleFields::NAME => 'required|string|max:255|unique:roles',
+            RoleFields::NAME => 'required|string|max:255',
             RoleFields::GUARD_NAME => 'required|string|max:255'
         ];
     }
