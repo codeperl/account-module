@@ -24,7 +24,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td>{!! $resources->render() !!}</td>
+                    <th>{!! $resources->render() !!}</th>
                 </tr>
             </tfoot>
         </table>
