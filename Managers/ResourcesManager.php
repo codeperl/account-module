@@ -37,13 +37,23 @@ class ResourcesManager
         return $resources;
     }
 
-    public function findResources($wildCardDirectoryPath)
+    public function findResources($directoryPath)
     {
         $finder = new Finder();
         $resources = [];
-        $directories = $finder->in($wildCardDirectoryPath)->directories();
-        foreach($directories as $directory) {
-            $classesByPath = $this->findClasses($directory->getPath());
+
+        $directories = $finder->in($directoryPath)->directories();
+
+        if(count($directories)) {
+            foreach($directories as $directory) {
+                $classesByPath = $this->findClasses($directory->getPath());
+                foreach($classesByPath as $cls) {
+                    $metadata = $this->findMetadata($cls);
+                    $resources = array_merge($resources, $metadata);
+                }
+            }
+        } else {
+            $classesByPath = $this->findClasses($directoryPath);
             foreach($classesByPath as $cls) {
                 $metadata = $this->findMetadata($cls);
                 $resources = array_merge($resources, $metadata);
