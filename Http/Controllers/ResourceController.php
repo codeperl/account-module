@@ -15,7 +15,18 @@ class ResourceController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
+    {
+        $resources = Resource::paginate(20);
+
+        return view('account::resource.index', compact('resources'))
+            ->with('i', ($request->input('page', 1) - 1) * 20);
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function generate()
     {
         $wildCardDirectoryPath = base_path().DIRECTORY_SEPARATOR.'Modules'.DIRECTORY_SEPARATOR.'*'.DIRECTORY_SEPARATOR.'Http'.DIRECTORY_SEPARATOR.'Controllers';
         $resourceManager = new ResourcesManager();
@@ -25,8 +36,7 @@ class ResourceController extends Controller
         DB::table('resources')
             ->insert($resources);
 
-        $resources = Resource::all();
-
-        return view('account::resource.index', compact('resources'));
+        return redirect()->route('account.resources.index')
+            ->with('success','Resource generated successfully');
     }
 }
