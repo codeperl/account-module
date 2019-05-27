@@ -4,7 +4,7 @@
     <h1>{{ __('Resources') }}</h1>
     <div class="table-responsive">
         <table class="table table-striped table-hover table-bordered">
-            <thead class="thead-dark">
+            <thead class="bg-primary">
             <tr>
                 <th>{{ __('Resource') }}</th>
             </tr>
