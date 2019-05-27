@@ -25,4 +25,13 @@ class UserRepository
             UserFields::PASSWORD => Hash::make($params[UserFields::PASSWORD]),
         ]);
     }
+
+    /**
+     * @param $name
+     * @return User
+     */
+    public function findByName($name): User
+    {
+        return User::where('name', $name)->first();
+    }
 }

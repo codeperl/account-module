@@ -22,4 +22,17 @@ class RoleRepository
             RoleFields::GUARD_NAME => $params[RoleFields::GUARD_NAME]
         ]);
     }
+
+    /**
+     * @param $roleName
+     * @param $guardName
+     * @return Role
+     */
+    public function findByNameAndGuardName($roleName, $guardName) : Role
+    {
+        return Role::where([
+            'name' => $roleName,
+            'guard_name' => $guardName
+        ])->first();
+    }
 }
