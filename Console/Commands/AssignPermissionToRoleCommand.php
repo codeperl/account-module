@@ -28,11 +28,11 @@ class AssignPermissionToRoleCommand extends Command
      */
     protected $description = "Assign permission to role. Example: php artisan account:assignpermissiontorole --role=[EXISTING_ROLE] --role_guard_name=[EXISTING_ROLE_GUARD_NAME] --permission=[EXISTING_PERMISSION] --permission_guard_name=[EXISTING_PERMISSION_GUARD_NAME]";
 
+    /** @var RoleRepository */
+    protected $roleRepository;
+
     /** @var PermissionRepository */
     protected $permissionRepository;
-
-    /** @var UserRepository */
-    protected $roleRepository;
 
     /**
      * Create a new command instance.
