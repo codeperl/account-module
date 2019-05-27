@@ -22,4 +22,17 @@ class PermissionRepository
             PermissionFields::GUARD_NAME => $params[PermissionFields::GUARD_NAME]
         ]);
     }
+
+    /**
+     * @param $permissionName
+     * @param $guardName
+     * @return Permission
+     */
+    public function findByNameAndGuardName($permissionName, $guardName) : Permission
+    {
+        return Permission::where([
+            'name' => $permissionName,
+            'guard_name' => $guardName
+        ])->first();
+    }
 }

@@ -5,7 +5,7 @@ namespace Modules\Account\Console\Commands;
 use Illuminate\Console\Command;
 use Modules\Account\Repositories\UserRepository;
 use Modules\Account\Repositories\RoleRepository;
-use Modules\Account\Enums\AssignRoleToUser;
+use Modules\Account\Enums\AssignRoleToUserFields;
 
 /**
  * Class UserCreateCommand
@@ -52,8 +52,8 @@ class AssignRoleToUserCommand extends Command
     public function handle()
     {
         $assignRoleToUser = $this->filter($this->options());
-        $role = $this->roleRepository->findByNameAndGuardName($assignRoleToUser[AssignRoleToUser::ROLE], $assignRoleToUser[AssignRoleToUser::GUARD_NAME]);
-        $user = $this->userRepository->findByName($assignRoleToUser[AssignRoleToUser::USERNAME]);
+        $role = $this->roleRepository->findByNameAndGuardName($assignRoleToUser[AssignRoleToUserFields::ROLE], $assignRoleToUser[AssignRoleToUserFields::GUARD_NAME]);
+        $user = $this->userRepository->findByName($assignRoleToUser[AssignRoleToUserFields::USERNAME]);
 
         if($role && $user) {
             $user->assignRole([$role]);
@@ -66,9 +66,9 @@ class AssignRoleToUserCommand extends Command
     private function filter(array $params): array
     {
         return [
-            AssignRoleToUser::USERNAME => $params[AssignRoleToUser::USERNAME],
-            AssignRoleToUser::ROLE => $params[AssignRoleToUser::ROLE],
-            AssignRoleToUser::GUARD_NAME => $params[AssignRoleToUser::GUARD_NAME],
+            AssignRoleToUserFields::USERNAME => $params[AssignRoleToUserFields::USERNAME],
+            AssignRoleToUserFields::ROLE => $params[AssignRoleToUserFields::ROLE],
+            AssignRoleToUserFields::GUARD_NAME => $params[AssignRoleToUserFields::GUARD_NAME],
         ];
     }
 }
