@@ -28,7 +28,8 @@ class ResourcesManager
                 !$publicMethod->isStatic() &&
                 ($publicMethod->getDeclaringClass()->getName()==$cls)
             ) {
-                $resource = $cls.'@'.$publicMethod->getName();
+                $resource = [];
+                $resource['resource'] = $cls.'@'.$publicMethod->getName();
                 $resources[] = $resource;
             }
         }
