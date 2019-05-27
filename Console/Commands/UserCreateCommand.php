@@ -18,8 +18,7 @@ class UserCreateCommand extends Command
      *
      * @var string
      */
-    protected $signature = "account:user:create {--name= : Unique user name} {--email= : Unique e-mail} {--phone= : Unique phone} \
-     {--password= : Password} {--password_confirmation= : Re-type password}";
+    protected $signature = "account:user:create {--name= : Unique user name} {--email= : Unique e-mail} {--phone= : Unique phone} {--password= : Password} {--password_confirmation= : Re-type password}";
 
     /**
      * The console command description.
