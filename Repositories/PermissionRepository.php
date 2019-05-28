@@ -3,7 +3,7 @@
 namespace Modules\Account\Repositories;
 
 use Modules\Account\Enums\PermissionFields;
-use Spatie\Permission\Models\Permission;
+use Modules\Account\Entities\Permission;
 
 /**
  * Class PermissionRepository

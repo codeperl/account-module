@@ -9,7 +9,7 @@ use Modules\Account\Repositories\RoleRepository;
 use Modules\Account\Repositories\PermissionRepository;
 
 /**
- * Class UserCreateCommand
+ * Class AssignPermissionToRoleCommand
  * @package Modules\Account\Console\Commands
  */
 class AssignPermissionToRoleCommand extends Command

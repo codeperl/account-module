@@ -8,7 +8,7 @@ use Modules\Account\Repositories\PermissionRepository;
 use Modules\Account\Validators\PermissionValidator;
 
 /**
- * Class UserCreateCommand
+ * Class PermissionCreateCommand
  * @package Modules\Account\Console\Commands
  */
 class PermissionCreateCommand extends Command

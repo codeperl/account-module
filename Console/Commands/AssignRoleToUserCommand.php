@@ -8,7 +8,7 @@ use Modules\Account\Repositories\RoleRepository;
 use Modules\Account\Enums\AssignRoleToUserFields;
 
 /**
- * Class UserCreateCommand
+ * Class AssignRoleToUserCommand
  * @package Modules\Account\Console\Commands
  */
 class AssignRoleToUserCommand extends Command

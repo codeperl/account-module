@@ -19,6 +19,7 @@ class AccountServiceProvider extends ServiceProvider
             \Modules\Account\Console\Commands\AssignPermissionToRoleCommand::class,
             \Modules\Account\Console\Commands\AssignPermissionToUserCommand::class,
             \Modules\Account\Console\Commands\AssignRoleToUserCommand::class,
+            \Modules\Account\Console\Commands\AssignResourceToPermissionCommand::class
         ]);
     }
 }

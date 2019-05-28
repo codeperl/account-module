@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use Modules\Account\Entities\Permission;
 use DB;
 
 class RoleController extends Controller

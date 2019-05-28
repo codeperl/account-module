@@ -8,7 +8,7 @@ use Modules\Account\Repositories\RoleRepository;
 use Modules\Account\Validators\RoleValidator;
 
 /**
- * Class UserCreateCommand
+ * Class RoleCreateCommand
  * @package Modules\Account\Console\Commands
  */
 class RoleCreateCommand extends Command

@@ -8,7 +8,7 @@ use Modules\Account\Repositories\UserRepository;
 use Modules\Account\Repositories\PermissionRepository;
 
 /**
- * Class UserCreateCommand
+ * Class AssignPermissionToUserCommand
  * @package Modules\Account\Console\Commands
  */
 class AssignPermissionToUserCommand extends Command
