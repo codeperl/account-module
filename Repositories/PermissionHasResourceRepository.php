@@ -21,6 +21,7 @@ class PermissionHasResourceRepository
             $permissionHasResource->permission()->associate($permission);
             $permissionHasResource->save();
         }
+
         return $permissionHasResource;
     }
 
