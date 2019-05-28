@@ -3,7 +3,6 @@
 namespace Modules\Account\Console\Commands;
 
 use Illuminate\Console\Command;
-use Modules\Account\Entities\PermissionHasResource;
 use Modules\Account\Enums\AssignResourceToPermissionFields;
 use Modules\Account\Repositories\PermissionHasResourceRepository;
 use Modules\Account\Repositories\PermissionRepository;

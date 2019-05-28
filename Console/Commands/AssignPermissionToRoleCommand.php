@@ -3,7 +3,6 @@
 namespace Modules\Account\Console\Commands;
 
 use Illuminate\Console\Command;
-use Modules\Account\Repositories\UserRepository;
 use Modules\Account\Enums\AssignPermissionToRoleFields;
 use Modules\Account\Repositories\RoleRepository;
 use Modules\Account\Repositories\PermissionRepository;
