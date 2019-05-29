@@ -22,12 +22,8 @@
                     </tr>
                 @endif
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>{!! $resources->render() !!}</th>
-                </tr>
-            </tfoot>
         </table>
+        {!! $resources->render() !!}
     </div>
 </div>
 @endsection

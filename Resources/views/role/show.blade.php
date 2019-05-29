@@ -1,31 +1,30 @@
 @extends('layouts.app')
+
 @section('content')
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2> Show Role</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
-            </div>
-        </div>
-    </div>
     <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Name:</strong>
-                    {{ $role->name }}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Permissions:</strong>
-                    @if(!empty($rolePermissions))
-                        @foreach($rolePermissions as $v)
-                            <label class="label label-success">{{ $v->name }},</label>
-                        @endforeach
-                    @endif
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-6"><div class="float-left"><strong>{{ __('Show role') }}</strong></div></div>
+                                <div class="col-md-6"><div class="float-right"><a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a></div></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row col-md-4"><h3>{{ __('Role') }}</h3></div>
+                            <div class="col-md-6">{{ $role->name }}</div>
+                            @if(!empty($rolePermissions))
+                                <div class="row col-md-4"><strong>{{ __('Permissions') }}</strong></div>
+                                <div class="col-md-6">
+                                    @foreach($rolePermissions as $perm)
+                                        <label class="label label-success">{{ $perm->name }}</label><br />
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

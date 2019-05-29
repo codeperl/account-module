@@ -1,63 +1,55 @@
 @extends('layouts.app')
-
 @section('content')
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Role Management</h2>
-            </div>
-            <div class="pull-right">
-                @can('role-create')
-                    <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
-                @endcan
-            </div>
-        </div>
-    </div>
+<div class="container">
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
     @endif
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if($roles)
-                            @foreach ($roles as $key => $role)
-                                <tr>
-                                    <th scope="row">{{ ++$i }}</th>
-                                    <td>{{ $role->name }}</td>
-                                    <td>
-                                        <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
-                                        @can('role-edit')
-                                            <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
-                                        @endcan
-                                        @can('role-delete')
-                                            {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                                            {!! Form::close() !!}
-                                        @endcan
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @else
-                            <tr>
-                                <td rowspan="3"> No role available.</td>
-                            </tr>
-                        @endif
-                    </tbody>
-                </table>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="float-left">
+                <h1>{{ __('Roles') }}</h1>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="float-right">
+                {{--@can('role-create')--}}
+                <a class="btn btn-success" href="{{ route('roles.create') }}">{{ __('Create New Role') }}</a>
+                {{--@endcan--}}
             </div>
         </div>
     </div>
 
-    {!! $roles->render() !!}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="bg-primary">
+            <tr>
+                <th>{{ __('Role') }}</th>
+                <th>{{ __('Guard Name') }}</th>
+                <th>{{ __('Updated at') }}</th>
+                <th>{{ __('Created at') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+                @if ($roles)
+                    @foreach ($roles as $role)
+                    <tr>
+                        <td>{{ $role->name }}</td>
+                        <td>{{ $role->guard_name }}</td>
+                        <td>{{ \Carbon\Carbon::parse($role->updated_at)->format('d F, Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($role->created_at)->format('d F, Y') }}</td>
+                    </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td>{{ __('No resource found!') }}</td>
+                    </tr>
+                @endif
+            </tbody>
+        </table>
+        {!! $roles->render() !!}
+    </div>
+</div>
 @endsection
