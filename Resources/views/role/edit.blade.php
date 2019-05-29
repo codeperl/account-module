@@ -20,7 +20,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-6"><div class="float-left"><h3>{{ __('Edit role') }}</h3></div></div>
-                                <div class="col-md-6"><div class="float-right"><a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a></div></div>
+                                <div class="col-md-6"><div class="float-right"><a class="btn btn-primary" href="{{ route('roles.index') }}">{{ __('Back') }}</a></div></div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -34,12 +34,20 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="name" class="col-sm-4 col-form-label text-md-right">{{ __('role.guard_name') }}</label>
+
+                                <div class="col-md-6">
+                                    {!! Form::text('guard_name', null, array('placeholder' => 'Guard name','class' => 'form-control')) !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="name" class="col-sm-4 col-form-label text-md-right">{{ __('role.permissions') }}</label>
 
                                 <div class="col-md-6">
                                     @foreach($permission as $value)
                                         <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
-                                            {{ $value->name }}</label>
+                                            {{ $value->name }} ({{$value->guard_name}})</label>
                                         <br/>
                                     @endforeach
                                 </div>
