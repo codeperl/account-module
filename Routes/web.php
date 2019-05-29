@@ -16,6 +16,7 @@ Route::prefix('account')->group(function() {
     Auth::routes();
     Route::group(['middleware' => ['auth']], function() {
         Route::resource('roles','RoleController');
+        Route::resource('permissions','PermissionController');
         Route::get('resources','ResourceController@index')->name('resources.index');
         Route::get('resources/generate','ResourceController@generate')->name('resources.generate');
     });

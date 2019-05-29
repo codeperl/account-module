@@ -19,14 +19,14 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-md-6"><div class="float-left"><h3>{{ __('Create role') }}</h3></div></div>
-                                <div class="col-md-6"><div class="float-right"><a class="btn btn-primary" href="{{ route('roles.index') }}">{{ __('Back') }}</a></div></div>
+                                <div class="col-md-6"><div class="float-left"><h3>{{ __('Edit permission') }}</h3></div></div>
+                                <div class="col-md-6"><div class="float-right"><a class="btn btn-primary" href="{{ route('permissions.index') }}">{{ __('Back') }}</a></div></div>
                             </div>
                         </div>
                         <div class="card-body">
-                            {!! Form::open(array('route' => 'roles.store','method'=>'POST')) !!}
+                            {!! Form::model($permission, ['method' => 'PATCH','route' => ['permissions.update', $permission->id]]) !!}
                             <div class="form-group row">
-                                <label for="name" class="col-sm-4 col-form-label text-md-right">{{ __('role.name') }}</label>
+                                <label for="name" class="col-sm-4 col-form-label text-md-right">{{ __('permission.name') }}</label>
 
                                 <div class="col-md-6">
                                     {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
@@ -34,22 +34,10 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="name" class="col-sm-4 col-form-label text-md-right">{{ __('role.guard_name') }}</label>
+                                <label for="name" class="col-sm-4 col-form-label text-md-right">{{ __('permission.guard_name') }}</label>
 
                                 <div class="col-md-6">
                                     {!! Form::text('guard_name', null, array('placeholder' => 'Guard name','class' => 'form-control')) !!}
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="name" class="col-sm-4 col-form-label text-md-right">{{ __('role.permissions') }}</label>
-
-                                <div class="col-md-6">
-                                    @foreach($permission as $value)
-                                        <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
-                                            {{ $value->name }} ({{$value->guard_name}})</label>
-                                        <br/>
-                                    @endforeach
                                 </div>
                             </div>
 
