@@ -36,11 +36,9 @@ class ResourceController extends Controller
             $resourceManager->findResources($appDirectoryPath)
         );
 
-        DB::table('resources')->truncate();
-        DB::table('resources')
-            ->insert($resources);
+        $resourceManager->sync($resources);
 
-        return redirect()->route('account.resources.index')
+        return redirect()->route('resources.index')
             ->with('success', 'Resource generated successfully');
     }
 }

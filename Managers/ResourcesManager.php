@@ -3,6 +3,7 @@
 namespace Modules\Account\Managers;
 
 use Symfony\Component\Finder\Finder;
+use DB;
 
 class ResourcesManager
 {
@@ -99,5 +100,15 @@ class ResourcesManager
         }
 
         return $fqcns;
+    }
+
+    /**
+     * @param $resources
+     */
+    public function sync($resources)
+    {
+        DB::table('resources')->truncate();
+        DB::table('resources')
+            ->insert($resources);
     }
 }
