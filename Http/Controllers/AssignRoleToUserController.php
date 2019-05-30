@@ -6,10 +6,29 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Account\Entities\User;
+use Modules\Account\Repositories\RoleRepository;
+use Modules\Account\Repositories\UserRepository;
 use Spatie\Permission\Models\Role;
 
 class AssignRoleToUserController extends Controller
 {
+    /** @var UserRepository  */
+    private $userRepository;
+
+    /** @var RoleRepository  */
+    private $roleRepository;
+
+    /**
+     * AssignRoleToUserController constructor.
+     * @param UserRepository $userRepository
+     * @param RoleRepository $roleRepository
+     */
+    public function __construct(UserRepository $userRepository, RoleRepository $roleRepository)
+    {
+        $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -21,8 +40,8 @@ class AssignRoleToUserController extends Controller
 
     public function form()
     {
-        $users = User::all();
-        $roles = Role::all();
+        $users = $this->userRepository->all();
+        $roles = $this->roleRepository->all();
 
         return view('account::assignroletouser.form', compact('users', 'roles'));
     }

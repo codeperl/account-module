@@ -5,21 +5,35 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Account\Entities\Permission;
+use Modules\Account\Repositories\PermissionRepository;
 use DB;
 
 class PermissionController extends Controller
 {
+    /** @var PermissionRepository  */
+    private $permissionRepository;
+
+    /**
+     * PermissionController constructor.
+     * @param PermissionRepository $permissionRepository
+     */
+    public function __construct(PermissionRepository $permissionRepository)
+    {
+        $this->permissionRepository = $permissionRepository;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index(Request $request)
     {
-        $permissions = Permission::orderBy('id','DESC')->paginate(5);
+        $elementPerPage = 20;
+
+        $permissions = $this->permissionRepository->paginate('id', 'DESC', $elementPerPage);
 
         return view('account::permission.index',compact('permissions'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+            ->with('i', ($request->input('page', 1) - 1) * $elementPerPage);
     }
 
     /**
@@ -42,8 +56,7 @@ class PermissionController extends Controller
             'name' => 'required|unique:permissions,name',
         ]);
 
-
-        Permission::create(['name' => $request->input('name'), 'guard_name' => $request->input('guard_name')]);
+        $this->permissionRepository->create(['name' => $request->input('name'), 'guard_name' => $request->input('guard_name')]);
 
         return redirect()->route('permissions.index')
             ->with('success','Permission created successfully');
@@ -56,7 +69,7 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        $permission = Permission::find($id);
+        $permission = $this->permissionRepository->find($id);
 
         return view('account::permission.show',compact('permission'));
     }
@@ -68,7 +81,7 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $permission = Permission::find($id);
+        $permission = $this->permissionRepository->find($id);
 
         return view('account::permission.edit',compact('permission'));
     }
@@ -85,11 +98,12 @@ class PermissionController extends Controller
             'name' => 'required',
         ]);
 
-
-        $permission = Permission::find($id);
-        $permission->name = $request->input('name');
-        $permission->guard_name = $request->input('guard_name');
-        $permission->save();
+        $this->permissionRepository->update($id,
+            [
+                'name' => $request->input('name'),
+                'guard_name' => $request->input('guard_name')
+            ]
+        );
 
         return redirect()->route('permissions.index')
             ->with('success','Permission updated successfully');
@@ -102,7 +116,7 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        DB::table("permissions")->where('id',$id)->delete();
+        $this->permissionRepository->delete($id);
 
         return redirect()->route('permissions.index')
             ->with('success','Permission deleted successfully');

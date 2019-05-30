@@ -2,6 +2,7 @@
 
 namespace Modules\Account\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Modules\Account\Enums\UserFields;
 use Modules\Account\Entities\User;
@@ -33,5 +34,13 @@ class UserRepository
     public function findByName($name): User
     {
         return User::where('name', $name)->first();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function all(): Collection
+    {
+        return User::all();
     }
 }

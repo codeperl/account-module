@@ -2,6 +2,7 @@
 
 namespace Modules\Account\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Modules\Account\Enums\RoleFields;
 use Spatie\Permission\Models\Role;
 
@@ -34,5 +35,13 @@ class RoleRepository
             'name' => $roleName,
             'guard_name' => $guardName
         ])->first();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function all() : Collection
+    {
+        return Role::all();
     }
 }

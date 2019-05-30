@@ -2,6 +2,7 @@
 
 namespace Modules\Account\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Modules\Account\Entities\Resource;
 
 class ResourceRepository
@@ -15,5 +16,13 @@ class ResourceRepository
         return Resource::where([
             'resource' => $resource
         ])->first();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function all() : Collection
+    {
+        return Resource::all();
     }
 }

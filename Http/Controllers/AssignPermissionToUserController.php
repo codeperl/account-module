@@ -7,9 +7,28 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Account\Entities\Permission;
 use Modules\Account\Entities\User;
+use Modules\Account\Repositories\PermissionRepository;
+use Modules\Account\Repositories\UserRepository;
 
 class AssignPermissionToUserController extends Controller
 {
+    /** @var UserRepository  */
+    private $userRepository;
+
+    /** @var PermissionRepository  */
+    private $permissionRepository;
+
+    /**
+     * AssignPermissionToUserController constructor.
+     * @param UserRepository $userRepository
+     * @param PermissionRepository $permissionRepository
+     */
+    public function __construct(UserRepository $userRepository, PermissionRepository $permissionRepository)
+    {
+        $this->userRepository = $userRepository;
+        $this->permissionRepository = $permissionRepository;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -21,8 +40,8 @@ class AssignPermissionToUserController extends Controller
 
     public function form()
     {
-        $users = User::all();
-        $permissions = Permission::all();
+        $users = $this->userRepository->all();
+        $permissions = $this->permissionRepository->all();
 
         return view('account::assignpermissiontouser.form', compact('users', 'permissions'));
     }
