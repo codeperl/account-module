@@ -33,7 +33,7 @@
             </tr>
             </thead>
             <tbody>
-                @if ($permissions)
+                @if (count($permissions))
                     @foreach ($permissions as $permission)
                     <tr>
                         <td>{{ $permission->name }}</td>

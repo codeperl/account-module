@@ -10,7 +10,7 @@
             </tr>
             </thead>
             <tbody>
-                @if ($resources)
+                @if (count($resources))
                     @foreach ($resources as $resource)
                     <tr>
                         <td>{{ $resource->resource }}</td>

@@ -38,6 +38,11 @@ class ResourcesManager
         return $resources;
     }
 
+    /**
+     * @param $directoryPath
+     * @return array
+     * @throws \ReflectionException
+     */
     public function findResources($directoryPath)
     {
         $finder = new Finder();
@@ -47,18 +52,28 @@ class ResourcesManager
 
         if(count($directories)) {
             foreach($directories as $directory) {
-                $classesByPath = $this->findClasses($directory->getPath());
-                foreach($classesByPath as $cls) {
-                    $metadata = $this->findMetadata($cls);
-                    $resources = array_merge($resources, $metadata);
-                }
+                $resources = array_merge($resources, $this->getResources($directory->getPath()));
             }
         } else {
-            $classesByPath = $this->findClasses($directoryPath);
-            foreach($classesByPath as $cls) {
-                $metadata = $this->findMetadata($cls);
-                $resources = array_merge($resources, $metadata);
-            }
+            $resources = array_merge($resources, $this->getResources($directoryPath));
+        }
+
+        return $resources;
+    }
+
+    /**
+     * @param $directoryPath
+     * @return array
+     * @throws \ReflectionException
+     */
+    public function getResources($directoryPath)
+    {
+        $resources = [];
+
+        $classesByPath = $this->findClasses($directoryPath);
+        foreach($classesByPath as $cls) {
+            $metadata = $this->findMetadata($cls);
+            $resources = array_merge($resources, $metadata);
         }
 
         return $resources;
