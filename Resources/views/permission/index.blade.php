@@ -44,7 +44,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td>{{ __('No resource found!') }}</td>
+                        <td colspan="4">{{ __('No resource found!') }}</td>
                     </tr>
                 @endif
             </tbody>
