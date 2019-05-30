@@ -24,7 +24,7 @@ Route::prefix('account')->group(function() {
         Route::get('assign-resource-to-permission/form','AssignResourceToPermissionController@form')->name('assignResourceToPermission.form');
         Route::post('assign-resource-to-permission/assign','AssignResourceToPermissionController@assign')->name('assignResourceToPermission.assign');
 
-        Route::get('assign-permission-to-user','AssignPermissionToRoleController@index')->name('assignPermissionToRole.index');
+        Route::get('assign-permission-to-user','AssignPermissionToUserController@index')->name('assignPermissionToRole.index');
         Route::get('assign-permission-to-user/form','AssignPermissionToUserController@form')->name('assignPermissionToUser.form');
         Route::post('assign-permission-to-user/assign','AssignPermissionToUserController@assign')->name('assignPermissionToUser.assign');
 
