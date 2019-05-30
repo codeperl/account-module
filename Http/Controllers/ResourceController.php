@@ -28,13 +28,8 @@ class ResourceController extends Controller
      */
     public function generate()
     {
-        $wildCardDirectoryPath = base_path() . DIRECTORY_SEPARATOR . 'Modules' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . 'Http' . DIRECTORY_SEPARATOR . 'Controllers';
-        $appDirectoryPath = base_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'Http' . DIRECTORY_SEPARATOR . 'Controllers';
-
         $resourceManager = new ResourcesManager();
-        $resources = array_merge($resourceManager->findResources($wildCardDirectoryPath),
-            $resourceManager->findResources($appDirectoryPath)
-        );
+        $resources = $resourceManager->findResources();
 
         $resourceManager->sync($resources);
 
