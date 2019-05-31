@@ -3,6 +3,7 @@
 namespace Modules\Account\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Account\Enums\RoleFields;
 use Spatie\Permission\Models\Role;
 
@@ -12,6 +13,17 @@ use Spatie\Permission\Models\Role;
  */
 class RoleRepository
 {
+    /**
+     * @param $column
+     * @param $order
+     * @param int $elementPerPage
+     * @return LengthAwarePaginator
+     */
+    public function paginate($column, $order, $elementPerPage = 20) : LengthAwarePaginator
+    {
+        return Role::orderBy($column, $order)->paginate($elementPerPage);
+    }
+
     /**
      * @param array $params
      * @return Role

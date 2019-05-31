@@ -13,6 +13,8 @@ class PermissionController extends Controller
     /** @var PermissionRepository  */
     private $permissionRepository;
 
+    /** @var int */
+    private $elementsPerPage;
     /**
      * PermissionController constructor.
      * @param PermissionRepository $permissionRepository
@@ -20,6 +22,7 @@ class PermissionController extends Controller
     public function __construct(PermissionRepository $permissionRepository)
     {
         $this->permissionRepository = $permissionRepository;
+        $this->elementsPerPage = 20;
     }
 
     /**
@@ -28,8 +31,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $elementPerPage = 20;
-
+        $elementPerPage = $request->get('perPage', $this->elementsPerPage);
         $permissions = $this->permissionRepository->paginate('id', 'DESC', $elementPerPage);
 
         return view('account::permission.index',compact('permissions'))

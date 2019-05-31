@@ -5,22 +5,36 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Account\Repositories\RoleRepository;
 use Spatie\Permission\Models\Role;
 use Modules\Account\Entities\Permission;
 use DB;
 
 class RoleController extends Controller
 {
+    /** @var RoleRepository */
+    private $roleRepository;
+
+    /** @var int */
+    private $elementsPerPage;
+
+    public function __construct(RoleRepository $roleRepository)
+    {
+        $this->roleRepository = $roleRepository;
+        $this->elementsPerPage = 20;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
+        $elementsPerPage = $request->get('perPage', $this->elementsPerPage);
+        $roles = $this->roleRepository->paginate('id', 'DESC', $elementsPerPage);
 
         return view('account::role.index',compact('roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+            ->with('i', ($request->input('page', 1) - 1) * $elementsPerPage);
     }
 
     /**

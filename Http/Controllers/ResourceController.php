@@ -8,19 +8,37 @@ use Illuminate\Routing\Controller;
 use Modules\Account\Entities\Resource;
 use Modules\Account\Managers\ResourcesManager;
 use DB;
+use Modules\Account\Repositories\ResourceRepository;
 
 class ResourceController extends Controller
 {
+    /** @var ResourcesManager  */
+    private $resourcesManager;
+
+    /** @var ResourceRepository  */
+    private $resourceRepository;
+
+    /** @var int */
+    private $elementsPerPage;
+
+    public function __construct(ResourcesManager $resourcesManager, ResourceRepository $resourceRepository)
+    {
+        $this->resourcesManager = $resourcesManager;
+        $this->resourceRepository = $resourceRepository;
+        $this->elementsPerPage = 20;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index(Request $request)
     {
-        $resources = Resource::paginate(20);
+        $elementPerPage = $request->get('perPage', $this->elementsPerPage);
+        $resources = $this->resourceRepository->paginate('resource', 'DESC', $elementPerPage);
 
         return view('account::resource.index', compact('resources'))
-            ->with('i', ($request->input('page', 1) - 1) * 20);
+            ->with('i', ($request->input('page', 1) - 1) * $elementPerPage);
     }
 
     /**
@@ -28,10 +46,7 @@ class ResourceController extends Controller
      */
     public function generate()
     {
-        $resourceManager = new ResourcesManager();
-        $resources = $resourceManager->findResources();
-
-        $resourceManager->sync($resources);
+        $this->resourcesManager->sync($this->resourcesManager->findResources());
 
         return redirect()->route('resources.index')
             ->with('success', 'Resource generated successfully');

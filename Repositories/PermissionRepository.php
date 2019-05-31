@@ -3,6 +3,7 @@
 namespace Modules\Account\Repositories;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Modules\Account\Enums\PermissionFields;
 use Modules\Account\Entities\Permission;
 

@@ -3,10 +3,22 @@
 namespace Modules\Account\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Account\Entities\Resource;
 
 class ResourceRepository
 {
+    /**
+     * @param $column
+     * @param $order
+     * @param int $elementPerPage
+     * @return LengthAwarePaginator
+     */
+    public function paginate($column, $order, $elementPerPage = 20) : LengthAwarePaginator
+    {
+        return Resource::orderBy($column, $order)->paginate($elementPerPage);
+    }
+
     /**
      * @param $resource
      * @return Resource
