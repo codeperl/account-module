@@ -5,9 +5,7 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Account\Entities\Resource;
 use Modules\Account\Managers\ResourcesManager;
-use DB;
 use Modules\Account\Repositories\ResourceRepository;
 
 /**

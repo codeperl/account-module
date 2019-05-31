@@ -9,7 +9,6 @@ use Modules\Account\Managers\RoleManager;
 use Modules\Account\Repositories\PermissionRepository;
 use Modules\Account\Repositories\RoleRepository;
 use Modules\Account\Repositories\RoleHasPermissionsRepository;
-use DB;
 
 /**
  * Class RoleController

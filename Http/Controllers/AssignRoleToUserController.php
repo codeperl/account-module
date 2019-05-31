@@ -5,10 +5,8 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Account\Entities\User;
 use Modules\Account\Repositories\RoleRepository;
 use Modules\Account\Repositories\UserRepository;
-use Spatie\Permission\Models\Role;
 
 /**
  * Class AssignRoleToUserController

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Account\Repositories\PermissionRepository;
-use DB;
 
 /**
  * Class PermissionController
@@ -19,6 +18,7 @@ class PermissionController extends Controller
 
     /** @var int */
     private $elementsPerPage;
+
     /**
      * PermissionController constructor.
      * @param PermissionRepository $permissionRepository

@@ -5,8 +5,6 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Account\Entities\Permission;
-use Modules\Account\Entities\Resource;
 use Modules\Account\Repositories\PermissionRepository;
 use Modules\Account\Repositories\ResourceRepository;
 
