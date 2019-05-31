@@ -6,6 +6,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Account\Enums\PermissionFields;
 use Modules\Account\Entities\Permission;
+use Db;
 
 /**
  * Class PermissionRepository
@@ -87,5 +88,24 @@ class PermissionRepository
         $permission->guard_name = $data['guard_name'];
 
         return $permission->save();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function get() : Collection
+    {
+        return Permission::get();
+    }
+
+    /**
+     * @param $id
+     * @return Role
+     */
+    public function getRoleWithPermissionsById($id) : Role
+    {
+        return Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
+            ->where("role_has_permissions.role_id",$id)
+            ->get();
     }
 }

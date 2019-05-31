@@ -5,22 +5,45 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Account\Managers\RoleManager;
+use Modules\Account\Repositories\PermissionRepository;
 use Modules\Account\Repositories\RoleRepository;
-use Spatie\Permission\Models\Role;
-use Modules\Account\Entities\Permission;
+use Modules\Account\Repositories\RoleHasPermissionsRepository;
 use DB;
 
+/**
+ * Class RoleController
+ * @package Modules\Account\Http\Controllers
+ */
 class RoleController extends Controller
 {
+    private $roleManager;
+
     /** @var RoleRepository */
     private $roleRepository;
+
+    /** @var PermissionRepository */
+    private $permissionRepository;
+
+    /** @var RoleHasPermissionsRepository */
+    private $roleHasPermissionsRepository;
 
     /** @var int */
     private $elementsPerPage;
 
-    public function __construct(RoleRepository $roleRepository)
+    /**
+     * RoleController constructor.
+     * @param RoleManager $roleManager
+     * @param RoleRepository $roleRepository
+     * @param PermissionRepository $permissionRepository
+     * @param RoleHasPermissionsRepository $roleHasPermissionsRepository
+     */
+    public function __construct(RoleManager $roleManager, RoleRepository $roleRepository, PermissionRepository $permissionRepository, RoleHasPermissionsRepository $roleHasPermissionsRepository)
     {
+        $this->roleManager = $roleManager;
         $this->roleRepository = $roleRepository;
+        $this->permissionRepository = $permissionRepository;
+        $this->roleHasPermissionsRepository = $roleHasPermissionsRepository;
         $this->elementsPerPage = 20;
     }
 
@@ -43,7 +66,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permission = Permission::get();
+        $permission = $this->permissionRepository->get();
 
         return view('account::role.create',compact('permission'));
     }
@@ -60,8 +83,7 @@ class RoleController extends Controller
             'permission' => 'required',
         ]);
 
-
-        $role = Role::create(['name' => $request->input('name'), 'guard_name' => $request->input('guard_name')]);
+        $role = $this->roleRepository->create(['name' => $request->input('name'), 'guard_name' => $request->input('guard_name')]);
         $role->syncPermissions($request->input('permission'));
 
         return redirect()->route('roles.index')
@@ -75,10 +97,8 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = Role::find($id);
-        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-            ->where("role_has_permissions.role_id",$id)
-            ->get();
+        $role = $this->roleRepository->find($id);
+        $rolePermissions = $this->permissionRepository->getRoleWithPermissionsById($id);
 
         return view('account::role.show',compact('role','rolePermissions'));
     }
@@ -90,11 +110,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
-        $permission = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
-            ->all();
+        $role = $this->roleRepository->find($id);
+        $permission = $this->permissionRepository->get();
+        $rolePermissions = $this->roleHasPermissionsRepository->getRoleAndPermissions($id);
 
         return view('account::role.edit',compact('role','permission','rolePermissions'));
     }
@@ -112,13 +130,14 @@ class RoleController extends Controller
             'permission' => 'required',
         ]);
 
+        $role = $this->roleRepository->update($id,
+            [
+                'name' => $request->input('name'),
+                'guard_name' => $request->input('guard_name')
+            ]
+        );
 
-        $role = Role::find($id);
-        $role->name = $request->input('name');
-        $role->guard_name = $request->input('guard_name');
-        $role->save();
-
-        $role->syncPermissions($request->input('permission'));
+        $this->roleManager->sync($role, $request->input('permission'));
 
         return redirect()->route('roles.index')
             ->with('success','Role updated successfully');
@@ -131,7 +150,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        DB::table("roles")->where('id',$id)->delete();
+        $this->roleRepository->delete($id);
 
         return redirect()->route('account::role.index')
             ->with('success','Role deleted successfully');

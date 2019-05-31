@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+/**
+ * Class AccountController
+ * @package Modules\Account\Http\Controllers
+ */
 class AccountController extends Controller
 {
     /**

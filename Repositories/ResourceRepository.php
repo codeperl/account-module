@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Account\Entities\Resource;
 
+/**
+ * Class ResourceRepository
+ * @package Modules\Account\Repositories
+ */
 class ResourceRepository
 {
     /**

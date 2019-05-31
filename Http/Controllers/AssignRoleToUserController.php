@@ -10,6 +10,10 @@ use Modules\Account\Repositories\RoleRepository;
 use Modules\Account\Repositories\UserRepository;
 use Spatie\Permission\Models\Role;
 
+/**
+ * Class AssignRoleToUserController
+ * @package Modules\Account\Http\Controllers
+ */
 class AssignRoleToUserController extends Controller
 {
     /** @var UserRepository  */

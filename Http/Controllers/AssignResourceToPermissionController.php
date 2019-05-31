@@ -10,6 +10,10 @@ use Modules\Account\Entities\Resource;
 use Modules\Account\Repositories\PermissionRepository;
 use Modules\Account\Repositories\ResourceRepository;
 
+/**
+ * Class AssignResourceToPermissionController
+ * @package Modules\Account\Http\Controllers
+ */
 class AssignResourceToPermissionController extends Controller
 {
     /** @var PermissionRepository  */

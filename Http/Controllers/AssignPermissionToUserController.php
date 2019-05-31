@@ -10,6 +10,10 @@ use Modules\Account\Entities\User;
 use Modules\Account\Repositories\PermissionRepository;
 use Modules\Account\Repositories\UserRepository;
 
+/**
+ * Class AssignPermissionToUserController
+ * @package Modules\Account\Http\Controllers
+ */
 class AssignPermissionToUserController extends Controller
 {
     /** @var UserRepository  */

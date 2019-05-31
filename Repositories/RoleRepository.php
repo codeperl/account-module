@@ -56,4 +56,36 @@ class RoleRepository
     {
         return Role::all();
     }
+
+    /**
+     * @param $id
+     * @return Role
+     */
+    public function find($id) : Role
+    {
+        return Role::find($id);
+    }
+
+    /**
+     * @param $id
+     * @param $data
+     * @return bool
+     */
+    public function update($id, $data)
+    {
+        $role = $this->find($id);
+        $role->name = $data['name'];
+        $role->guard_name = $data['guard_name'];
+
+        return $role->save();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function delete($id)
+    {
+        return Role::where('id', $id)->delete();
+    }
 }

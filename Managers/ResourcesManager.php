@@ -4,6 +4,10 @@ namespace Modules\Account\Managers;
 
 use DB;
 
+/**
+ * Class ResourcesManager
+ * @package Modules\Account\Managers
+ */
 class ResourcesManager
 {
     /**

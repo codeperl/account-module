@@ -8,6 +8,10 @@ use Illuminate\Routing\Controller;
 use Modules\Account\Repositories\PermissionRepository;
 use DB;
 
+/**
+ * Class PermissionController
+ * @package Modules\Account\Http\Controllers
+ */
 class PermissionController extends Controller
 {
     /** @var PermissionRepository  */

@@ -6,6 +6,10 @@ use Modules\Account\Entities\Permission;
 use Modules\Account\Entities\PermissionHasResource;
 use Modules\Account\Entities\Resource;
 
+/**
+ * Class PermissionHasResourceRepository
+ * @package Modules\Account\Repositories
+ */
 class PermissionHasResourceRepository
 {
     /**

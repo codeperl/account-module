@@ -10,6 +10,10 @@ use Modules\Account\Managers\ResourcesManager;
 use DB;
 use Modules\Account\Repositories\ResourceRepository;
 
+/**
+ * Class ResourceController
+ * @package Modules\Account\Http\Controllers
+ */
 class ResourceController extends Controller
 {
     /** @var ResourcesManager  */
