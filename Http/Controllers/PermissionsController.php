@@ -5,13 +5,14 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Account\Entities\Permission;
 use Modules\Account\Repositories\PermissionRepository;
 
 /**
- * Class PermissionController
+ * Class PermissionsController
  * @package Modules\Account\Http\Controllers
  */
-class PermissionController extends Controller
+class PermissionsController extends Controller
 {
     /** @var PermissionRepository  */
     private $permissionRepository;
@@ -20,7 +21,7 @@ class PermissionController extends Controller
     private $elementsPerPage;
 
     /**
-     * PermissionController constructor.
+     * PermissionsController constructor.
      * @param PermissionRepository $permissionRepository
      */
     public function __construct(PermissionRepository $permissionRepository)
@@ -38,7 +39,7 @@ class PermissionController extends Controller
         $elementPerPage = $request->get('perPage', $this->elementsPerPage);
         $permissions = $this->permissionRepository->paginate('id', 'DESC', $elementPerPage);
 
-        return view('account::permission.index',compact('permissions'))
+        return view('account::permissions.index',compact('permissions'))
             ->with('i', ($request->input('page', 1) - 1) * $elementPerPage);
     }
 
@@ -48,7 +49,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('account::permission.create');
+        return view('account::permissions.create');
     }
 
     /**
@@ -70,26 +71,22 @@ class PermissionController extends Controller
 
     /**
      * Show the specified resource.
-     * @param int $id
+     * @param Permission $permission
      * @return Response
      */
-    public function show($id)
+    public function show(Permission $permission)
     {
-        $permission = $this->permissionRepository->find($id);
-
-        return view('account::permission.show',compact('permission'));
+        return view('account::permissions.show',compact('permission'));
     }
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
+     * @param Permission $permission
      * @return Response
      */
-    public function edit($id)
+    public function edit(Permission $permission)
     {
-        $permission = $this->permissionRepository->find($id);
-
-        return view('account::permission.edit',compact('permission'));
+        return view('account::permissions.edit',compact('permission'));
     }
 
     /**
@@ -116,13 +113,13 @@ class PermissionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
+     * @param Permission $permission
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Permission $permission)
     {
-        $this->permissionRepository->delete($id);
+        $permission->delete();
 
         return redirect()->route('permissions.index')
             ->with('success','Permission deleted successfully');

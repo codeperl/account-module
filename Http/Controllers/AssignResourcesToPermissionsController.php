@@ -12,7 +12,7 @@ use Modules\Account\Repositories\ResourceRepository;
  * Class AssignResourceToPermissionController
  * @package Modules\Account\Http\Controllers
  */
-class AssignResourceToPermissionController extends Controller
+class AssignResourcesToPermissionsController extends Controller
 {
     /** @var PermissionRepository  */
     private $permissionRepository;
@@ -37,7 +37,7 @@ class AssignResourceToPermissionController extends Controller
      */
     public function index()
     {
-        return view('account::assignresourcetopermission.index');
+        return view('account::assignresourcestopermissions.index');
     }
 
     public function form()
@@ -45,7 +45,7 @@ class AssignResourceToPermissionController extends Controller
         $permissions = $this->permissionRepository->all();
         $resources = $this->resourceRepository->all();
 
-        return view('account::assignresourcetopermission.form', compact('permissions', 'resources'));
+        return view('account::assignresourcestopermissions.form', compact('permissions', 'resources'));
     }
 
     public function assign()

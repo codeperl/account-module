@@ -12,7 +12,7 @@ use Modules\Account\Repositories\UserRepository;
  * Class AssignRoleToUserController
  * @package Modules\Account\Http\Controllers
  */
-class AssignRoleToUserController extends Controller
+class AssignRolesToUsersController extends Controller
 {
     /** @var UserRepository  */
     private $userRepository;
@@ -37,7 +37,7 @@ class AssignRoleToUserController extends Controller
      */
     public function index()
     {
-        return view('account::assignroletouser.index');
+        return view('account::assignrolestousers.index');
     }
 
     public function form()
@@ -45,7 +45,7 @@ class AssignRoleToUserController extends Controller
         $users = $this->userRepository->all();
         $roles = $this->roleRepository->all();
 
-        return view('account::assignroletouser.form', compact('users', 'roles'));
+        return view('account::assignrolestousers.form', compact('users', 'roles'));
     }
 
     public function assign()

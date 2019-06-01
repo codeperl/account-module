@@ -9,12 +9,13 @@ use Modules\Account\Managers\RoleManager;
 use Modules\Account\Repositories\PermissionRepository;
 use Modules\Account\Repositories\RoleRepository;
 use Modules\Account\Repositories\RoleHasPermissionsRepository;
+use Spatie\Permission\Models\Role;
 
 /**
- * Class RoleController
+ * Class RolesController
  * @package Modules\Account\Http\Controllers
  */
-class RoleController extends Controller
+class RolesController extends Controller
 {
     private $roleManager;
 
@@ -31,7 +32,7 @@ class RoleController extends Controller
     private $elementsPerPage;
 
     /**
-     * RoleController constructor.
+     * RolesController constructor.
      * @param RoleManager $roleManager
      * @param RoleRepository $roleRepository
      * @param PermissionRepository $permissionRepository
@@ -55,7 +56,7 @@ class RoleController extends Controller
         $elementsPerPage = $request->get('perPage', $this->elementsPerPage);
         $roles = $this->roleRepository->paginate('id', 'DESC', $elementsPerPage);
 
-        return view('account::role.index',compact('roles'))
+        return view('account::roles.index',compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * $elementsPerPage);
     }
 
@@ -67,7 +68,7 @@ class RoleController extends Controller
     {
         $permission = $this->permissionRepository->get();
 
-        return view('account::role.create',compact('permission'));
+        return view('account::roles.create',compact('permission'));
     }
 
     /**
@@ -99,7 +100,7 @@ class RoleController extends Controller
         $role = $this->roleRepository->find($id);
         $rolePermissions = $this->permissionRepository->getRoleWithPermissionsById($id);
 
-        return view('account::role.show',compact('role','rolePermissions'));
+        return view('account::roles.show',compact('role','rolePermissions'));
     }
 
     /**
@@ -113,7 +114,7 @@ class RoleController extends Controller
         $permission = $this->permissionRepository->get();
         $rolePermissions = $this->roleHasPermissionsRepository->getRoleAndPermissions($id);
 
-        return view('account::role.edit',compact('role','permission','rolePermissions'));
+        return view('account::roles.edit',compact('role','permission','rolePermissions'));
     }
 
     /**
@@ -143,15 +144,14 @@ class RoleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
+     * @param Role $role
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        $this->roleRepository->delete($id);
-
-        return redirect()->route('account::role.index')
+        $role->delete();
+        return redirect()->route('account::roles.index')
             ->with('success','Role deleted successfully');
     }
 }

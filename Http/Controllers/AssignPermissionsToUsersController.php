@@ -12,7 +12,7 @@ use Modules\Account\Repositories\UserRepository;
  * Class AssignPermissionToUserController
  * @package Modules\Account\Http\Controllers
  */
-class AssignPermissionToUserController extends Controller
+class AssignPermissionsToUsersController extends Controller
 {
     /** @var UserRepository  */
     private $userRepository;
@@ -37,7 +37,7 @@ class AssignPermissionToUserController extends Controller
      */
     public function index()
     {
-        return view('account::assignpermissiontouser.index');
+        return view('account::assignpermissionstousers.index');
     }
 
     public function form()
@@ -45,7 +45,7 @@ class AssignPermissionToUserController extends Controller
         $users = $this->userRepository->all();
         $permissions = $this->permissionRepository->all();
 
-        return view('account::assignpermissiontouser.form', compact('users', 'permissions'));
+        return view('account::assignpermissionstousers.form', compact('users', 'permissions'));
     }
 
     public function assign()

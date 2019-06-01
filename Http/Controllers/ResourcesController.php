@@ -9,10 +9,10 @@ use Modules\Account\Managers\ResourcesManager;
 use Modules\Account\Repositories\ResourceRepository;
 
 /**
- * Class ResourceController
+ * Class ResourcesController
  * @package Modules\Account\Http\Controllers
  */
-class ResourceController extends Controller
+class ResourcesController extends Controller
 {
     /** @var ResourcesManager  */
     private $resourcesManager;
@@ -39,7 +39,7 @@ class ResourceController extends Controller
         $elementPerPage = $request->get('perPage', $this->elementsPerPage);
         $resources = $this->resourceRepository->paginate('resource', 'DESC', $elementPerPage);
 
-        return view('account::resource.index', compact('resources'))
+        return view('account::resources.index', compact('resources'))
             ->with('i', ($request->input('page', 1) - 1) * $elementPerPage);
     }
 
