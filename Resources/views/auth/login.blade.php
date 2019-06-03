@@ -12,7 +12,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="identity" class="col-sm-4 col-form-label text-md-right">{{ __('auth.identity') }}</label>
+                            <label for="identity" class="col-sm-4 col-form-label text-md-right">{{ __('account::auth.identity') }}</label>
 
                             <div class="col-md-6">
                                 <input id="identity" type="text" class="form-control{{ $errors->has('identity') ? ' is-invalid' : '' }}" name="identity" value="{{ old('identity') }}" required autocomplete="off" autofocus>

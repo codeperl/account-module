@@ -4,6 +4,7 @@ namespace Modules\Account\Concerns\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -68,7 +69,7 @@ trait CustomAuthenticateUsers
     protected function sendFailedLoginResponse(Request $request)
     {
         throw ValidationException::withMessages([
-            Login::IDENTITY_FIELD => [trans('auth.failed')],
+            Login::IDENTITY_FIELD => [trans('account::auth.failed')],
         ]);
     }
 
@@ -190,4 +191,19 @@ trait CustomAuthenticateUsers
     {
         //
     }
+
+    /**
+     * @param Request $request
+     */
+    protected function sendLockoutResponse(Request $request)
+    {
+        $seconds = $this->limiter()->availableIn(
+            $this->throttleKey($request)
+        );
+
+        throw ValidationException::withMessages([
+            $this->username() => [Lang::get('account::auth.throttle', ['seconds' => $seconds])],
+        ])->status(429);
+    }
+
 }
