@@ -38,4 +38,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @var array
+     */
+    protected $appends = ['identity'];
+
+    /**
+     * @return string
+     */
+    public function getIdentityAttribute()
+    {
+        return $this->name. ' - '.$this->email. ' - '.$this->phone;
+    }
 }
