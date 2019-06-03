@@ -62,9 +62,9 @@ class PermissionRepository
      * @param $id
      * @return mixed
      */
-    public function find($id)
+    public function findOrFail($id)
     {
-        return Permission::find($id);
+        return Permission::findOrFail($id);
     }
 
     /**
@@ -83,7 +83,7 @@ class PermissionRepository
      */
     public function update($id, $data)
     {
-        $permission = $this->find($id);
+        $permission = $this->findOrFail($id);
         $permission->name = $data['name'];
         $permission->guard_name = $data['guard_name'];
 

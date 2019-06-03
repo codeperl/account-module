@@ -7,7 +7,7 @@
                     <div class="card">
                         <div class="card-header">{{ __('Assign role to user') }}</div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('assignPermissionsToUsers.assign') }}">
+                            <form method="POST" action="{{ route('assignRolesToUsers.assign') }}">
                                 @csrf
 
                                 <div class="form-group row">

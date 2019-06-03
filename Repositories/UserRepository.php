@@ -43,4 +43,13 @@ class UserRepository
     {
         return User::all();
     }
+
+    /**
+     * @param $id
+     * @return User
+     */
+    public function findOrFail($id) : User
+    {
+        return User::findOrFail($id);
+    }
 }

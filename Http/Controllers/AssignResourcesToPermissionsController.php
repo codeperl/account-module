@@ -5,6 +5,7 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Account\Repositories\PermissionHasResourceRepository;
 use Modules\Account\Repositories\PermissionRepository;
 use Modules\Account\Repositories\ResourceRepository;
 
@@ -20,15 +21,20 @@ class AssignResourcesToPermissionsController extends Controller
     /** @var ResourceRepository  */
     private $resourceRepository;
 
+    /** @var PermissionHasResourceRepository  */
+    private $permissionHasResourceRepository;
+
     /**
-     * AssignResourceToPermissionController constructor.
+     * AssignResourcesToPermissionsController constructor.
      * @param PermissionRepository $permissionRepository
      * @param ResourceRepository $resourceRepository
+     * @param PermissionHasResourceRepository $permissionHasResourceRepository
      */
-    public function __construct(PermissionRepository $permissionRepository, ResourceRepository $resourceRepository)
+    public function __construct(PermissionRepository $permissionRepository, ResourceRepository $resourceRepository, PermissionHasResourceRepository $permissionHasResourceRepository)
     {
         $this->permissionRepository = $permissionRepository;
         $this->resourceRepository = $resourceRepository;
+        $this->permissionHasResourceRepository = $permissionHasResourceRepository;
     }
 
     /**
@@ -48,8 +54,21 @@ class AssignResourcesToPermissionsController extends Controller
         return view('account::assignresourcestopermissions.form', compact('permissions', 'resources'));
     }
 
-    public function assign()
+    public function assign(Request $request)
     {
+        $request->validate(
+            [
+                'permission' => ['required'],
+                'resource' => ['required']
+            ]
+        );
 
+        $this->permissionHasResourceRepository->save(
+            $this->permissionRepository->findOrFail($request->post('permission')),
+            $this->resourceRepository->find($request->post('resource'))
+        );
+
+        return redirect()->route('assignResourcesToPermissions.index')
+            ->with('success','Resource assigned to permission successfully');
     }
 }

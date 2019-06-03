@@ -61,9 +61,9 @@ class RoleRepository
      * @param $id
      * @return Role
      */
-    public function find($id) : Role
+    public function findOrFail($id) : Role
     {
-        return Role::find($id);
+        return Role::findOrFail($id);
     }
 
     /**

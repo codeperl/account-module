@@ -5,6 +5,7 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Account\Managers\UserManager;
 use Modules\Account\Repositories\PermissionRepository;
 use Modules\Account\Repositories\UserRepository;
 
@@ -14,6 +15,9 @@ use Modules\Account\Repositories\UserRepository;
  */
 class AssignPermissionsToUsersController extends Controller
 {
+    /** @var UserManager */
+    private $userManager;
+
     /** @var UserRepository  */
     private $userRepository;
 
@@ -21,12 +25,14 @@ class AssignPermissionsToUsersController extends Controller
     private $permissionRepository;
 
     /**
-     * AssignPermissionToUserController constructor.
+     * AssignPermissionsToUsersController constructor.
+     * @param UserManager $userManager
      * @param UserRepository $userRepository
      * @param PermissionRepository $permissionRepository
      */
-    public function __construct(UserRepository $userRepository, PermissionRepository $permissionRepository)
+    public function __construct(UserManager $userManager, UserRepository $userRepository, PermissionRepository $permissionRepository)
     {
+        $this->userManager = $userManager;
         $this->userRepository = $userRepository;
         $this->permissionRepository = $permissionRepository;
     }
@@ -48,8 +54,24 @@ class AssignPermissionsToUsersController extends Controller
         return view('account::assignpermissionstousers.form', compact('users', 'permissions'));
     }
 
-    public function assign()
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function assign(Request $request)
     {
+        $request->validate(
+            [
+                'user' => ['required'],
+                'permission' => ['required']
+            ]
+        );
 
+        $permission = $this->permissionRepository->findOrFail($request->post('permission'));
+
+        $this->userManager->givePermissionTo($request->post('permission'), $permission);
+
+        return redirect()->route('assignPermissionsToUsers.index')
+            ->with('success','Permission assigned to user successfully');
     }
 }
