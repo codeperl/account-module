@@ -65,7 +65,7 @@ class AssignResourcesToPermissionsController extends Controller
 
         $this->permissionHasResourceRepository->save(
             $this->permissionRepository->findOrFail($request->post('permission')),
-            $this->resourceRepository->find($request->post('resource'))
+            $request->post('resource')
         );
 
         return redirect()->route('assignResourcesToPermissions.index')

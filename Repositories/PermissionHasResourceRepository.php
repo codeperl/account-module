@@ -14,14 +14,14 @@ class PermissionHasResourceRepository
 {
     /**
      * @param Permission $permission
-     * @param Resource $resource
+     * @param $resource
      * @return PermissionHasResource
      */
-    public function save(Permission $permission, Resource $resource) : PermissionHasResource
+    public function save(Permission $permission, $resource) : PermissionHasResource
     {
         if(!$permissionHasResource = $this->findBy($permission, $resource)) {
             $permissionHasResource = new PermissionHasResource();
-            $permissionHasResource->resource = $resource->resource;
+            $permissionHasResource->resource = $resource;
             $permissionHasResource->permission()->associate($permission);
             $permissionHasResource->save();
         }
@@ -31,14 +31,14 @@ class PermissionHasResourceRepository
 
     /**
      * @param Permission $permission
-     * @param Resource $resource
+     * @param $resource
      * @return PermissionHasResource|null
      */
-    public function findBy(Permission $permission, Resource $resource) : ?PermissionHasResource
+    public function findBy(Permission $permission, $resource) : ?PermissionHasResource
     {
         return PermissionHasResource::where([
             'permission_id' => $permission->id,
-            'resource' => $resource->resource
+            'resource' => $resource
         ])->first();
     }
 }

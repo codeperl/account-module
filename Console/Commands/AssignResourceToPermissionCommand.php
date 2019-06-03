@@ -57,7 +57,7 @@ class AssignResourceToPermissionCommand extends Command
     {
         $assignResourceToPermission = $this->filter($this->options());
         $permission = $this->permissionRepository->findByNameAndGuardName($assignResourceToPermission[AssignResourceToPermissionFields::PERMISSION], $assignResourceToPermission[AssignResourceToPermissionFields::PERMISSION_GUARD_NAME]);
-        $resource = $this->resourceRepository->find($assignResourceToPermission[AssignResourceToPermissionFields::RESOURCE]);
+        $resource = $assignResourceToPermission[AssignResourceToPermissionFields::RESOURCE];
         if($permission && $resource) {
             $this->permissionHasResourceRepository->save($permission, $resource);
             $this->info("Resource is assigned to permission.");
