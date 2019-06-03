@@ -2,9 +2,10 @@
 
 namespace Modules\Account\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Account\Entities\Permission;
 use Modules\Account\Entities\PermissionHasResource;
-use Modules\Account\Entities\Resource;
 
 /**
  * Class PermissionHasResourceRepository
@@ -40,5 +41,24 @@ class PermissionHasResourceRepository
             'permission_id' => $permission->id,
             'resource' => $resource
         ])->first();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function all() : Collection
+    {
+        return PermissionHasResource::all();
+    }
+
+    /**
+     * @param $column
+     * @param $order
+     * @param int $elementPerPage
+     * @return LengthAwarePaginator
+     */
+    public function paginate($column, $order, $elementPerPage = 20) : LengthAwarePaginator
+    {
+        return PermissionHasResource::orderBy($column, $order)->paginate($elementPerPage);
     }
 }

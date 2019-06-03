@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Account\Managers\UserManager;
 use Modules\Account\Repositories\RoleRepository;
+use Modules\Account\Repositories\UserHasRoleRepository;
 use Modules\Account\Repositories\UserRepository;
 
 /**
@@ -24,26 +25,39 @@ class AssignRolesToUsersController extends Controller
     /** @var RoleRepository  */
     private $roleRepository;
 
+    /** @var UserHasRoleRepository */
+    private $userHasRoleRepository;
+
+    /** @var int */
+    private $elementsPerPage;
     /**
      * AssignRolesToUsersController constructor.
      * @param UserManager $userManager
      * @param UserRepository $userRepository
      * @param RoleRepository $roleRepository
+     * @param UserHasRoleRepository $userHasRoleRepository
      */
-    public function __construct(UserManager $userManager, UserRepository $userRepository, RoleRepository $roleRepository)
+    public function __construct(UserManager $userManager, UserRepository $userRepository,
+                                RoleRepository $roleRepository, UserhasRoleRepository $userHasRoleRepository)
     {
         $this->userManager = $userManager;
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;
+        $this->userHasRoleRepository = $userHasRoleRepository;
+        $this->elementsPerPage = 20;
     }
 
     /**
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('account::assignrolestousers.index');
+        $elementsPerPage = $request->get('perPage', $this->elementsPerPage);
+        $usersHasRoles = $this->userHasRoleRepository->paginate('users.id', 'DESC', $elementsPerPage);
+
+        return view('account::assignrolestousers.index',compact('usersHasRoles'))
+            ->with('i', ($request->input('page', 1) - 1) * $elementsPerPage);
     }
 
     public function form()

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Account\Managers\UserManager;
+use Modules\Account\Repositories\UserHasPermissionRepository;
 use Modules\Account\Repositories\PermissionRepository;
 use Modules\Account\Repositories\UserRepository;
 
@@ -18,32 +19,45 @@ class AssignPermissionsToUsersController extends Controller
     /** @var UserManager */
     private $userManager;
 
+    /** @var UserHasPermissionRepository */
+    private $userHasPermissionRepository;
+
     /** @var UserRepository  */
     private $userRepository;
 
     /** @var PermissionRepository  */
     private $permissionRepository;
 
+    /** @var int */
+    private $elementsPerPage;
+
     /**
      * AssignPermissionsToUsersController constructor.
      * @param UserManager $userManager
+     * @param UserHasPermissionRepository $userHasPermissionRepository
      * @param UserRepository $userRepository
      * @param PermissionRepository $permissionRepository
      */
-    public function __construct(UserManager $userManager, UserRepository $userRepository, PermissionRepository $permissionRepository)
+    public function __construct(UserManager $userManager, UserHasPermissionRepository $userHasPermissionRepository, UserRepository $userRepository, PermissionRepository $permissionRepository)
     {
         $this->userManager = $userManager;
+        $this->userHasPermissionRepository = $userHasPermissionRepository;
         $this->userRepository = $userRepository;
         $this->permissionRepository = $permissionRepository;
+        $this->elementsPerPage = 20;
     }
 
     /**
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('account::assignpermissionstousers.index');
+        $elementsPerPage = $request->get('perPage', $this->elementsPerPage);
+        $usersHasPermissions = $this->userHasPermissionRepository->paginate('users.id', 'DESC', $elementsPerPage);
+
+        return view('account::assignpermissionstousers.index',compact('usersHasPermissions'))
+            ->with('i', ($request->input('page', 1) - 1) * $elementsPerPage);
     }
 
     public function form()
@@ -69,7 +83,7 @@ class AssignPermissionsToUsersController extends Controller
 
         $permission = $this->permissionRepository->findOrFail($request->post('permission'));
 
-        $this->userManager->givePermissionTo($request->post('permission'), $permission);
+        $this->userManager->givePermissionTo($request->post('user'), $permission);
 
         return redirect()->route('assignPermissionsToUsers.index')
             ->with('success','Permission assigned to user successfully');

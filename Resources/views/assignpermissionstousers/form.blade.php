@@ -5,7 +5,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Assign permission to user') }}</div>
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6"><div class="float-left"><h4>{{ __('Assign permission to user') }}</h4></div></div>
+                            <div class="col-md-6"><div class="float-right"><a class="btn btn-primary" href="{{ route('assignPermissionsToUsers.index') }}">{{ __('Back') }}</a></div></div>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('assignPermissionsToUsers.assign') }}">
                             @csrf

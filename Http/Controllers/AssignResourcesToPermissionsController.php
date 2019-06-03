@@ -24,6 +24,9 @@ class AssignResourcesToPermissionsController extends Controller
     /** @var PermissionHasResourceRepository  */
     private $permissionHasResourceRepository;
 
+    /** @var int */
+    private $elementsPerPage;
+
     /**
      * AssignResourcesToPermissionsController constructor.
      * @param PermissionRepository $permissionRepository
@@ -35,15 +38,20 @@ class AssignResourcesToPermissionsController extends Controller
         $this->permissionRepository = $permissionRepository;
         $this->resourceRepository = $resourceRepository;
         $this->permissionHasResourceRepository = $permissionHasResourceRepository;
+        $this->elementsPerPage = 20;
     }
 
     /**
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('account::assignresourcestopermissions.index');
+        $elementsPerPage = $request->get('perPage', $this->elementsPerPage);
+        $permissionsHasResources = $this->permissionHasResourceRepository->paginate('permission_id', 'DESC', $elementsPerPage);
+
+        return view('account::assignresourcestopermissions.index',compact('permissionsHasResources'))
+            ->with('i', ($request->input('page', 1) - 1) * $elementsPerPage);
     }
 
     public function form()
