@@ -48,8 +48,8 @@ class RolesController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -61,8 +61,7 @@ class RolesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -72,9 +71,8 @@ class RolesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -91,9 +89,8 @@ class RolesController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
@@ -104,9 +101,8 @@ class RolesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
@@ -118,10 +114,9 @@ class RolesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
      * @param Request $request
-     * @param int $id
-     * @return Response
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {

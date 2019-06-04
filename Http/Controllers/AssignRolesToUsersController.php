@@ -30,6 +30,7 @@ class AssignRolesToUsersController extends Controller
 
     /** @var int */
     private $elementsPerPage;
+
     /**
      * AssignRolesToUsersController constructor.
      * @param UserManager $userManager
@@ -48,8 +49,8 @@ class AssignRolesToUsersController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -60,6 +61,9 @@ class AssignRolesToUsersController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * $elementsPerPage);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function form()
     {
         $users = $this->userRepository->all();

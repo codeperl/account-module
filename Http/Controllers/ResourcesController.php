@@ -23,6 +23,11 @@ class ResourcesController extends Controller
     /** @var int */
     private $elementsPerPage;
 
+    /**
+     * ResourcesController constructor.
+     * @param ResourcesManager $resourcesManager
+     * @param ResourceRepository $resourceRepository
+     */
     public function __construct(ResourcesManager $resourcesManager, ResourceRepository $resourceRepository)
     {
         $this->resourcesManager = $resourcesManager;
@@ -31,8 +36,8 @@ class ResourcesController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {

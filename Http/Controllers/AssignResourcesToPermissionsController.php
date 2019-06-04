@@ -42,8 +42,8 @@ class AssignResourcesToPermissionsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -54,6 +54,9 @@ class AssignResourcesToPermissionsController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * $elementsPerPage);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function form()
     {
         $permissions = $this->permissionRepository->all();
@@ -62,6 +65,10 @@ class AssignResourcesToPermissionsController extends Controller
         return view('account::assignresourcestopermissions.form', compact('permissions', 'resources'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function assign(Request $request)
     {
         $request->validate(
