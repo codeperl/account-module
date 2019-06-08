@@ -51,14 +51,14 @@ class PermissionCreateCommand extends Command
      */
     public function handle()
     {
-        $role = $this->filter($this->options());
+        $permission = $this->filter($this->options());
 
         try {
-            $this->permissionValidator->validate($role);
-            $this->permissionRepository->create($role);
+            $this->permissionValidator->validate($permission);
+            $this->permissionRepository->create($permission);
             $this->info("Permission created successfully!");
         } catch(\Exception $exception) {
-            $messageBag = $this->permissionValidator->getMessageBag($role);
+            $messageBag = $this->permissionValidator->getMessageBag($permission);
             $this->errorMessages($messageBag->getMessages());
         }
     }
