@@ -73,7 +73,7 @@ class RoleRepository
      */
     public function update($id, $data)
     {
-        $role = $this->find($id);
+        $role = $this->findOrFail($id);
         $role->name = $data['name'];
         $role->guard_name = $data['guard_name'];
 

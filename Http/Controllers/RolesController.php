@@ -133,7 +133,7 @@ class RolesController extends Controller
             ]
         );
 
-        $this->roleManager->sync($role, $request->input('permission'));
+        $this->roleManager->sync($this->roleRepository->findOrFail($id), $request->input('permission'));
 
         return redirect()->route('roles.index')
             ->with('success','Role updated successfully');
