@@ -88,4 +88,15 @@ class RoleRepository
     {
         return Role::where('id', $id)->delete();
     }
+
+    /**
+     * @param $id
+     * @return Role
+     */
+    public function getRoleWithPermissionsById($id) : Role
+    {
+        return Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
+            ->where("role_has_permissions.role_id", $id)
+            ->get();
+    }
 }

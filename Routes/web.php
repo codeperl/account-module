@@ -13,6 +13,7 @@
 
 Route::prefix('account')->group(function() {
     Route::get('/', 'AccountController@index');
+    // Auth::routes(['verify' => true]);
     Auth::routes();
     Route::group(['middleware' => ['auth']], function() {
         Route::resource('roles','RolesController');

@@ -61,4 +61,28 @@ class PermissionHasResourceRepository
     {
         return PermissionHasResource::orderBy($column, $order)->paginate($elementPerPage);
     }
+
+    /**
+     * @param $resource
+     * @return \Illuminate\Support\Collection
+     */
+    public function getPermissionsBy($resource) : \Illuminate\Support\Collection
+    {
+        return PermissionHasResource::where([
+            'resource' => $resource
+        ])->get();
+    }
+
+    /**
+     * @param $permission
+     * @param $resource
+     * @return bool
+     */
+    public function has($permission, $resource) : bool
+    {
+        return PermissionHasResource::where([
+            'permission_id' => $permission->id,
+            'resource' => $resource
+        ])->exists();
+    }
 }

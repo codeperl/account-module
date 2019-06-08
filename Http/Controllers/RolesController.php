@@ -17,6 +17,7 @@ use Spatie\Permission\Models\Role;
  */
 class RolesController extends Controller
 {
+    /** @var RoleManager */
     private $roleManager;
 
     /** @var RoleRepository */
@@ -94,8 +95,8 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        $role = $this->roleRepository->find($id);
-        $rolePermissions = $this->permissionRepository->getRoleWithPermissionsById($id);
+        $role = $this->roleRepository->findOrFail($id);
+        $rolePermissions = $this->roleRepository->getRoleWithPermissionsById($id);
 
         return view('account::roles.show',compact('role','rolePermissions'));
     }
@@ -106,7 +107,7 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        $role = $this->roleRepository->find($id);
+        $role = $this->roleRepository->findOrFail($id);
         $permission = $this->permissionRepository->get();
         $rolePermissions = $this->roleHasPermissionsRepository->getRoleAndPermissions($id);
 

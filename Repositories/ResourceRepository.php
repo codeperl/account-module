@@ -41,4 +41,13 @@ class ResourceRepository
     {
         return Resource::all();
     }
+
+    /**
+     * @param $resource
+     * @return bool
+     */
+    public function has($resource) : bool
+    {
+        return Resource::where(['resource' => $resource])->exists();
+    }
 }

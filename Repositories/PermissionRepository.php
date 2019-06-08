@@ -6,7 +6,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Account\Enums\PermissionFields;
 use Modules\Account\Entities\Permission;
-use Db;
+use DB;
 
 /**
  * Class PermissionRepository
@@ -99,13 +99,32 @@ class PermissionRepository
     }
 
     /**
-     * @param $id
-     * @return Role
+     * @param array $permissionIds
+     * @param $guard
+     * @return \Illuminate\Support\Collection
      */
-    public function getRoleWithPermissionsById($id) : Role
+    public function findBy(array $permissionIds, $guard) : \Illuminate\Support\Collection
     {
-        return Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-            ->where("role_has_permissions.role_id",$id)
-            ->get();
+        return DB::table('permissions')
+            ->leftJoin('permission_has_resources', 'permissions.id', '=', 'permission_has_resources.permission_id')
+            ->where('permissions.guard_name', "$guard")
+            ->whereIn('permissions.id', $permissionIds)->pluck('permissions.id as id');
+    }
+
+    /**
+     * @param $permission
+     * @param $resource
+     * @param $guard
+     * @return bool
+     */
+    public function hasPermissionBy($permission, $resource, $guard) : bool
+    {
+        return DB::table('permissions')
+            ->leftJoin('permission_has_resources', 'permissions.id', '=', 'permission_has_resources.permission_id')
+            ->leftJoin('resources', 'permission_has_resources.resource', '=', 'resources.resource')
+            ->where('permissions.name', "$permission")
+            ->where('permissions.guard_name', "$guard")
+            ->where('resources.resource', "$resource")
+            ->exists();
     }
 }
