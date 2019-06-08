@@ -40,6 +40,10 @@ class Acl
      */
     public function handle(Request $request, Closure $next)
     {
+        if(!app('auth')->guest() && app('auth')->user()->can(Permissions::GRAND_ALL)) {
+            return $next($request);
+        }
+
         $currentRoute = $request->route();
         $action = $currentRoute->getAction();
         $resource = '';

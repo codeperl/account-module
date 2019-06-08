@@ -29,9 +29,9 @@ class PermissionRepository
     /**
      * @param $permissionName
      * @param $guardName
-     * @return Permission
+     * @return Permission|null
      */
-    public function findByNameAndGuardName($permissionName, $guardName) : Permission
+    public function findByNameAndGuardName($permissionName, $guardName) : ?Permission
     {
         return Permission::where([
             'name' => $permissionName,
