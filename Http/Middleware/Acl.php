@@ -54,13 +54,12 @@ class Acl
             $resource = $action['controller'];
         }
 
-        $permissionsHasResources = $this->permissionHasResourceRepository->getPermissionsBy($resource);
-
         if($this->permissionHasResourceRepository->has($this->permissionRepository->findByNameAndGuardName(Permissions::PUBLIC, Guards::WEB), $resource)) {
             return $next($request);
         }
 
         $permissions = [];
+        $permissionsHasResources = $this->permissionHasResourceRepository->getPermissionsBy($resource);
         // Check permissions are available for current user. If not throw unauthorized error.
         foreach ($permissionsHasResources as $permissionHasResource) {
             $permission = $permissionHasResource->permission->name;
