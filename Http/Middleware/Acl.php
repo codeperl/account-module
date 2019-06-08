@@ -52,7 +52,14 @@ class Acl
             $resource = $action['controller'];
         }
 
-        if($this->permissionHasResourceRepository->has($this->permissionRepository->findByNameAndGuardName(Permissions::PUBLIC, $this->getCurrentGuardName()), $resource)) {
+        $permission = $this->permissionRepository->findByNameAndGuardName(Permissions::PUBLIC,
+            $this->getCurrentGuardName());
+
+        if($permission &&
+            $this->permissionHasResourceRepository->has(
+                $permission,
+                $resource)
+        ) {
             return $next($request);
         }
 
