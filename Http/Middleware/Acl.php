@@ -40,7 +40,7 @@ class Acl
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!app('auth')->guest() && app('auth')->user()->can(Permissions::GRAND_ALL)) {
+        if(!app('auth')->guest() && app('auth')->user()->can(Permissions::GRANT_ALL)) {
             return $next($request);
         }
 
