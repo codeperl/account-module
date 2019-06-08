@@ -15,7 +15,7 @@ Route::prefix('account')->group(function() {
     Route::get('/', 'AccountController@index');
     // Auth::routes(['verify' => true]);
     Auth::routes();
-    Route::group(['middleware' => ['auth']], function() {
+    Route::group(['middleware' => ['auth', 'acl']], function() {
         Route::resource('roles','RolesController');
         Route::resource('permissions','PermissionsController');
         Route::get('resources','ResourcesController@index')->name('resources.index');

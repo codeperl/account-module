@@ -52,7 +52,7 @@ class Acl
             $resource = $action['controller'];
         }
 
-        if($this->permissionHasResourceRepository->has($this->permissionRepository->findByNameAndGuardName(Permissions::PUBLIC, Guards::WEB), $resource)) {
+        if($this->permissionHasResourceRepository->has($this->permissionRepository->findByNameAndGuardName(Permissions::PUBLIC, $this->getCurrentGuardName()), $resource)) {
             return $next($request);
         }
 
@@ -68,5 +68,20 @@ class Acl
         }
 
         throw UnauthorizedException::forPermissions($permissions);
+    }
+
+    /**
+     * @return string
+     */
+    private function getCurrentGuardName()
+    {
+        $guard = auth()->guard();
+        $sessionName = $guard->getName();
+        $parts = explode("_", $sessionName);
+        unset($parts[count($parts)-1]);
+        unset($parts[0]);
+        $guardName = implode("_",$parts);
+
+        return $guardName;
     }
 }
