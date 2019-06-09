@@ -4,6 +4,10 @@ namespace Modules\Account\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\View\Compilers\BladeCompiler;
+use Modules\Account\Enums\Permissions;
+use Modules\Account\Repositories\PermissionHasResourceRepository;
+use Modules\Account\Repositories\ResourceRepository;
 
 class AccountServiceProvider extends ServiceProvider
 {
@@ -20,6 +24,7 @@ class AccountServiceProvider extends ServiceProvider
         $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadCommands();
+        $this->registerBladeExtensions();
     }
 
     /**
@@ -116,5 +121,33 @@ class AccountServiceProvider extends ServiceProvider
             \Modules\Account\Console\Commands\AssignRoleToUserCommand::class,
             \Modules\Account\Console\Commands\AssignResourceToPermissionCommand::class
         ]);
+    }
+
+    protected function registerBladeExtensions()
+    {
+        $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
+            $bladeCompiler->directive('acl', function ($resource) {
+
+                if(!app('auth')->guest() && app('auth')->user()->can(Permissions::PERMIT_ALL)) {
+                    return "<?php if(true): ?>";
+                }
+                $permissionHasResourceRepository = new PermissionHasResourceRepository();
+                $permissionsHasResources = $permissionHasResourceRepository->getPermissionsBy($resource);
+
+                foreach ($permissionsHasResources as $permissionHasResource) {
+                    $permission = $permissionHasResource->permission->name;
+                    $permissions[] = $permission;
+                    if ($status = app('auth')->user()->can($permission)) {
+                        return "<?php if(true): ?>";
+                    }
+                }
+
+                return "<?php if(false): ?>";
+            });
+
+            $bladeCompiler->directive('endacl', function () {
+                return '<?php endif; ?>';
+            });
+        });
     }
 }

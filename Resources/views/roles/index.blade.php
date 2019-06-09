@@ -30,6 +30,7 @@
                 <th>{{ __('Guard Name') }}</th>
                 <th>{{ __('Updated at') }}</th>
                 <th>{{ __('Created at') }}</th>
+                <th>{{__('Actions')}}</th>
             </tr>
             </thead>
             <tbody>
@@ -40,6 +41,15 @@
                         <td>{{ $role->guard_name }}</td>
                         <td>{{ \Carbon\Carbon::parse($role->updated_at)->format('d F, Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($role->created_at)->format('d F, Y') }}</td>
+                        <td>
+                            @acl(app('router')->getRoutes()->match(app('request')->create(route('roles.edit')))->getAction()['controller'])
+                                <a href="{{ route('roles.edit', ['id' => $role->id]) }}">Edit</a>
+                            @endacl
+                            |
+                            @acl(app('router')->getRoutes()->match(app('request')->create(route('roles.destroy')))->getAction()['controller'])
+                            <a href="{{ route('roles.destroy', ['id' => $role->id]) }}">Delete</a>
+                            @endacl
+                        </td>
                     </tr>
                     @endforeach
                 @else
