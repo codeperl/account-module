@@ -127,10 +127,12 @@ class AccountServiceProvider extends ServiceProvider
     {
         $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
             $bladeCompiler->directive('acl', function ($resource) {
-
                 if(!app('auth')->guest() && app('auth')->user()->can(Permissions::PERMIT_ALL)) {
                     return "<?php if(true): ?>";
                 }
+
+                $resource = app('router')->getRoutes()->match(app('request')->create(route($resource)))->getAction()['controller'];
+
                 $permissionHasResourceRepository = new PermissionHasResourceRepository();
                 $permissionsHasResources = $permissionHasResourceRepository->getPermissionsBy($resource);
 

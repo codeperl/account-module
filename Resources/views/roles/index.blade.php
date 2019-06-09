@@ -42,11 +42,11 @@
                         <td>{{ \Carbon\Carbon::parse($role->updated_at)->format('d F, Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($role->created_at)->format('d F, Y') }}</td>
                         <td>
-                            @acl(app('router')->getRoutes()->match(app('request')->create(route('roles.edit')))->getAction()['controller'])
+                            @acl('roles.edit')
                                 <a href="{{ route('roles.edit', ['id' => $role->id]) }}">Edit</a>
                             @endacl
                             |
-                            @acl(app('router')->getRoutes()->match(app('request')->create(route('roles.destroy')))->getAction()['controller'])
+                            @acl('roles.destroy')
                             <a href="{{ route('roles.destroy', ['id' => $role->id]) }}">Delete</a>
                             @endacl
                         </td>
