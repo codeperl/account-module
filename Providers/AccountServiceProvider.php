@@ -5,9 +5,11 @@ namespace Modules\Account\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\View\Compilers\BladeCompiler;
+use Illuminate\Support\Facades\App;
 use Modules\Account\Enums\Permissions;
+use Modules\Account\Managers\AclManager;
 use Modules\Account\Repositories\PermissionHasResourceRepository;
-use Modules\Account\Repositories\ResourceRepository;
+use Modules\Account\Repositories\PermissionRepository;
 
 class AccountServiceProvider extends ServiceProvider
 {
@@ -24,7 +26,6 @@ class AccountServiceProvider extends ServiceProvider
         $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadCommands();
-        $this->registerBladeExtensions();
     }
 
     /**
@@ -35,6 +36,13 @@ class AccountServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        App::bind('acl', function() {
+            return new AclManager(new PermissionRepository(), new PermissionHasResourceRepository());
+
+        });
+
+        $this->registerBladeExtensions();
     }
 
     /**
@@ -126,25 +134,32 @@ class AccountServiceProvider extends ServiceProvider
     protected function registerBladeExtensions()
     {
         $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
-            $bladeCompiler->directive('acl', function ($resource) {
-                if(!app('auth')->guest() && app('auth')->user()->can(Permissions::PERMIT_ALL)) {
-                    return "<?php if(true): ?>";
+            $bladeCompiler->directive('acl', function ($arguments) {
+                list($route, $params, $actionName) = explode(',', $arguments.',');
+
+                if($actionName) {
+                    return "<?php if( app('acl')->access(
+                                                        app('router')->getRoutes()->match(
+                                                                                            app('request')->create(
+                                                                                                                    route({$route}, {$params})
+                                                                                                                  )
+                                                                                         )->getAction()['controller'],
+                                                        app('acl')->getGuard(),
+                                                        {$actionName}
+                                                    )
+                                ): ?>";
+                } else {
+                    return "<?php if( app('acl')->access(
+                                                        app('router')->getRoutes()->match(
+                                                                                            app('request')->create(
+                                                                                                                    route({$route}, {$params})
+                                                                                                                  )
+                                                                                         )->getAction()['controller'],
+                                                        app('acl')->getGuard()
+                                                    )
+                                ): ?>";
                 }
 
-                $resource = app('router')->getRoutes()->match(app('request')->create(route($resource)))->getAction()['controller'];
-
-                $permissionHasResourceRepository = new PermissionHasResourceRepository();
-                $permissionsHasResources = $permissionHasResourceRepository->getPermissionsBy($resource);
-
-                foreach ($permissionsHasResources as $permissionHasResource) {
-                    $permission = $permissionHasResource->permission->name;
-                    $permissions[] = $permission;
-                    if ($status = app('auth')->user()->can($permission)) {
-                        return "<?php if(true): ?>";
-                    }
-                }
-
-                return "<?php if(false): ?>";
             });
 
             $bladeCompiler->directive('endacl', function () {

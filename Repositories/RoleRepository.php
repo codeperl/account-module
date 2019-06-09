@@ -4,6 +4,7 @@ namespace Modules\Account\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Modules\Account\Entities\Permission;
 use Modules\Account\Enums\RoleFields;
 use Spatie\Permission\Models\Role;
 
@@ -93,7 +94,7 @@ class RoleRepository
      * @param $id
      * @return Role
      */
-    public function getRoleWithPermissionsById($id) : Role
+    public function getRoleWithPermissionsById($id) : Collection
     {
         return Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
             ->where("role_has_permissions.role_id", $id)

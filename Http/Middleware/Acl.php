@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Modules\Account\Enums\Guards;
 use Modules\Account\Enums\Permissions;
+use Modules\Account\Managers\AclManager;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Modules\Account\Repositories\PermissionRepository;
 use Modules\Account\Repositories\PermissionHasResourceRepository;
@@ -16,21 +17,16 @@ use Modules\Account\Repositories\PermissionHasResourceRepository;
  */
 class Acl
 {
-    /** @var PermissionRepository */
-    private $permissionRepository;
-
-    /** @var PermissionHasResourceRepository */
-    private $permissionHasResourceRepository;
+    /** @var AclManager */
+    private $aclManager;
 
     /**
      * Acl constructor.
-     * @param PermissionRepository $permissionRepository
-     * @param PermissionHasResourceRepository $permissionHasResourceRepository
+     * @param AclManager $aclManager
      */
-    public function __construct(PermissionRepository $permissionRepository, PermissionHasResourceRepository $permissionHasResourceRepository)
+    public function __construct(AclManager $aclManager)
     {
-        $this->permissionRepository = $permissionRepository;
-        $this->permissionHasResourceRepository = $permissionHasResourceRepository;
+        $this->aclManager = $aclManager;
     }
 
     /**
@@ -40,10 +36,6 @@ class Acl
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!app('auth')->guest() && app('auth')->user()->can(Permissions::PERMIT_ALL)) {
-            return $next($request);
-        }
-
         $currentRoute = $request->route();
         $action = $currentRoute->getAction();
         $resource = '';
@@ -52,43 +44,16 @@ class Acl
             $resource = $action['controller'];
         }
 
-        $permission = $this->permissionRepository->findByNameAndGuardName(Permissions::PUBLIC,
-            $this->getCurrentGuardName());
+        $guard = $this->aclManager->getGuard();
 
-        if($permission &&
-            $this->permissionHasResourceRepository->has(
-                $permission,
-                $resource)
-        ) {
+        if(!$resource || !$guard) {
+            abort(403, 'User does not have the right permissions.');
+        }
+
+        if($this->aclManager->access($resource, $guard)) {
             return $next($request);
+        } else {
+            abort(403, 'User does not have the right permissions.');
         }
-
-        $permissions = [];
-        $permissionsHasResources = $this->permissionHasResourceRepository->getPermissionsBy($resource);
-        // Check permissions are available for current user. If not throw unauthorized error.
-        foreach ($permissionsHasResources as $permissionHasResource) {
-            $permission = $permissionHasResource->permission->name;
-            $permissions[] = $permission;
-            if (app('auth')->user()->can($permission)) {
-                return $next($request);
-            }
-        }
-
-        throw UnauthorizedException::forPermissions($permissions);
-    }
-
-    /**
-     * @return string
-     */
-    private function getCurrentGuardName()
-    {
-        $guard = auth()->guard();
-        $sessionName = $guard->getName();
-        $parts = explode("_", $sessionName);
-        unset($parts[count($parts)-1]);
-        unset($parts[0]);
-        $guardName = implode("_",$parts);
-
-        return $guardName;
     }
 }

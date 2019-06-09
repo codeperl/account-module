@@ -19,7 +19,10 @@ return [
          * Package Service Providers...
          */
         Spatie\Permission\PermissionServiceProvider::class,
+    ],
 
+    'aliases' => [
+        'Acl' => \Modules\Account\Support\Facades\Acl::class,
     ],
 
     'models' => [

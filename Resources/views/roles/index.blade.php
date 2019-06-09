@@ -42,19 +42,22 @@
                         <td>{{ \Carbon\Carbon::parse($role->updated_at)->format('d F, Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($role->created_at)->format('d F, Y') }}</td>
                         <td>
-                            @acl('roles.edit')
-                                <a href="{{ route('roles.edit', ['id' => $role->id]) }}">Edit</a>
+                            @acl('roles.edit', "['id' => $role->id]")
+                                <a href="{{ route('roles.edit', ['id' => $role->id]) }}" class="btn btn-link">Edit</a> |
                             @endacl
-                            |
-                            @acl('roles.destroy')
-                            <a href="{{ route('roles.destroy', ['id' => $role->id]) }}">Delete</a>
+                            @acl('roles.destroy', "['id' => $role->id]", 'destroy')
+                                <form action="{{ route('roles.destroy', ['id' => $role->id]) }}" method="POST">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <button class="btn btn-link">Delete</button>
+                                </form>
                             @endacl
                         </td>
                     </tr>
                     @endforeach
                 @else
                     <tr>
-                        <td>{{ __('No resource found!') }}</td>
+                        <td colspan="5">{{ __('No resource found!') }}</td>
                     </tr>
                 @endif
             </tbody>
