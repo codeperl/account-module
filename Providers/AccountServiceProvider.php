@@ -135,31 +135,62 @@ class AccountServiceProvider extends ServiceProvider
     {
         $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
             $bladeCompiler->directive('acl', function ($arguments) {
-                list($route, $params, $actionName) = explode(',', $arguments.',');
+                $args = explode(',', $arguments.',');
+                $route = $args[0];
+                $params = [];
+                $action = '';
 
-                if($actionName) {
-                    return "<?php if( app('acl')->access(
-                                                        app('router')->getRoutes()->match(
-                                                                                            app('request')->create(
-                                                                                                                    route({$route}, {$params})
-                                                                                                                  )
-                                                                                         )->getAction()['controller'],
-                                                        app('acl')->getGuard(),
-                                                        {$actionName}
-                                                    )
-                                ): ?>";
-                } else {
-                    return "<?php if( app('acl')->access(
-                                                        app('router')->getRoutes()->match(
-                                                                                            app('request')->create(
-                                                                                                                    route({$route}, {$params})
-                                                                                                                  )
-                                                                                         )->getAction()['controller'],
-                                                        app('acl')->getGuard()
-                                                    )
-                                ): ?>";
+                if(!empty($args[1])) {
+                    $params = $args[1];
                 }
 
+                if(!empty($args[2])) {
+                    $action = $args[2];
+                }
+
+                if($params && $action) {
+                    return "<?php if( app('acl')->access(
+                                                            app('router')->getRoutes()->match(
+                                                                                                app('request')->create(
+                                                                                                                        route({$route}, {$params})
+                                                                                                                      )
+                                                                                             )->getAction()['controller'],
+                                                            app('acl')->getGuard(),
+                                                            {$action}
+                                                        )
+                                                    ): ?>";
+                } else if($params && !$action) {
+                    return "<?php if( app('acl')->access(
+                                                            app('router')->getRoutes()->match(
+                                                                                                app('request')->create(
+                                                                                                                        route({$route}, {$params})
+                                                                                                                      )
+                                                                                             )->getAction()['controller'],
+                                                            app('acl')->getGuard()
+                                                        )
+                                                    ): ?>";
+                } else if(!$params && $action) {
+                    return "<?php if( app('acl')->access(
+                                                            app('router')->getRoutes()->match(
+                                                                                                app('request')->create(
+                                                                                                                        route({$route})
+                                                                                                                      )
+                                                                                             )->getAction()['controller'],
+                                                            app('acl')->getGuard(),
+                                                            {$action}
+                                                        )
+                                                    ): ?>";
+                }
+
+                return "<?php if( app('acl')->access(
+                                                            app('router')->getRoutes()->match(
+                                                                                                app('request')->create(
+                                                                                                                        route({$route})
+                                                                                                                      )
+                                                                                             )->getAction()['controller'],
+                                                            app('acl')->getGuard()
+                                                        )
+                                                    ): ?>";
             });
 
             $bladeCompiler->directive('endacl', function () {

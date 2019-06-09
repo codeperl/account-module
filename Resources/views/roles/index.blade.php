@@ -15,9 +15,9 @@
         </div>
         <div class="col-lg-6">
             <div class="float-right">
-                {{--@can('role-create')--}}
-                <a class="btn btn-success" href="{{ route('roles.create') }}">{{ __('Create New Role') }}</a>
-                {{--@endcan--}}
+                @acl('roles.create')
+                    <a class="btn btn-success" href="{{ route('roles.create') }}">{{ __('Create New Role') }}</a>
+                @endacl
             </div>
         </div>
     </div>
