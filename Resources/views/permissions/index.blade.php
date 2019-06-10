@@ -15,9 +15,9 @@
         </div>
         <div class="col-lg-6">
             <div class="float-right">
-                {{--@can('permission-create')--}}
-                <a class="btn btn-success" href="{{ route('permissions.create') }}">{{ __('Create Permission') }}</a>
-                {{--@endcan--}}
+                @acl('permissions.create')
+                    <a class="btn btn-success" href="{{ route('permissions.create') }}">{{ __('Create Permission') }}</a>
+                @endacl
             </div>
         </div>
     </div>
@@ -26,20 +26,36 @@
         <table class="table table-striped table-hover table-bordered">
             <thead class="bg-primary">
             <tr>
-                <th>{{ __('Permission') }}</th>
-                <th>{{ __('Guard Name') }}</th>
-                <th>{{ __('Updated at') }}</th>
-                <th>{{ __('Created at') }}</th>
+                <th class="text-center">{{ __('Permission') }}</th>
+                <th class="text-center">{{ __('Guard Name') }}</th>
+                <th class="text-center">{{ __('Updated at') }}</th>
+                <th class="text-center">{{ __('Created at') }}</th>
+                <th class="text-center">{{__('Actions')}}</th>
             </tr>
             </thead>
             <tbody>
                 @if (count($permissions))
                     @foreach ($permissions as $permission)
                     <tr>
-                        <td>{{ $permission->name }}</td>
-                        <td>{{ $permission->guard_name }}</td>
-                        <td>{{ \Carbon\Carbon::parse($permission->updated_at)->format('d F, Y') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($permission->created_at)->format('d F, Y') }}</td>
+                        <td class="text-center">{{ $permission->name }}</td>
+                        <td class="text-center">{{ $permission->guard_name }}</td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($permission->updated_at)->format('d F, Y') }}</td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($permission->created_at)->format('d F, Y') }}</td>
+                        <td class="text-center">
+                            @acl('permissions.show', "['id' => $permission->id]")
+                                <a href="{{ route('permissions.show', ['id' => $permission->id]) }}" class="btn btn-link">{{ __('Show') }}</a>
+                            @endacl
+                            @acl('permissions.edit', "['id' => $permission->id]")
+                                <a href="{{ route('permissions.edit', ['id' => $permission->id]) }}" class="btn btn-link">{{ __('Edit') }}</a>
+                            @endacl
+                            @acl('permissions.destroy', "['id' => $permission->id]", 'destroy')
+                            <form action="{{ route('permissions.destroy', ['id' => $permission->id]) }}" method="POST" class="d-inline">
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <button class="btn btn-link">{{ __('Delete') }}</button>
+                            </form>
+                            @endacl
+                        </td>
                     </tr>
                     @endforeach
                 @else

@@ -26,30 +26,33 @@
         <table class="table table-striped table-hover table-bordered">
             <thead class="bg-primary">
             <tr>
-                <th>{{ __('Role') }}</th>
-                <th>{{ __('Guard Name') }}</th>
-                <th>{{ __('Updated at') }}</th>
-                <th>{{ __('Created at') }}</th>
-                <th>{{__('Actions')}}</th>
+                <th class="text-center">{{ __('Role') }}</th>
+                <th class="text-center">{{ __('Guard Name') }}</th>
+                <th class="text-center">{{ __('Updated at') }}</th>
+                <th class="text-center">{{ __('Created at') }}</th>
+                <th class="text-center">{{__('Actions')}}</th>
             </tr>
             </thead>
             <tbody>
                 @if ($roles)
                     @foreach ($roles as $role)
                     <tr>
-                        <td>{{ $role->name }}</td>
-                        <td>{{ $role->guard_name }}</td>
-                        <td>{{ \Carbon\Carbon::parse($role->updated_at)->format('d F, Y') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($role->created_at)->format('d F, Y') }}</td>
-                        <td>
+                        <td class="text-center">{{ $role->name }}</td>
+                        <td class="text-center">{{ $role->guard_name }}</td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($role->updated_at)->format('d F, Y') }}</td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($role->created_at)->format('d F, Y') }}</td>
+                        <td class="text-center">
+                            @acl('roles.show', "['id' => $role->id]")
+                            <a href="{{ route('roles.show', ['id' => $role->id]) }}" class="btn btn-link">{{ __('Show') }}</a>
+                            @endacl
                             @acl('roles.edit', "['id' => $role->id]")
-                                <a href="{{ route('roles.edit', ['id' => $role->id]) }}" class="btn btn-link">Edit</a> |
+                                <a href="{{ route('roles.edit', ['id' => $role->id]) }}" class="btn btn-link">{{ __('Edit') }}</a>
                             @endacl
                             @acl('roles.destroy', "['id' => $role->id]", 'destroy')
-                                <form action="{{ route('roles.destroy', ['id' => $role->id]) }}" method="POST">
+                                <form action="{{ route('roles.destroy', ['id' => $role->id]) }}" method="POST" class="d-inline">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
-                                    <button class="btn btn-link">Delete</button>
+                                    <button class="btn btn-link">{{ __('Delete') }}</button>
                                 </form>
                             @endacl
                         </td>
