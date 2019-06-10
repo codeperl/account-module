@@ -1,12 +1,6 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-
     <div class="row">
         <div class="col-lg-6">
             <div class="float-left">
@@ -15,9 +9,9 @@
         </div>
         <div class="col-lg-6">
             <div class="float-right">
-                {{--@can('permission-create')--}}
-                <a class="btn btn-success" href="{{ route('assignRolesToUsers.form') }}">{{ __('Assign role to user') }}</a>
-                {{--@endcan--}}
+                @acl('assignRolesToUsers.form')
+                    <a class="btn btn-success" href="{{ route('assignRolesToUsers.form') }}">{{ __('Assign role to user') }}</a>
+                @endacl
             </div>
         </div>
     </div>

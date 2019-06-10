@@ -1,7 +1,21 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    <h1>{{ __('Resources') }}</h1>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="float-left">
+                <h1>{{ __('Resources') }}</h1>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="float-right">
+                @acl('resources.generate')
+                    <a class="btn btn-success" href="{{ route('resources.generate') }}">{{ __('Generate resources') }}</a>
+                @endacl
+            </div>
+        </div>
+    </div>
     <div class="table-responsive">
         <table class="table table-striped table-hover table-bordered">
             <thead class="bg-primary">
