@@ -43,17 +43,17 @@
                         <td class="text-center">{{ \Carbon\Carbon::parse($role->created_at)->format('d F, Y') }}</td>
                         <td class="text-center">
                             @acl('roles.show', "['id' => $role->id]")
-                            <a href="{{ route('roles.show', ['id' => $role->id]) }}" class="btn btn-link">{{ __('Show') }}</a>
+                            <a href="{{ route('roles.show', ['id' => $role->id]) }}" class="btn btn-link custom-color"><i class="fa fa-lg fa-eye"></i></a>
                             @endacl
                             @acl('roles.edit', "['id' => $role->id]")
-                                <a href="{{ route('roles.edit', ['id' => $role->id]) }}" class="btn btn-link">{{ __('Edit') }}</a>
+                            <a href="{{ route('roles.edit', ['id' => $role->id]) }}" class="btn btn-link custom-color"><i class="fa fa-lg fa-edit"></i></a>
                             @endacl
                             @acl('roles.destroy', "['id' => $role->id]", 'destroy')
-                                <form action="{{ route('roles.destroy', ['id' => $role->id]) }}" method="POST" class="d-inline">
-                                    {{ method_field('DELETE') }}
-                                    {{ csrf_field() }}
-                                    <button class="btn btn-link">{{ __('Delete') }}</button>
-                                </form>
+                            <form action="{{ route('roles.destroy', ['id' => $role->id]) }}" method="POST" class="d-inline">
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <button class="btn btn-link custom-color"><i class="fa fa-lg fa-trash"></i></button>
+                            </form>
                             @endacl
                         </td>
                     </tr>

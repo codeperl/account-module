@@ -43,16 +43,16 @@
                         <td class="text-center">{{ \Carbon\Carbon::parse($permission->created_at)->format('d F, Y') }}</td>
                         <td class="text-center">
                             @acl('permissions.show', "['id' => $permission->id]")
-                                <a href="{{ route('permissions.show', ['id' => $permission->id]) }}" class="btn btn-link">{{ __('Show') }}</a>
+                                <a href="{{ route('permissions.show', ['id' => $permission->id]) }}" class="btn btn-link custom-color"><i class="fa fa-lg fa-eye"></i></a>
                             @endacl
                             @acl('permissions.edit', "['id' => $permission->id]")
-                                <a href="{{ route('permissions.edit', ['id' => $permission->id]) }}" class="btn btn-link">{{ __('Edit') }}</a>
+                                <a href="{{ route('permissions.edit', ['id' => $permission->id]) }}" class="btn btn-link custom-color"><i class="fa fa-lg fa-edit"></i></a>
                             @endacl
                             @acl('permissions.destroy', "['id' => $permission->id]", 'destroy')
                             <form action="{{ route('permissions.destroy', ['id' => $permission->id]) }}" method="POST" class="d-inline">
                                 {{ method_field('DELETE') }}
                                 {{ csrf_field() }}
-                                <button class="btn btn-link">{{ __('Delete') }}</button>
+                                <button class="btn btn-link custom-color"><i class="fa fa-lg fa-trash"></i></button>
                             </form>
                             @endacl
                         </td>

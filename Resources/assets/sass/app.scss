@@ -1,3 +1,37 @@
+// Variables
+//@import '~bootstrap/scss/variables';
+$fa-font-path: '../webfonts';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+// Fontawesome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+
 .bg-primary {
   color: white;
+}
+
+.darkred {
+  color: #b31e23;
+}
+
+.darkgreen {
+  color: darkgreen;
+}
+
+.skyblue {
+  color: #3490dc;
+}
+
+.yellow {
+  color: yellow;
+}
+
+.yellowgreen {
+  color: yellowgreen;
+}
+
+.custom-color {
+  color: #673ab7;
 }
