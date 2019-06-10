@@ -49,10 +49,10 @@
                             <a href="{{ route('roles.edit', ['id' => $role->id]) }}" class="btn btn-link custom-color"><i class="fa fa-lg fa-edit"></i></a>
                             @endacl
                             @acl('roles.destroy', "['id' => $role->id]", 'destroy')
-                            <form action="{{ route('roles.destroy', ['id' => $role->id]) }}" method="POST" class="d-inline">
+                            <form action="{{ route('roles.destroy', ['id' => $role->id]) }}" method="POST" class="d-inline delete">
                                 {{ method_field('DELETE') }}
                                 {{ csrf_field() }}
-                                <button class="btn btn-link custom-color"><i class="fa fa-lg fa-trash"></i></button>
+                                <button type="submit" class="btn btn-link custom-color"><i class="fa fa-lg fa-trash"></i></button>
                             </form>
                             @endacl
                         </td>
