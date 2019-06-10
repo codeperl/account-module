@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="float-left">
-                <h1>{{ __('Permissions has Resources') }}</h1>
+                <h1>{{ __('Permissions has resources') }}</h1>
             </div>
         </div>
         <div class="col-lg-6">

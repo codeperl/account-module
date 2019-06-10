@@ -21,7 +21,7 @@
             <thead class="bg-primary">
             <tr>
                 <th class="text-center">{{ __('Role') }}</th>
-                <th class="text-center">{{ __('Guard Name') }}</th>
+                <th class="text-center">{{ __('Guard name') }}</th>
                 <th class="text-center">{{ __('Updated at') }}</th>
                 <th class="text-center">{{ __('Created at') }}</th>
                 <th class="text-center">{{__('Actions')}}</th>

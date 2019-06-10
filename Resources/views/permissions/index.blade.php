@@ -21,7 +21,7 @@
             <thead class="bg-primary">
             <tr>
                 <th class="text-center">{{ __('Permission') }}</th>
-                <th class="text-center">{{ __('Guard Name') }}</th>
+                <th class="text-center">{{ __('Guard name') }}</th>
                 <th class="text-center">{{ __('Updated at') }}</th>
                 <th class="text-center">{{ __('Created at') }}</th>
                 <th class="text-center">{{__('Actions')}}</th>
@@ -54,7 +54,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="4">{{ __('No resource found!') }}</td>
+                        <td colspan="5">{{ __('No resource found!') }}</td>
                     </tr>
                 @endif
             </tbody>
