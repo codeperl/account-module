@@ -47,13 +47,13 @@ class Acl
         $guard = $this->aclManager->getGuard();
 
         if(!$resource || !$guard) {
-            abort(403, 'User does not have the right permissions.');
+            abort(401, 'User does not have the right permissions.');
         }
 
         if($this->aclManager->access($resource, $guard)) {
             return $next($request);
         } else {
-            abort(403, 'User does not have the right permissions.');
+            abort(401, 'User does not have the right permissions.');
         }
     }
 }
