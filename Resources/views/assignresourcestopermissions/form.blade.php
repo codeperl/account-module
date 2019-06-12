@@ -38,8 +38,8 @@
                                 <div class="col-md-7">
                                     <select name="resource" id="resource" class="form-control">
                                         @foreach($resources as $resource)
-                                            <option id="{{ $resource->resource }}" value="{{ $resource->resource }}" title="{{ $resource->resource }}">
-                                                {{ $resource->resource }}
+                                            <option id="{{ $resource->resource }}" value="{{ $resource->resource }}" title="{{ $resource->uri }}">
+                                                {{ $resource->http_command }} - {{ $resource->uri }}
                                             </option>
                                         @endforeach
                                     </select>

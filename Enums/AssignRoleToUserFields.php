@@ -5,7 +5,7 @@ namespace Modules\Account\Enums;
 
 class AssignRoleToUserFields
 {
-    const USERNAME = 'username';
+    const NAME = 'name';
     const ROLE = 'role';
     const GUARD_NAME = 'guard_name';
 }

@@ -49,6 +49,6 @@ class User extends Authenticatable
      */
     public function getIdentityAttribute()
     {
-        return $this->name. ' - '.$this->email. ' - '.$this->phone;
+        return $this->name. ' - '.$this->email;
     }
 }

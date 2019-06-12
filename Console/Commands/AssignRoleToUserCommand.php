@@ -18,14 +18,14 @@ class AssignRoleToUserCommand extends Command
      *
      * @var string
      */
-    protected $signature = "account:assignroletouser  {--username= : Existing username} {--role= : Existing role} {--guard_name= : Existing guard_name} ";
+    protected $signature = "account:assignroletouser  {--name= : Existing name} {--role= : Existing role} {--guard_name= : Existing guard_name} ";
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = "Assign role to user. Example: php artisan account:assignroletouser --username=[EXISTING_USERNAME] --role=[EXISTING_ROLE] --guard_name=[EXISTING_GUARD_NAME]";
+    protected $description = "Assign role to user. Example: php artisan account:assignroletouser --name=[EXISTING_NAME] --role=[EXISTING_ROLE] --guard_name=[EXISTING_GUARD_NAME]";
 
     /** @var UserRepository */
     protected $userRepository;
@@ -53,7 +53,7 @@ class AssignRoleToUserCommand extends Command
     {
         $assignRoleToUser = $this->filter($this->options());
         $role = $this->roleRepository->findByNameAndGuardName($assignRoleToUser[AssignRoleToUserFields::ROLE], $assignRoleToUser[AssignRoleToUserFields::GUARD_NAME]);
-        $user = $this->userRepository->findByName($assignRoleToUser[AssignRoleToUserFields::USERNAME]);
+        $user = $this->userRepository->findByName($assignRoleToUser[AssignRoleToUserFields::NAME]);
 
         if($role && $user) {
             $user->assignRole([$role]);
@@ -66,7 +66,7 @@ class AssignRoleToUserCommand extends Command
     private function filter(array $params): array
     {
         return [
-            AssignRoleToUserFields::USERNAME => $params[AssignRoleToUserFields::USERNAME],
+            AssignRoleToUserFields::NAME => $params[AssignRoleToUserFields::NAME],
             AssignRoleToUserFields::ROLE => $params[AssignRoleToUserFields::ROLE],
             AssignRoleToUserFields::GUARD_NAME => $params[AssignRoleToUserFields::GUARD_NAME],
         ];

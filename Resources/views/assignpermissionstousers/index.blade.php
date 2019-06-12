@@ -29,7 +29,7 @@
             @if (count($usersHasPermissions))
                 @foreach ($usersHasPermissions as $userHasPermission)
                     <tr>
-                        <td> {{ $userHasPermission->user_name  }} - {{ $userHasPermission->user_email  }} - {{ $userHasPermission->user_phone  }} </td>
+                        <td> {{ $userHasPermission->user_name  }} - {{ $userHasPermission->user_email  }} </td>
                         <td> {{ $userHasPermission->permission_name  }} ({{ $userHasPermission->permission_guard_name  }}) </td>
                     </tr>
                 @endforeach

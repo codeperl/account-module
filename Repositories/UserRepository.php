@@ -22,16 +22,15 @@ class UserRepository
         return User::create([
             UserFields::NAME => $params[UserFields::NAME],
             UserFields::EMAIL => $params[UserFields::EMAIL],
-            UserFields::PHONE => $params[UserFields::PHONE],
             UserFields::PASSWORD => Hash::make($params[UserFields::PASSWORD]),
         ]);
     }
 
     /**
      * @param $name
-     * @return User
+     * @return User|null
      */
-    public function findByName($name): User
+    public function findByName($name): ?User
     {
         return User::where('name', $name)->first();
     }

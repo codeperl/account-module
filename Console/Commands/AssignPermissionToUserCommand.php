@@ -18,14 +18,14 @@ class AssignPermissionToUserCommand extends Command
      *
      * @var string
      */
-    protected $signature = "account:assignpermissiontouser  {--username= : Existing username} {--permission= : Existing permission} {--permission_guard_name= : Existing guard_name for permission}";
+    protected $signature = "account:assignpermissiontouser  {--name= : Existing name} {--permission= : Existing permission} {--permission_guard_name= : Existing guard_name for permission}";
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = "Assign permission to user. Example: php artisan account:assignpermissiontouser --username=[EXISTING_USER] --permission=[EXISTING_PERMISSION] --permission_guard_name=[EXISTING_PERMISSION_GUARD_NAME]";
+    protected $description = "Assign permission to user. Example: php artisan account:assignpermissiontouser --name=[EXISTING_NAME] --permission=[EXISTING_PERMISSION] --permission_guard_name=[EXISTING_PERMISSION_GUARD_NAME]";
 
     /** @var UserRepository */
     protected $userRepository;

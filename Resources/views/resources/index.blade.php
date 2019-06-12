@@ -20,6 +20,8 @@
         <table class="table table-striped table-hover table-bordered">
             <thead class="bg-primary">
             <tr>
+                <th>{{ __('HTTP command') }}</th>
+                <th>{{ __('URI') }}</th>
                 <th>{{ __('Resource') }}</th>
             </tr>
             </thead>
@@ -27,12 +29,14 @@
                 @if (count($resources))
                     @foreach ($resources as $resource)
                     <tr>
+                        <td>{{ $resource->http_command }}</td>
+                        <td>{{ $resource->uri }}</td>
                         <td>{{ $resource->resource }}</td>
                     </tr>
                     @endforeach
                 @else
                     <tr>
-                        <td>{{ __('No resource found!') }}</td>
+                        <td colspan="3">{{ __('No resource found!') }}</td>
                     </tr>
                 @endif
             </tbody>

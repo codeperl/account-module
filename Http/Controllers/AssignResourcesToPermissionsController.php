@@ -5,6 +5,7 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Account\Managers\PermissionHasResourceManager;
 use Modules\Account\Repositories\PermissionHasResourceRepository;
 use Modules\Account\Repositories\PermissionRepository;
 use Modules\Account\Repositories\ResourceRepository;
@@ -15,6 +16,9 @@ use Modules\Account\Repositories\ResourceRepository;
  */
 class AssignResourcesToPermissionsController extends Controller
 {
+    /** @var PermissionHasResourceManager */
+    private $permissionHasResourceManager;
+
     /** @var PermissionRepository  */
     private $permissionRepository;
 
@@ -29,12 +33,17 @@ class AssignResourcesToPermissionsController extends Controller
 
     /**
      * AssignResourcesToPermissionsController constructor.
+     * @param PermissionHasResourceManager $permissionhasResourceManager
      * @param PermissionRepository $permissionRepository
      * @param ResourceRepository $resourceRepository
      * @param PermissionHasResourceRepository $permissionHasResourceRepository
      */
-    public function __construct(PermissionRepository $permissionRepository, ResourceRepository $resourceRepository, PermissionHasResourceRepository $permissionHasResourceRepository)
+    public function __construct(PermissionHasResourceManager $permissionhasResourceManager,
+                                PermissionRepository $permissionRepository,
+                                ResourceRepository $resourceRepository,
+                                PermissionHasResourceRepository $permissionHasResourceRepository)
     {
+        $this->permissionHasResourceManager = $permissionhasResourceManager;
         $this->permissionRepository = $permissionRepository;
         $this->resourceRepository = $resourceRepository;
         $this->permissionHasResourceRepository = $permissionHasResourceRepository;
@@ -48,7 +57,9 @@ class AssignResourcesToPermissionsController extends Controller
     public function index(Request $request)
     {
         $elementsPerPage = $request->get('perPage', $this->elementsPerPage);
-        $permissionsHasResources = $this->permissionHasResourceRepository->paginate('permission_id', 'DESC', $elementsPerPage);
+
+        $permissionsHasResources = $this->permissionHasResourceManager->paginate('uri', 'DESC',
+            $this->elementsPerPage);
 
         return view('account::assignresourcestopermissions.index',compact('permissionsHasResources'))
             ->with('i', ($request->input('page', 1) - 1) * $elementsPerPage);
@@ -60,7 +71,7 @@ class AssignResourcesToPermissionsController extends Controller
     public function form()
     {
         $permissions = $this->permissionRepository->all();
-        $resources = $this->resourceRepository->all();
+        $resources = $this->resourceRepository->allOrderBy('uri', 'ASC');
 
         return view('account::assignresourcestopermissions.form', compact('permissions', 'resources'));
     }

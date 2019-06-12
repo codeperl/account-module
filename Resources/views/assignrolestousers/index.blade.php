@@ -29,7 +29,7 @@
             @if (count($usersHasRoles))
                 @foreach ($usersHasRoles as $userHasRole)
                     <tr>
-                        <td> {{ $userHasRole->user_name  }} - {{ $userHasRole->user_email  }} - {{ $userHasRole->user_phone  }} </td>
+                        <td> {{ $userHasRole->user_name  }} - {{ $userHasRole->user_email  }} </td>
                         <td> {{ $userHasRole->role_name  }} ({{ $userHasRole->role_guard_name  }}) </td>
                     </tr>
                 @endforeach

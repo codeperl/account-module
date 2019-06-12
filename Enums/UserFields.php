@@ -10,7 +10,6 @@ class UserFields
 {
     const NAME = 'name';
     const EMAIL = 'email';
-    const PHONE = 'phone';
     const PASSWORD = 'password';
     const PASSWORD_CONFIRMATION = 'password_confirmation';
 }

@@ -33,7 +33,7 @@ trait CustomAuthenticateUsers
     public function username()
     {
         $identity  = request()->get(Login::IDENTITY_FIELD);
-        $fieldName = filter_var($identity, FILTER_VALIDATE_EMAIL) ? 'email' : (ctype_digit($identity) ? 'phone' : 'name');
+        $fieldName = filter_var($identity, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
 
         request()->merge([$fieldName => $identity]);
 
@@ -53,7 +53,7 @@ trait CustomAuthenticateUsers
                 'password' => 'required|string',
             ],
             [
-                'identity.required' => 'Username or email or phone is required',
+                'identity.required' => 'Username or email required',
                 'password.required' => 'Password is required',
             ]
         );

@@ -15,6 +15,8 @@ class CreateResourcesTable extends Migration
     {
         Schema::create('resources', function (Blueprint $table) {
             $table->string('resource');
+            $table->string('http_command');
+            $table->string('uri');
         });
     }
 

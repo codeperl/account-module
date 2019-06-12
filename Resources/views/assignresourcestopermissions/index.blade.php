@@ -21,6 +21,8 @@
             <thead class="bg-primary">
             <tr>
                 <th>{{ __('Permission') }}</th>
+                <th>{{ __('HTTP command') }}</th>
+                <th>{{ __('URI') }}</th>
                 <th>{{ __('Resource') }}</th>
             </tr>
             </thead>
@@ -29,6 +31,8 @@
                 @foreach ($permissionsHasResources as $permissionHasResource)
                     <tr>
                         <td>{{ $permissionHasResource->permission->name }}</td>
+                        <td>{{ $permissionHasResource->http_command }}</td>
+                        <td>{{ $permissionHasResource->uri }}</td>
                         <td>{{ $permissionHasResource->resource }}</td>
                     </tr>
                 @endforeach

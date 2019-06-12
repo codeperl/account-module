@@ -85,4 +85,12 @@ class PermissionHasResourceRepository
             'resource' => $resource
         ])->exists();
     }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return PermissionHasResource::all()->count();
+    }
 }

@@ -50,4 +50,14 @@ class ResourceRepository
     {
         return Resource::where(['resource' => $resource])->exists();
     }
+
+    /**
+     * @param $column
+     * @param $order
+     * @return mixed
+     */
+    public function allOrderBy($column, $order)
+    {
+        return Resource::orderBy($column, $order)->get();
+    }
 }

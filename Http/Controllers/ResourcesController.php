@@ -42,7 +42,7 @@ class ResourcesController extends Controller
     public function index(Request $request)
     {
         $elementPerPage = $request->get('perPage', $this->elementsPerPage);
-        $resources = $this->resourceRepository->paginate('resource', 'DESC', $elementPerPage);
+        $resources = $this->resourceRepository->paginate('uri', 'ASC', $elementPerPage);
 
         return view('account::resources.index', compact('resources'))
             ->with('i', ($request->input('page', 1) - 1) * $elementPerPage);
