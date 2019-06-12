@@ -5,6 +5,7 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Account\Managers\UserHasPermissionManager;
 use Modules\Account\Managers\UserManager;
 use Modules\Account\Repositories\UserHasPermissionRepository;
 use Modules\Account\Repositories\PermissionRepository;
@@ -18,6 +19,9 @@ class AssignPermissionsToUsersController extends Controller
 {
     /** @var UserManager */
     private $userManager;
+
+    /** @var UserHasPermissionManager */
+    private $userHasPermissionManager;
 
     /** @var UserHasPermissionRepository */
     private $userHasPermissionRepository;
@@ -34,13 +38,17 @@ class AssignPermissionsToUsersController extends Controller
     /**
      * AssignPermissionsToUsersController constructor.
      * @param UserManager $userManager
+     * @param UserHasPermissionManager $userHasPermissionManager
      * @param UserHasPermissionRepository $userHasPermissionRepository
      * @param UserRepository $userRepository
      * @param PermissionRepository $permissionRepository
      */
-    public function __construct(UserManager $userManager, UserHasPermissionRepository $userHasPermissionRepository, UserRepository $userRepository, PermissionRepository $permissionRepository)
+    public function __construct(UserManager $userManager, UserHasPermissionManager $userHasPermissionManager,
+                                UserHasPermissionRepository $userHasPermissionRepository,
+                                UserRepository $userRepository, PermissionRepository $permissionRepository)
     {
         $this->userManager = $userManager;
+        $this->userHasPermissionManager = $userHasPermissionManager;
         $this->userHasPermissionRepository = $userHasPermissionRepository;
         $this->userRepository = $userRepository;
         $this->permissionRepository = $permissionRepository;
@@ -90,5 +98,13 @@ class AssignPermissionsToUsersController extends Controller
 
         return redirect()->route('assignPermissionsToUsers.index')
             ->with('success','Permission assigned to user successfully');
+    }
+
+    public function unAssign($user, $permission)
+    {
+        $this->userHasPermissionManager->unAssign($user, $permission);
+
+        return redirect()->route('assignPermissionsToUsers.index')
+            ->with('success','Permission un-assigned to user successfully');
     }
 }

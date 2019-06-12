@@ -20,17 +20,22 @@
         <table class="table table-striped table-hover table-bordered">
             <thead class="bg-primary">
             <tr>
-                <th>{{ __('User') }}</th>
-                <th>{{ __('Permission') }}</th>
-
+                <th class="text-center">{{ __('User') }}</th>
+                <th class="text-center">{{ __('Permission') }}</th>
+                <th class="text-center">{{ __('Actions') }}</th>
             </tr>
             </thead>
             <tbody>
             @if (count($usersHasPermissions))
                 @foreach ($usersHasPermissions as $userHasPermission)
                     <tr>
-                        <td> {{ $userHasPermission->user_name  }} - {{ $userHasPermission->user_email  }} </td>
-                        <td> {{ $userHasPermission->permission_name  }} ({{ $userHasPermission->permission_guard_name  }}) </td>
+                        <td class="text-center"> {{ $userHasPermission->user_name  }} - {{ $userHasPermission->user_email  }} </td>
+                        <td class="text-center"> {{ $userHasPermission->permission_name  }} ({{ $userHasPermission->permission_guard_name  }}) </td>
+                        <td class="text-center">
+                            @acl('assignPermissionsToUsers.unassign', 'user' => $userHasPermission->userId|'permission' => $userHasPermission->permissionId)
+                                <a class="btn btn-danger" href="{{ route('assignPermissionsToUsers.unassign', ['user' => $userHasPermission->userId, 'permission' => $userHasPermission->permissionId]) }}">{{ __('Un-assign') }}</a>
+                            @endacl
+                        </td>
                     </tr>
                 @endforeach
             @else

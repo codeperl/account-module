@@ -137,11 +137,11 @@ class AccountServiceProvider extends ServiceProvider
             $bladeCompiler->directive('acl', function ($arguments) {
                 $args = explode(',', $arguments.',');
                 $route = $args[0];
-                $params = [];
+                $params = '';
                 $action = '';
 
                 if(!empty($args[1])) {
-                    $params = $args[1];
+                    $params = "[".str_replace("|", ',', $args[1])."]";
                 }
 
                 if(!empty($args[2])) {

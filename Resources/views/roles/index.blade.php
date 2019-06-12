@@ -36,13 +36,13 @@
                         <td class="text-center">{{ \Carbon\Carbon::parse($role->updated_at)->format('d F, Y') }}</td>
                         <td class="text-center">{{ \Carbon\Carbon::parse($role->created_at)->format('d F, Y') }}</td>
                         <td class="text-center">
-                            @acl('roles.show', "['id' => $role->id]")
+                            @acl('roles.show', 'id' => $role->id)
                             <a href="{{ route('roles.show', ['id' => $role->id]) }}" class="btn btn-link custom-color"><i class="fa fa-lg fa-eye"></i></a>
                             @endacl
-                            @acl('roles.edit', "['id' => $role->id]")
+                            @acl('roles.edit', 'id' => $role->id)
                             <a href="{{ route('roles.edit', ['id' => $role->id]) }}" class="btn btn-link custom-color"><i class="fa fa-lg fa-edit"></i></a>
                             @endacl
-                            @acl('roles.destroy', "['id' => $role->id]", 'destroy')
+                            @acl('roles.destroy', 'id' => $role->id, 'destroy')
                             <form action="{{ route('roles.destroy', ['id' => $role->id]) }}" method="POST" class="d-inline delete">
                                 {{ method_field('DELETE') }}
                                 {{ csrf_field() }}

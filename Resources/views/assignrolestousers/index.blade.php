@@ -22,7 +22,6 @@
             <tr>
                 <th>{{ __('User') }}</th>
                 <th>{{ __('Role') }}</th>
-
             </tr>
             </thead>
             <tbody>
