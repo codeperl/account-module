@@ -97,4 +97,21 @@ class AssignResourcesToPermissionsController extends Controller
         return redirect()->route('assignResourcesToPermissions.index')
             ->with('success','Resource assigned to permission successfully');
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unAssign(Request $request)
+    {
+        if($this->permissionHasResourceManager->unAssign(
+            $request->post('permission'), $request->post('resource'))
+        ) {
+            return redirect()->route('assignResourcesToPermissions.index')
+                ->with('success','Resource un-assigned to permission successfully');
+        }
+
+        return redirect()->route('assignResourcesToPermissions.index')
+            ->with('error','Resource un-assigned to permission failed');
+    }
 }

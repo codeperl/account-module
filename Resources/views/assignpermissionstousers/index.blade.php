@@ -9,9 +9,9 @@
         </div>
         <div class="col-lg-6">
             <div class="float-right">
-                @acl('assignPermissionsToUsers.form')
+                {{--@acl('assignPermissionsToUsers.form')--}}
                     <a class="btn btn-success" href="{{ route('assignPermissionsToUsers.form') }}">{{ __('Assign permission to user') }}</a>
-                @endacl
+                {{--@endacl--}}
             </div>
         </div>
     </div>
@@ -32,8 +32,14 @@
                         <td class="text-center"> {{ $userHasPermission->user_name  }} - {{ $userHasPermission->user_email  }} </td>
                         <td class="text-center"> {{ $userHasPermission->permission_name  }} ({{ $userHasPermission->permission_guard_name  }}) </td>
                         <td class="text-center">
-                            @acl('assignPermissionsToUsers.unassign', 'user' => $userHasPermission->userId|'permission' => $userHasPermission->permissionId)
-                                <a class="btn btn-danger" href="{{ route('assignPermissionsToUsers.unassign', ['user' => $userHasPermission->userId, 'permission' => $userHasPermission->permissionId]) }}">{{ __('Un-assign') }}</a>
+                            @acl('assignPermissionsToUsers.unassign', '', 'DELETE')
+                                <form name="{{$userHasPermission->userId}}{{$userHasPermission->permissionId}}" action="{{ route('assignPermissionsToUsers.unassign') }}" method="POST" class="d-inline delete">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <input type="hidden" id="user" name="user" value="{{$userHasPermission->userId}}" />
+                                    <input type="hidden" id="permission" name="permission" value="{{$userHasPermission->permissionId}}" />
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-lg fa-trash"></i></button>
+                                </form>
                             @endacl
                         </td>
                     </tr>

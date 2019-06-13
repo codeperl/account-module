@@ -22,6 +22,7 @@
             <tr>
                 <th>{{ __('User') }}</th>
                 <th>{{ __('Role') }}</th>
+                <th>{{ __('Actions') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -30,6 +31,17 @@
                     <tr>
                         <td> {{ $userHasRole->user_name  }} - {{ $userHasRole->user_email  }} </td>
                         <td> {{ $userHasRole->role_name  }} ({{ $userHasRole->role_guard_name  }}) </td>
+                        <td class="text-center">
+                            @acl('assignRolesToUsers.unassign', 'user' => $userHasRole->user_id|'role' => $userHasRole->role_id, 'DELETE')
+                                <form name="{{$userHasRole->user_id}}{{$userHasRole->role_id}}" action="{{ route('assignRolesToUsers.unassign') }}" method="POST" class="d-inline delete">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <input type="hidden" id="user" name="user" value="{{$userHasRole->user_id}}" />
+                                    <input type="hidden" id="role" name="role" value="{{$userHasRole->role_id}}" />
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-lg fa-trash"></i></button>
+                                </form>
+                            @endacl
+                        </td>
                     </tr>
                 @endforeach
             @else

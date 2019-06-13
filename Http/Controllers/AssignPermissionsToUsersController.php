@@ -100,11 +100,15 @@ class AssignPermissionsToUsersController extends Controller
             ->with('success','Permission assigned to user successfully');
     }
 
-    public function unAssign($user, $permission)
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unAssign(Request $request)
     {
-        $this->userHasPermissionManager->unAssign($user, $permission);
+        $this->userHasPermissionManager->unAssign($request->post('user'), $request->post('permission'));
 
         return redirect()->route('assignPermissionsToUsers.index')
-            ->with('success','Permission un-assigned to user successfully');
+            ->with('success','Permission un-assigned to user successfully.');
     }
 }

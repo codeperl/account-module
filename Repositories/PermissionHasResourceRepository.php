@@ -74,14 +74,14 @@ class PermissionHasResourceRepository
     }
 
     /**
-     * @param $permission
+     * @param $permissionId
      * @param $resource
      * @return bool
      */
-    public function has($permission, $resource) : bool
+    public function has($permissionId, $resource) : bool
     {
         return PermissionHasResource::where([
-            'permission_id' => $permission->id,
+            'permission_id' => $permissionId,
             'resource' => $resource
         ])->exists();
     }
@@ -92,5 +92,22 @@ class PermissionHasResourceRepository
     public function count()
     {
         return PermissionHasResource::all()->count();
+    }
+
+    /**
+     * @param $permissionId
+     * @param $resource
+     * @return |null
+     */
+    public function delete($permissionId, $resource)
+    {
+        if($this->has($permissionId, $resource)) {
+            return PermissionHasResource::where([
+                'permission_id' => $permissionId,
+                'resource' => $resource
+            ])->delete();
+        }
+
+        return null;
     }
 }

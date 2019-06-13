@@ -24,6 +24,7 @@
                 <th>{{ __('HTTP command') }}</th>
                 <th>{{ __('URI') }}</th>
                 <th>{{ __('Resource') }}</th>
+                <th>{{ __('Actions') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -34,6 +35,17 @@
                         <td>{{ $permissionHasResource->http_command }}</td>
                         <td>{{ $permissionHasResource->uri }}</td>
                         <td>{{ $permissionHasResource->resource }}</td>
+                        <td class="text-center">
+                            @acl('assignResourcesToPermissions.unassign', 'permission' => $permissionHasResource->permission_id|'resource' => $permissionHasResource->resource, 'DELETE')
+                                <form name="{{$permissionHasResource->permission_id}}{{$permissionHasResource->resource}}" action="{{ route('assignResourcesToPermissions.unassign') }}" method="POST" class="d-inline delete">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <input type="hidden" id="permission" name="permission" value="{{$permissionHasResource->permission_id}}" />
+                                    <input type="hidden" id="resource" name="resource" value="{{$permissionHasResource->resource}}" />
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-lg fa-trash"></i></button>
+                                </form>
+                            @endacl
+                        </td>
                     </tr>
                 @endforeach
             @else

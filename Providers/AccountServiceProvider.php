@@ -138,29 +138,42 @@ class AccountServiceProvider extends ServiceProvider
                 $args = explode(',', $arguments.',');
                 $route = $args[0];
                 $params = '';
-                $action = '';
+                $httpCommand = '';
 
                 if(!empty($args[1])) {
                     $params = "[".str_replace("|", ',', $args[1])."]";
                 }
 
+
                 if(!empty($args[2])) {
-                    $action = $args[2];
+                    $httpCommand = $args[2];
                 }
 
-                if($params && $action) {
+                if($httpCommand) {
+                    if($params) {
+                        return "<?php if( app('acl')->access(
+                                                            app('router')->getRoutes()->match(
+                                                                                                app('request')->create(
+                                                                                                                        route({$route}, {$params}), $httpCommand
+                                                                                                                      )
+                                                                                             )->getAction()['controller'],
+                                                            app('acl')->getGuard()
+                                                        )
+                                                    ): ?>";
+                    }
+
                     return "<?php if( app('acl')->access(
                                                             app('router')->getRoutes()->match(
                                                                                                 app('request')->create(
-                                                                                                                        route({$route}, {$params})
+                                                                                                                        route({$route}), $httpCommand
                                                                                                                       )
                                                                                              )->getAction()['controller'],
-                                                            app('acl')->getGuard(),
-                                                            {$action}
+                                                            app('acl')->getGuard()
                                                         )
                                                     ): ?>";
-                } else if($params && !$action) {
-                    return "<?php if( app('acl')->access(
+                } else {
+                    if($params) {
+                        return "<?php if( app('acl')->access(
                                                             app('router')->getRoutes()->match(
                                                                                                 app('request')->create(
                                                                                                                         route({$route}, {$params})
@@ -169,20 +182,9 @@ class AccountServiceProvider extends ServiceProvider
                                                             app('acl')->getGuard()
                                                         )
                                                     ): ?>";
-                } else if(!$params && $action) {
-                    return "<?php if( app('acl')->access(
-                                                            app('router')->getRoutes()->match(
-                                                                                                app('request')->create(
-                                                                                                                        route({$route})
-                                                                                                                      )
-                                                                                             )->getAction()['controller'],
-                                                            app('acl')->getGuard(),
-                                                            {$action}
-                                                        )
-                                                    ): ?>";
-                }
+                    }
 
-                return "<?php if( app('acl')->access(
+                    return "<?php if( app('acl')->access(
                                                             app('router')->getRoutes()->match(
                                                                                                 app('request')->create(
                                                                                                                         route({$route})
@@ -191,6 +193,8 @@ class AccountServiceProvider extends ServiceProvider
                                                             app('acl')->getGuard()
                                                         )
                                                     ): ?>";
+                }
+
             });
 
             $bladeCompiler->directive('endacl', function () {

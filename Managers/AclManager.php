@@ -33,16 +33,10 @@ class AclManager
     /**
      * @param $resource
      * @param $guard
-     * @param string $actionName
      * @return bool
      */
-    public function access($resource, $guard, $actionName = '') : bool
+    public function access($resource, $guard) : bool
     {
-        if($actionName) {
-            $resourcePart = explode('@', $resource);
-            $resource = $resourcePart[0].'@'.$actionName;
-        }
-
         if(!app('auth')->guest() && app('auth')->user()->can(Permissions::PERMIT_ALL)) {
             return true;
         }
@@ -52,7 +46,7 @@ class AclManager
 
         if($permission &&
             $this->permissionHasResourceRepository->has(
-                $permission,
+                $permission->id,
                 $resource)
         ) {
             return true;

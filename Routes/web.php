@@ -24,14 +24,16 @@ Route::prefix('account')->group(function() {
         Route::get('assign-resources-to-permissions','AssignResourcesToPermissionsController@index')->name('assignResourcesToPermissions.index');
         Route::get('assign-resources-to-permissions/form','AssignResourcesToPermissionsController@form')->name('assignResourcesToPermissions.form');
         Route::post('assign-resources-to-permissions/assign','AssignResourcesToPermissionsController@assign')->name('assignResourcesToPermissions.assign');
+        Route::delete('assign-resources-to-permissions/unassign','AssignResourcesToPermissionsController@unAssign')->name('assignResourcesToPermissions.unassign');
 
         Route::get('assign-permissions-to-users','AssignPermissionsToUsersController@index')->name('assignPermissionsToUsers.index');
         Route::get('assign-permissions-to-users/form','AssignPermissionsToUsersController@form')->name('assignPermissionsToUsers.form');
         Route::post('assign-permissions-to-users/assign','AssignPermissionsToUsersController@assign')->name('assignPermissionsToUsers.assign');
-        Route::get('assign-permissions-to-users/unassign/user/{user}/permission/{permission}','AssignPermissionsToUsersController@unAssign')->name('assignPermissionsToUsers.unassign');
+        Route::delete('assign-permissions-to-users/unassign','AssignPermissionsToUsersController@unAssign')->name('assignPermissionsToUsers.unassign');
 
         Route::get('assign-roles-to-users','AssignRolesToUsersController@index')->name('assignRolesToUsers.index');
         Route::get('assign-roles-to-users/form','AssignRolesToUsersController@form')->name('assignRolesToUsers.form');
         Route::post('assign-roles-to-users/assign','AssignRolesToUsersController@assign')->name('assignRolesToUsers.assign');
+        Route::delete('assign-roles-to-users/unassign','AssignRolesToUsersController@unAssign')->name('assignRolesToUsers.unassign');
     });
 });

@@ -5,6 +5,7 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Account\Managers\UserHasRoleManager;
 use Modules\Account\Managers\UserManager;
 use Modules\Account\Repositories\RoleRepository;
 use Modules\Account\Repositories\UserHasRoleRepository;
@@ -18,6 +19,9 @@ class AssignRolesToUsersController extends Controller
 {
     /** @var UserManager */
     private $userManager;
+
+    /** @var UserHasRoleManager */
+    private $userHasRoleManager;
 
     /** @var UserRepository  */
     private $userRepository;
@@ -34,14 +38,17 @@ class AssignRolesToUsersController extends Controller
     /**
      * AssignRolesToUsersController constructor.
      * @param UserManager $userManager
+     * @param UserHasRoleManager $userHasRoleManager
      * @param UserRepository $userRepository
      * @param RoleRepository $roleRepository
      * @param UserHasRoleRepository $userHasRoleRepository
      */
-    public function __construct(UserManager $userManager, UserRepository $userRepository,
-                                RoleRepository $roleRepository, UserhasRoleRepository $userHasRoleRepository)
+    public function __construct(UserManager $userManager, UserHasRoleManager $userHasRoleManager,
+                                UserRepository $userRepository, RoleRepository $roleRepository,
+                                UserHasRoleRepository $userHasRoleRepository)
     {
         $this->userManager = $userManager;
+        $this->userHasRoleManager = $userHasRoleManager;
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;
         $this->userHasRoleRepository = $userHasRoleRepository;
@@ -92,5 +99,22 @@ class AssignRolesToUsersController extends Controller
 
         return redirect()->route('assignRolesToUsers.index')
             ->with('success','Role assigned to user successfully');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unAssign(Request $request)
+    {
+        if($this->userHasRoleManager->unAssign(
+            $request->post('user'), $request->post('role'))
+        ) {
+            return redirect()->route('assignRolesToUsers.index')
+                ->with('success','Role un-assigned to user successfully');
+        }
+
+        return redirect()->route('assignRolesToUsers.index')
+            ->with('error','Role un-assigned to user failed');
     }
 }
