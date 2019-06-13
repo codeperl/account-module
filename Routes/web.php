@@ -20,6 +20,8 @@ Route::prefix('account')->group(function() {
         Route::resource('permissions','PermissionsController');
         Route::get('resources','ResourcesController@index')->name('resources.index');
         Route::get('resources/generate','ResourcesController@generate')->name('resources.generate');
+        Route::get('resources/{resource}/show','ResourcesController@show')->name('resources.show');
+        Route::delete('resources/{resource}/destroy','ResourcesController@destroy')->name('resources.destroy');
 
         Route::get('assign-resources-to-permissions','AssignResourcesToPermissionsController@index')->name('assignResourcesToPermissions.index');
         Route::get('assign-resources-to-permissions/form','AssignResourcesToPermissionsController@form')->name('assignResourcesToPermissions.form');

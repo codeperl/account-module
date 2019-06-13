@@ -38,7 +38,7 @@
                                     {{ csrf_field() }}
                                     <input type="hidden" id="user" name="user" value="{{$userHasPermission->userId}}" />
                                     <input type="hidden" id="permission" name="permission" value="{{$userHasPermission->permissionId}}" />
-                                    <button type="submit" class="btn btn-danger"><i class="fa fa-lg fa-trash"></i></button>
+                                    <button type="submit" class="btn btn-link custom-color"><i class="fa fa-lg fa-trash"></i></button>
                                 </form>
                             @endacl
                         </td>

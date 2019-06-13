@@ -2,6 +2,7 @@
 
 namespace Modules\Account\Repositories;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Account\Entities\Resource;
@@ -59,5 +60,18 @@ class ResourceRepository
     public function allOrderBy($column, $order)
     {
         return Resource::orderBy($column, $order)->get();
+    }
+
+    /**
+     * @param $resource
+     * @return mixed
+     */
+    public function findOrFail($resource)
+    {
+        if($resource = Resource::where(['resource' => $resource])->first()) {
+            return $resource;
+        }
+
+        throw new ModelNotFoundException();
     }
 }

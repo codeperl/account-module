@@ -20,11 +20,11 @@
         <table class="table table-striped table-hover table-bordered">
             <thead class="bg-primary">
             <tr>
-                <th>{{ __('Permission') }}</th>
-                <th>{{ __('HTTP command') }}</th>
-                <th>{{ __('URI') }}</th>
-                <th>{{ __('Resource') }}</th>
-                <th>{{ __('Actions') }}</th>
+                <th class="text-center">{{ __('Permission') }}</th>
+                <th class="text-center">{{ __('HTTP command') }}</th>
+                <th class="text-center">{{ __('URI') }}</th>
+                <th class="text-center">{{ __('Resource') }}</th>
+                <th class="text-center">{{ __('Actions') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -42,7 +42,7 @@
                                     {{ csrf_field() }}
                                     <input type="hidden" id="permission" name="permission" value="{{$permissionHasResource->permission_id}}" />
                                     <input type="hidden" id="resource" name="resource" value="{{$permissionHasResource->resource}}" />
-                                    <button type="submit" class="btn btn-danger"><i class="fa fa-lg fa-trash"></i></button>
+                                    <button type="submit" class="btn btn-link custom-color"><i class="fa fa-lg fa-trash"></i></button>
                                 </form>
                             @endacl
                         </td>
@@ -50,7 +50,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="4">{{ __('No resource found!') }}</td>
+                    <td colspan="5">{{ __('No resource found!') }}</td>
                 </tr>
             @endif
             </tbody>

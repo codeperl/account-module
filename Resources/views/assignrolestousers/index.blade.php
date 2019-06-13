@@ -20,9 +20,9 @@
         <table class="table table-striped table-hover table-bordered">
             <thead class="bg-primary">
             <tr>
-                <th>{{ __('User') }}</th>
-                <th>{{ __('Role') }}</th>
-                <th>{{ __('Actions') }}</th>
+                <th class="text-center">{{ __('User') }}</th>
+                <th class="text-center">{{ __('Role') }}</th>
+                <th class="text-center">{{ __('Actions') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@
                                     {{ csrf_field() }}
                                     <input type="hidden" id="user" name="user" value="{{$userHasRole->user_id}}" />
                                     <input type="hidden" id="role" name="role" value="{{$userHasRole->role_id}}" />
-                                    <button type="submit" class="btn btn-danger"><i class="fa fa-lg fa-trash"></i></button>
+                                    <button type="submit" class="btn btn-link custom-color"><i class="fa fa-lg fa-trash"></i></button>
                                 </form>
                             @endacl
                         </td>
@@ -46,7 +46,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="4">{{ __('No resource found!') }}</td>
+                    <td colspan="3">{{ __('No resource found!') }}</td>
                 </tr>
             @endif
             </tbody>

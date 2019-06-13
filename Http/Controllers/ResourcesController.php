@@ -5,6 +5,7 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Account\Entities\Resource;
 use Modules\Account\Managers\ResourcesManager;
 use Modules\Account\Repositories\ResourceRepository;
 
@@ -57,5 +58,28 @@ class ResourcesController extends Controller
 
         return redirect()->route('resources.index')
             ->with('success', 'Resource generated successfully');
+    }
+
+    /**
+     * @param $resource
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($resource)
+    {
+        $resource = $this->resourceRepository->findOrFail($resource);
+
+        return view('account::resources.show',compact('resource'));
+    }
+
+    /**
+     * @param Resource $resource
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(Resource $resource)
+    {
+        $resource->delete();
+        return redirect()->route('resources.index')
+            ->with('success','Resource deleted successfully');
     }
 }
