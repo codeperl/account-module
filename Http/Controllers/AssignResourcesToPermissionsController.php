@@ -33,17 +33,17 @@ class AssignResourcesToPermissionsController extends Controller
 
     /**
      * AssignResourcesToPermissionsController constructor.
-     * @param PermissionHasResourceManager $permissionhasResourceManager
+     * @param PermissionHasResourceManager $permissionHasResourceManager
      * @param PermissionRepository $permissionRepository
      * @param ResourceRepository $resourceRepository
      * @param PermissionHasResourceRepository $permissionHasResourceRepository
      */
-    public function __construct(PermissionHasResourceManager $permissionhasResourceManager,
+    public function __construct(PermissionHasResourceManager $permissionHasResourceManager,
                                 PermissionRepository $permissionRepository,
                                 ResourceRepository $resourceRepository,
                                 PermissionHasResourceRepository $permissionHasResourceRepository)
     {
-        $this->permissionHasResourceManager = $permissionhasResourceManager;
+        $this->permissionHasResourceManager = $permissionHasResourceManager;
         $this->permissionRepository = $permissionRepository;
         $this->resourceRepository = $resourceRepository;
         $this->permissionHasResourceRepository = $permissionHasResourceRepository;
