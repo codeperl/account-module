@@ -29,16 +29,21 @@ composer require spatie/laravel-permission
 composer require codeperl/account
 
 ## Post installation
-1. Add 
+* Add 
 ```
 'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
 'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
 'acl' => \Modules\Account\Middlewares\AclMiddleware::class,
 ```
 
-   to $routeMiddleware in App\Http\Kernel.php.
+   to $routeMiddleware in App\Http\Kernel.php
+
    
-2. Run ```php artisan migrate --env=development```
+* Run ```php artisan module:publish-config Account```
+
+* Run ```php artisan module:publish-migration Account```
+
+* Run ```php artisan migrate --env=development```
 
 Done!
 
