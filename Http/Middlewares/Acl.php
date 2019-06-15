@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Account\Http\Middleware;
+namespace Modules\Account\Http\Middlewares;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use Modules\Account\Managers\AclManager;
  * Class Acl
  * @package Modules\Account\Http\Middleware
  */
-class Acl
+class AclMiddleware
 {
     /** @var AclManager */
     private $aclManager;
