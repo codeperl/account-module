@@ -23,6 +23,7 @@ composer require codeperl/account
 ```
 'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
 'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+'acl' => \Modules\Account\Middlewares\AclMiddleware::class,
 ```
 
    to $routeMiddleware in App\Http\Kernel.php.
