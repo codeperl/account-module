@@ -35,7 +35,7 @@ Run
 ```
 'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
 'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
-'acl' => \Modules\Account\Middlewares\AclMiddleware::class,
+'acl' => \Modules\Account\Middleware\Acl::class,
 ```
 
    to $routeMiddleware in App\Http\Kernel.php
