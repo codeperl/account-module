@@ -2,13 +2,13 @@
 User account management along with acl. A modular driven approach for laravel 5.8.
 
 ## Pre installation
-In composer.json file append:
+* In composer.json file append:
 ```javascript
 "module-dir": "Modules"
 ```
 to extra section. 
 
-and 
+* and 
 
 ```javascript
     "autoload": {
