@@ -30,18 +30,6 @@ composer require codeperl/account
    
 2. Run ```php artisan migrate --env=development```
 
-3. Run ```php artisan make:seeder RoleTableSeeder```
-
-4. Update appropriate data to RoleTableSeeder class.
-
-5. Run ```php artisan make:seeder PermissionTableSeeder```
-
-6. Update appropriate data to PermissionTableSeeder class.
-
-7. Run ```php artisan db:seed --class RoleTableSeeder --env=development```
-
-8. Run ```php artisan db:seed --class PermissionTableSeeder --env=development```
-
 Done!
 
 Now you will get access of these urls:
