@@ -23,10 +23,12 @@ to extra section.
 It will be the location where laravel module will took place.
 
 ## Installation
-composer require nwidart/laravel-modules
-composer require joshbrw/laravel-module-installer
-composer require spatie/laravel-permission
-composer require codeperl/account
+Run
+
+```composer require nwidart/laravel-modules```
+```composer require joshbrw/laravel-module-installer```
+```composer require spatie/laravel-permission```
+```composer require codeperl/account```
 
 ## Post installation
 * Add 
