@@ -39,7 +39,9 @@ class RolesController extends Controller
      * @param PermissionRepository $permissionRepository
      * @param RoleHasPermissionsRepository $roleHasPermissionsRepository
      */
-    public function __construct(RoleManager $roleManager, RoleRepository $roleRepository, PermissionRepository $permissionRepository, RoleHasPermissionsRepository $roleHasPermissionsRepository)
+    public function __construct(RoleManager $roleManager, RoleRepository $roleRepository,
+                                PermissionRepository $permissionRepository, RoleHasPermissionsRepository
+                                $roleHasPermissionsRepository)
     {
         $this->roleManager = $roleManager;
         $this->roleRepository = $roleRepository;
@@ -82,11 +84,18 @@ class RolesController extends Controller
             'permission' => 'required',
         ]);
 
-        $role = $this->roleRepository->create(['name' => $request->input('name'), 'guard_name' => $request->input('guard_name')]);
-        $role->syncPermissions($request->input('permission'));
+        $role = $this->roleRepository->create(['name' => $request->input('name'),
+            'guard_name' => $request->input('guard_name')]);
+        $result = $role->syncPermissions($request->input('permission'));
 
-        return redirect()->route('roles.index')
-            ->with('success','Role created successfully');
+        if($result) {
+            return redirect()->route('roles.index')
+                ->with('success','Role created successfully.');
+        } else {
+            return redirect()->route('roles.index')
+                ->with('error','Role creation failed.');
+        }
+
     }
 
     /**
@@ -133,10 +142,15 @@ class RolesController extends Controller
             ]
         );
 
-        $this->roleManager->sync($this->roleRepository->findOrFail($id), $request->input('permission'));
+        $result = $this->roleManager->sync($this->roleRepository->findOrFail($id), $request->input('permission'));
 
-        return redirect()->route('roles.index')
-            ->with('success','Role updated successfully');
+        if($result) {
+            return redirect()->route('roles.index')
+                ->with('success','Role updated successfully.');
+        } else {
+            return redirect()->route('roles.index')
+                ->with('error','Role update failed.');
+        }
     }
 
     /**
@@ -146,8 +160,14 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
-        $role->delete();
-        return redirect()->route('roles.index')
-            ->with('success','Role deleted successfully');
+        $result = $role->delete();
+
+        if($result) {
+            return redirect()->route('roles.index')
+                ->with('success','Role deleted successfully.');
+        } else {
+            return redirect()->route('roles.index')
+                ->with('error','Role deletion failed.');
+        }
     }
 }

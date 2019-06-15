@@ -94,10 +94,16 @@ class AssignPermissionsToUsersController extends Controller
 
         $permission = $this->permissionRepository->findOrFail($request->post('permission'));
 
-        $this->userManager->givePermissionTo($request->post('user'), $permission);
+        $result = $this->userManager->givePermissionTo($request->post('user'), $permission);
 
-        return redirect()->route('assignPermissionsToUsers.index')
-            ->with('success','Permission assigned to user successfully');
+        if($result) {
+            return redirect()->route('assignPermissionsToUsers.index')
+                ->with('success','Permission assigned to user successfully.');
+        } else {
+            return redirect()->route('assignPermissionsToUsers.index')
+                ->with('error','Permission assigned to user failed.');
+        }
+
     }
 
     /**
@@ -106,9 +112,14 @@ class AssignPermissionsToUsersController extends Controller
      */
     public function unAssign(Request $request)
     {
-        $this->userHasPermissionManager->unAssign($request->post('user'), $request->post('permission'));
+        $result = $this->userHasPermissionManager->unAssign($request->post('user'), $request->post('permission'));
 
-        return redirect()->route('assignPermissionsToUsers.index')
-            ->with('success','Permission un-assigned to user successfully.');
+        if($result) {
+            return redirect()->route('assignPermissionsToUsers.index')
+                ->with('success','Permission un-assigned to user successfully.');
+        } else {
+            return redirect()->route('assignPermissionsToUsers.index')
+                ->with('error','Permission un-assigned to user failed.');
+        }
     }
 }

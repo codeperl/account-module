@@ -57,7 +57,7 @@ class ResourcesController extends Controller
         $this->resourcesManager->sync($this->resourcesManager->findResources());
 
         return redirect()->route('resources.index')
-            ->with('success', 'Resource generated successfully');
+            ->with('success', 'Resource generated successfully.');
     }
 
     /**
@@ -78,8 +78,14 @@ class ResourcesController extends Controller
      */
     public function destroy(Resource $resource)
     {
-        $resource->delete();
-        return redirect()->route('resources.index')
-            ->with('success','Resource deleted successfully');
+        $result = $resource->delete();
+
+        if($result) {
+            return redirect()->route('resources.index')
+                ->with('success','Resource deleted successfully.');
+        } else {
+            return redirect()->route('resources.index')
+                ->with('error','Resource deletion failed.');
+        }
     }
 }

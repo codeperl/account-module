@@ -89,13 +89,19 @@ class AssignResourcesToPermissionsController extends Controller
             ]
         );
 
-        $this->permissionHasResourceRepository->save(
+        $result = $this->permissionHasResourceRepository->save(
             $this->permissionRepository->findOrFail($request->post('permission')),
             $request->post('resource')
         );
 
-        return redirect()->route('assignResourcesToPermissions.index')
-            ->with('success','Resource assigned to permission successfully');
+        if($result) {
+            return redirect()->route('assignResourcesToPermissions.index')
+                ->with('success','Resource assigned to permission successfully.');
+        } else {
+            return redirect()->route('assignResourcesToPermissions.index')
+                ->with('error','Resource assigned to permission failed.');
+        }
+
     }
 
     /**
@@ -108,10 +114,10 @@ class AssignResourcesToPermissionsController extends Controller
             $request->post('permission'), $request->post('resource'))
         ) {
             return redirect()->route('assignResourcesToPermissions.index')
-                ->with('success','Resource un-assigned to permission successfully');
+                ->with('success','Resource un-assigned to permission successfully.');
         }
 
         return redirect()->route('assignResourcesToPermissions.index')
-            ->with('error','Resource un-assigned to permission failed');
+            ->with('error','Resource un-assigned to permission failed.');
     }
 }

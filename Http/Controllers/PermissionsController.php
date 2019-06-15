@@ -61,10 +61,16 @@ class PermissionsController extends Controller
             'name' => 'required|unique:permissions,name',
         ]);
 
-        $this->permissionRepository->create(['name' => $request->input('name'), 'guard_name' => $request->input('guard_name')]);
+        $result = $this->permissionRepository->create(['name' => $request->input('name'),
+            'guard_name' => $request->input('guard_name')]);
 
-        return redirect()->route('permissions.index')
-            ->with('success','Permission created successfully');
+        if($result) {
+            return redirect()->route('permissions.index')
+                ->with('success','Permission created successfully.');
+        } else {
+            return redirect()->route('permissions.index')
+                ->with('error','Permission creation failed.');
+        }
     }
 
     /**
@@ -96,15 +102,21 @@ class PermissionsController extends Controller
             'name' => 'required',
         ]);
 
-        $this->permissionRepository->update($id,
+        $result = $this->permissionRepository->update($id,
             [
                 'name' => $request->input('name'),
                 'guard_name' => $request->input('guard_name')
             ]
         );
 
-        return redirect()->route('permissions.index')
-            ->with('success','Permission updated successfully');
+        if($result) {
+            return redirect()->route('permissions.index')
+                ->with('success','Permission updated successfully.');
+        } else {
+            return redirect()->route('permissions.index')
+                ->with('error','Permission update failed.');
+        }
+
     }
 
     /**
@@ -114,9 +126,14 @@ class PermissionsController extends Controller
      */
     public function destroy(Permission $permission)
     {
-        $permission->delete();
+        $result = $permission->delete();
 
-        return redirect()->route('permissions.index')
-            ->with('success','Permission deleted successfully');
+        if($result) {
+            return redirect()->route('permissions.index')
+                ->with('success','Permission deleted successfully.');
+        } else {
+            return redirect()->route('permissions.index')
+                ->with('error','Permission deletion failed.');
+        }
     }
 }

@@ -92,13 +92,18 @@ class AssignRolesToUsersController extends Controller
             ]
         );
 
-        $this->userManager->assignRole(
+        $result = $this->userManager->assignRole(
             $request->post('user'),
             $this->roleRepository->findOrFail($request->post('role'))
         );
 
-        return redirect()->route('assignRolesToUsers.index')
-            ->with('success','Role assigned to user successfully');
+        if($result) {
+            return redirect()->route('assignRolesToUsers.index')
+                ->with('success','Role assigned to user successfully.');
+        } else {
+            return redirect()->route('assignRolesToUsers.index')
+                ->with('error', 'Role assigned to user failed.');
+        }
     }
 
     /**
@@ -111,10 +116,10 @@ class AssignRolesToUsersController extends Controller
             $request->post('user'), $request->post('role'))
         ) {
             return redirect()->route('assignRolesToUsers.index')
-                ->with('success','Role un-assigned to user successfully');
+                ->with('success','Role un-assigned to user successfully.');
         }
 
         return redirect()->route('assignRolesToUsers.index')
-            ->with('error','Role un-assigned to user failed');
+            ->with('error','Role un-assigned to user failed.');
     }
 }
