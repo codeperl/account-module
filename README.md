@@ -4,6 +4,13 @@ User account management along with acl. A modular driven approach for laravel 5.
 ## Pre installation
 In composer.json file append:
 ```javascript
+"module-dir": "Modules"
+```
+to extra section. 
+
+and 
+
+```javascript
     "autoload": {
         "psr-4": {
             ....,
@@ -16,6 +23,9 @@ In composer.json file append:
 It will be the location where laravel module will took place.
 
 ## Installation
+composer require nwidart/laravel-modules
+composer require joshbrw/laravel-module-installer
+composer require spatie/laravel-permission
 composer require codeperl/account
 
 ## Post installation
