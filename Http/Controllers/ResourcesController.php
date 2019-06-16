@@ -76,9 +76,9 @@ class ResourcesController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy(Resource $resource)
+    public function destroy($resource)
     {
-        $result = $resource->delete();
+        $result = $this->resourceRepository->delete($resource);
 
         if($result) {
             return redirect()->route('resources.index')

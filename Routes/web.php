@@ -12,13 +12,25 @@
 */
 
 Route::prefix('account')->group(function() {
-    Route::get('/', 'AccountController@index');
     // Auth::routes(['verify' => true]);
+    Route::get('/', 'AccountController@index');
     Auth::routes();
     Route::group(['middleware' => ['auth', 'acl']], function() {
+
+        Route::get('resources/tab','AccountController@resources')->name('account.resources.tab');
+        Route::get('permissions/tab','AccountController@permissions')->name('account.permissions.tab');
+        Route::get('assign-resource-to-permission/tab','AccountController@assignResourceToPermission')->name('account.assign-resource-to-permission.tab');
+        Route::get('roles/tab','AccountController@roles')->name('account.roles.tab');
+        Route::get('assign-role-to-user/tab','AccountController@assignRoleToUser')->name('account.assign-role-to-user.tab');
+        Route::get('assign-permission-to-user/tab','AccountController@assignPermissionToUser')->name('account.assign-permission-to-user.tab');
+        Route::post('resources/tab/generate','AccountController@resourcesGenerate')->name('account.resources.generate');
+
         Route::resource('roles','RolesController');
+
         Route::resource('permissions','PermissionsController');
+
         Route::get('resources','ResourcesController@index')->name('resources.index');
+
         Route::get('resources/generate','ResourcesController@generate')->name('resources.generate');
         Route::get('resources/{resource}/show','ResourcesController@show')->name('resources.show');
         Route::delete('resources/{resource}/destroy','ResourcesController@destroy')->name('resources.destroy');

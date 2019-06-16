@@ -74,4 +74,9 @@ class ResourceRepository
 
         throw new ModelNotFoundException();
     }
+
+    public function delete($resource)
+    {
+        return Resource::where(['resource' => $resource])->delete();
+    }
 }
