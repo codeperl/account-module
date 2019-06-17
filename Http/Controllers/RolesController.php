@@ -68,7 +68,7 @@ class RolesController extends Controller
      */
     public function create()
     {
-        $permission = $this->permissionRepository->get();
+        $permission = $this->permissionRepository->getExceptPublic();
 
         return view('account::roles.create',compact('permission'));
     }
@@ -117,7 +117,7 @@ class RolesController extends Controller
     public function edit($id)
     {
         $role = $this->roleRepository->findOrFail($id);
-        $permission = $this->permissionRepository->get();
+        $permission = $this->permissionRepository->getExceptPublic();
         $rolePermissions = $this->roleHasPermissionsRepository->getRoleAndPermissions($id);
 
         return view('account::roles.edit',compact('role','permission','rolePermissions'));

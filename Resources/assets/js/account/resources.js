@@ -9,7 +9,7 @@ $('#generate-resources').on('click', function(e) {
         dataType: 'json',
         type: 'post',
         success: function(data) {
-            $('#resources-placeholder').html(data.resources);
+            $('#authorization-placeholder').html(data.resources);
         },
         error: function(jqXhr, textStatus, errorThrown){
             console.log(errorThrown);

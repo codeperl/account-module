@@ -2,28 +2,28 @@
 @section('content')
     <ul class="nav nav-tabs nav-pills nav-fill" id="authorization" role="authorizationlist">
         <li class="nav-item">
-            <a class="nav-link tab active" id="resources-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.resources.tab') }}" data-target="#resources" role="tab" aria-controls="resources" aria-selected="true"><em>{{ __('Resources') }}</em></a>
+            <a class="nav-link tab active" id="resources-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.resources.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="true"><em>{{ __('Resources') }}</em></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link tab" id="permissions-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.permissions.tab') }}" data-target="#permissions" role="tab" aria-controls="permissions" aria-selected="false"><em>{{ __('Permissions') }}</em></a>
+            <a class="nav-link tab" id="permissions-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.permissions.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><em>{{ __('Permissions') }}</em></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link tab" id="assign-resource-to-permission-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.assign-resource-to-permission.tab') }}" data-target="#assign-resource-to-permission" role="tab" aria-controls="assign-resource-to-permission" aria-selected="false"><em>{{ __('Assign resource to permission') }}</em></a>
+            <a class="nav-link tab" id="assign-resource-to-permission-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.assign-resource-to-permission.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><em>{{ __('Assign resource to permission') }}</em></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link tab" id="roles-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.roles.tab') }}" data-target="#roles" role="tab" aria-controls="roles" aria-selected="false"><em>{{ __('Roles') }}</em></a>
+            <a class="nav-link tab" id="roles-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.roles.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><em>{{ __('Roles') }}</em></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link tab" id="assign-role-to-user-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.assign-role-to-user.tab') }}" data-target="#assign-role-to-user" role="tab" aria-controls="assign-role-to-user" aria-selected="false"><em>{{ __('Assign role to user') }}</em></a>
+            <a class="nav-link tab" id="assign-role-to-user-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.assign-role-to-user.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><em>{{ __('Assign role to user') }}</em></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link tab" id="assign-permission-to-user-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.assign-permission-to-user.tab') }}" data-target="#assign-permission-to-user" role="tab" aria-controls="assign-permission-to-user" aria-selected="false"><em>{{ __('Assign permission to user') }}</em></a>
+            <a class="nav-link tab" id="assign-permission-to-user-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.assign-permission-to-user.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><em>{{ __('Assign permission to user') }}</em></a>
         </li>
     </ul>
     <div class="tab-content" id="authorizationContent">
         <div class="tab-pane fade show active" id="resources" role="tabpanel" aria-labelledby="resources-tab">
             <br />
-            <div id="resources-placeholder">
+            <div id="authorization-placeholder">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-6">
@@ -82,11 +82,6 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="permissions" role="tabpanel" aria-labelledby="permissions-tab"></div>
-        <div class="tab-pane fade" id="assign-resource-to-permission" role="tabpanel" aria-labelledby="assign-resource-to-permission-tab"></div>
-        <div class="tab-pane fade" id="roles" role="tabpanel" aria-labelledby="roles-tab"></div>
-        <div class="tab-pane fade" id="assign-role-to-user" role="tabpanel" aria-labelledby="assign-role-to-user-tab"></div>
-        <div class="tab-pane fade" id="assign-permission-to-user" role="tabpanel" aria-labelledby="assign-permission-to-user-tab"></div>
     </div>
 @endsection
 @section('extrascripts')

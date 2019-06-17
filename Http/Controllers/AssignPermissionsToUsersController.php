@@ -74,7 +74,7 @@ class AssignPermissionsToUsersController extends Controller
     public function form()
     {
         $users = $this->userRepository->all();
-        $permissions = $this->permissionRepository->all();
+        $permissions = $this->permissionRepository->getExceptPublic();
 
         return view('account::assignpermissionstousers.form', compact('users', 'permissions'));
     }
@@ -103,7 +103,6 @@ class AssignPermissionsToUsersController extends Controller
             return redirect()->route('assignPermissionsToUsers.index')
                 ->with('error','Permission assigned to user failed.');
         }
-
     }
 
     /**

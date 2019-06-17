@@ -25,6 +25,12 @@ Route::prefix('account')->group(function() {
         Route::get('assign-permission-to-user/tab','AccountController@assignPermissionToUser')->name('account.assign-permission-to-user.tab');
         Route::post('resources/tab/generate','AccountController@resourcesGenerate')->name('account.resources.generate');
 
+        Route::post('permissions/tab/store','AccountController@permissionsStore')->name('account.permissions.store');
+        Route::post('assign-resources-to-permissions/tab/assign','AccountController@resourcesToPermissionsAssign')->name('account.assignResourcesToPermissions.assign');
+        Route::post('roles/tab/store','AccountController@rolesStore')->name('account.roles.store');
+        Route::post('assign-roles-to-users/tab/assign','AccountController@rolesToUsersAssign')->name('account.assignRolesToUsers.assign');
+        Route::post('assign-permissions-to-users/tab/assign','AccountController@permissionsToUsersAssign')->name('account.assignPermissionsToUsers.assign');
+
         Route::resource('roles','RolesController');
 
         Route::resource('permissions','PermissionsController');

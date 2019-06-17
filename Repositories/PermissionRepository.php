@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Modules\Account\Enums\PermissionFields;
 use Modules\Account\Entities\Permission;
 use DB;
+use Modules\Account\Enums\Permissions;
 
 /**
  * Class PermissionRepository
@@ -93,9 +94,9 @@ class PermissionRepository
     /**
      * @return Collection
      */
-    public function get() : Collection
+    public function getExceptPublic() : Collection
     {
-        return Permission::get();
+        return Permission::where('name','!=', Permissions::PUBLIC)->get();
     }
 
     /**

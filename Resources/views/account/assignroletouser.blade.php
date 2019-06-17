@@ -10,7 +10,9 @@
         <div class="col-lg-6">
             <div class="float-right">
                 @acl('assignRolesToUsers.form')
-                    <a class="btn btn-success" id="assign-role-to-user-btn" href="#" data-href="{{ route('assignRolesToUsers.form') }}">{{ __('Assign role to user') }}</a>
+                    <button type="button" class="btn btn-success" id="assign-role-to-user-btn" data-toggle="modal" data-target="#assign-role-to-user-modal">
+                        {{ __('Assign role to user') }}
+                    </button>
                 @endacl
             </div>
         </div>
@@ -54,6 +56,70 @@
         {!! $usersHasRoles->render() !!}
     </div>
 </div>
+@acl('assignRolesToUsers.form')
+    <div class="modal fade" id="assign-role-to-user-modal" tabindex="-1" role="dialog" aria-labelledby="assign-role-to-user-modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">{{ __('Assign role to user') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="message"></div>
+                    <form id="assign-role-to-user" name="assign-role-to-user" method="POST" action="{{ route('account.assignRolesToUsers.assign') }}">
+                        @csrf
+                        <div class="form-group row">
+                            <label for="user" class="col-sm-3 col-form-label text-md-right">{{ __('User') }}</label>
+                            <div class="col-md-7">
+                                <select name="user" id="user" class="form-control">
+                                    @foreach($users as $user)
+                                        <option id="{{ $user->name }}" value="{{ $user->id }}" title="{{ $user->name }}">
+                                            {{ $user->identity }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('user'))
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('user') }}</strong></span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="role"
+                                   class="col-sm-3 col-form-label text-md-right">{{ __('Role') }}</label>
+                            <div class="col-md-7">
+                                <select name="role" id="role" class="form-control">
+                                    @foreach($roles as $role)
+                                        <option id="{{ $role->name }}"
+                                                value="{{ $role->id }}">{{ $role->name }} ({{ $role->guard_name }})
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('role'))
+                                    <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('role') }}</strong>
+                                        </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-7 offset-md-3">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                    {{ __('Assign') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+@endacl
 @endsection
 @section('extrascripts')
     <script src="{{ asset('/js/assignroletouser.js') }}"></script>

@@ -10,7 +10,9 @@
         <div class="col-lg-6">
             <div class="float-right">
                 @acl('permissions.create')
-                    <a class="btn btn-success" id="create-permission-btn" href="#" data-href="{{ route('permissions.create') }}">{{ __('Create Permission') }}</a>
+                    <button type="button" class="btn btn-success" id="create-permission-btn" data-toggle="modal" data-target="#create-permission-modal">
+                        {{ __('Create Permission') }}
+                    </button>
                 @endacl
             </div>
         </div>
@@ -62,6 +64,48 @@
         {!! $permissions->render() !!}
     </div>
 </div>
+@acl('permissions.create')
+    <div class="modal fade" id="create-permission-modal" tabindex="-1" role="dialog" aria-labelledby="create-permission-modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">{{__('Create permission') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="message"></div>
+                    {!! Form::open(array('id' => 'permission', 'name' => 'permission', 'route' => 'account.permissions.store','method'=>'POST')) !!}
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-4 col-form-label text-md-right">{{ __('permission.name') }}</label>
+
+                        <div class="col-md-6">
+                            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-4 col-form-label text-md-right">{{ __('permission.guard_name') }}</label>
+
+                        <div class="col-md-6">
+                            {!! Form::text('guard_name', null, array('placeholder' => 'Guard name','class' => 'form-control')) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-lg"> {{ __('Create and add new') }} </button>
+                        </div>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+@endacl
 @endsection
 @section('extrascripts')
     <script src="{{ asset('/js/permissions.js') }}"></script>

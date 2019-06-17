@@ -101,7 +101,6 @@ class AssignResourcesToPermissionsController extends Controller
             return redirect()->route('assignResourcesToPermissions.index')
                 ->with('error','Resource assigned to permission failed.');
         }
-
     }
 
     /**
