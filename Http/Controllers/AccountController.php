@@ -86,6 +86,7 @@ class AccountController extends Controller
      * @param UserRepository $userRepository
      * @param UserHasRoleRepository $userHasRoleRepository
      * @param UserHasPermissionRepository $userHasPermissionRepository
+     * @param PermissionHasResourceRepository $permissionHasResourceRepository
      */
     public function __construct(ResourcesManager $resourcesManager,
                                 PermissionHasResourceManager $permissionHasResourceManager,
