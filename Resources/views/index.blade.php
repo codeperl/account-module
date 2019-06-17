@@ -2,22 +2,22 @@
 @section('content')
     <ul class="nav nav-tabs nav-pills nav-fill" id="authorization" role="authorizationlist">
         <li class="nav-item">
-            <a class="nav-link tab active" id="resources-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.resources.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="true"><em>{{ __('Resources') }}</em></a>
+            <a class="nav-link tab active" id="resources-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.resources.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="true"><strong>{{ __('Resources') }}</strong></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link tab" id="permissions-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.permissions.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><em>{{ __('Permissions') }}</em></a>
+            <a class="nav-link tab" id="permissions-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.permissions.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><strong>{{ __('Permissions') }}</strong></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link tab" id="assign-resource-to-permission-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.assign-resource-to-permission.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><em>{{ __('Assign resource to permission') }}</em></a>
+            <a class="nav-link tab" id="assign-resource-to-permission-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.assign-resource-to-permission.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><strong>{{ __('Assign resource to permission') }}</strong></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link tab" id="roles-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.roles.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><em>{{ __('Roles') }}</em></a>
+            <a class="nav-link tab" id="roles-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.roles.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><strong>{{ __('Roles') }}</strong></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link tab" id="assign-role-to-user-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.assign-role-to-user.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><em>{{ __('Assign role to user') }}</em></a>
+            <a class="nav-link tab" id="assign-role-to-user-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.assign-role-to-user.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><strong>{{ __('Assign role to user') }}</strong></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link tab" id="assign-permission-to-user-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.assign-permission-to-user.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><em>{{ __('Assign permission to user') }}</em></a>
+            <a class="nav-link tab" id="assign-permission-to-user-tab" data-toggle="ajaxtab" href="#" data-href="{{ route('account.assign-permission-to-user.tab') }}" data-target="#authorization-placeholder" role="tab" aria-selected="false"><strong>{{ __('Assign permission to user') }}</strong></a>
         </li>
     </ul>
     <div class="tab-content" id="authorizationContent">

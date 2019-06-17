@@ -60,7 +60,7 @@
     <div class="modal fade" id="assign-role-to-user-modal" tabindex="-1" role="dialog" aria-labelledby="assign-role-to-user-modal-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-primary">
                     <h5 class="modal-title" id="exampleModalCenterTitle">{{ __('Assign role to user') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

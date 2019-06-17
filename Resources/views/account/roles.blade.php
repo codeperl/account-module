@@ -68,7 +68,7 @@
     <div class="modal fade" id="create-role-modal" tabindex="-1" role="dialog" aria-labelledby="create-role-modal-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 850px!important;">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-primary">
                     <h5 class="modal-title" id="exampleModalCenterTitle">{{ __('Roles') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -78,28 +78,32 @@
                     <div id="message"></div>
                     {!! Form::open(array('id' => 'role', 'name' => 'role', 'route' => 'account.roles.store','method'=>'POST')) !!}
                     <div class="row">
-                        <div class="col-md-6 my-auto">
-                            <div class="form-group row">
-                                <label for="name" class="offset-1 col-md-4 col-form-label text-md-right">{{ __('Role name') }}</label>
-                                <div class="col-md-6">
-                                    {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="name" class="offset-1 col-md-4 col-form-label text-md-right">{{ __('Guard name') }}</label>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-6 mx-auto">
+                                    <div class="form-group row">
+                                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Role name') }}</label>
+                                        <div class="col-md-6">
+                                            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Guard name') }}</label>
 
-                                <div class="col-md-6">
-                                    {!! Form::text('guard_name', null, array('placeholder' => 'Guard name','class' => 'form-control')) !!}
+                                        <div class="col-md-6">
+                                            {!! Form::text('guard_name', null, array('placeholder' => 'Guard name','class' => 'form-control')) !!}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
                             <div class="form-group row">
-                                <h3><label for="name" class="offset-4 col-md-4 col-form-label text-md-right">{{ __('Permissions') }}</label></h3>
+                                <div class="mx-auto">
+                                    <h4><label for="name" class="mx-auto col-md-4 col-form-label text-md-right">{{ __('Permissions') }}</label></h4>
+                                </div>
                                 <br />
                                 <div class="row" style="padding: 0 30px 0;">
                                     @foreach($permission as $value)
-                                        <div class="col-5 py-1 my-1" style="border-bottom: 1px solid #CCCCCC;">
+                                        <div class="col-4 py-1 my-1" style="border-bottom: 1px solid #CCCCCC;">
                                             <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
                                                 {{ $value->name }} ({{$value->guard_name}})</label>
                                         </div>
@@ -109,7 +113,7 @@
                         </div>
                     </div>
                     <div class="form-group row mb-0">
-                        <div class="col-md-5 offset-md-3">
+                        <div class="col-md-5 offset-md-4">
                             <button type="submit" class="btn btn-primary btn-lg"> {{ __('Create role and assign permissions') }} </button>
                         </div>
                     </div>
