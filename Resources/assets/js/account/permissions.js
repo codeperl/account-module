@@ -1,7 +1,3 @@
-$(document).ready(function() {
-    formSubmission('submit', "form[name='permission']", messageWrapper);
-});
-
 /**
  *
  * @param messageType
@@ -22,33 +18,92 @@ function messageWrapper(messageType, message)
  *
  * @param evnt
  * @param elem
+ * @param httpCommand
  * @param mssgWrapperCallback
  */
-function formSubmission(evnt, elem, mssgWrapperCallback)
+function formSubmission(evnt, elem, httpCommand, mssgWrapperCallback)
 {
     $(""+elem).on(evnt, function(e) {
         e.preventDefault();
         var $this = $(this);
         var action = $this.attr('action');
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $.ajax({
             url: action,
             data: $this.serialize(),
             dataType: 'json',
-            type: 'post',
+            type: httpCommand,
             success: function(data) {
                 $('#message').html(mssgWrapperCallback('success', data.message.success));
                 $this.trigger("reset");
             },
             error: function(jqXhr, textStatus, errorThrown){
                 var message = jqXhr.responseJSON.message;
-                var specificMessages = jqXhr.responseJSON.errors.name;
-                specificMessages.forEach(function(item, index) {
-                    message+="<br />"+item;
-                });
+                if(jqXhr.responseJSON.errors !== undefined) {
+                    var specificMessages = jqXhr.responseJSON.errors;
+
+                    for (var obj1 in specificMessages) {
+                        var obj2 = specificMessages[obj1];
+                        if(obj2 !== undefined) {
+                            for(var obj3 in obj2) {
+                                var obj4 = obj2[obj3];
+                                if(obj4) {
+                                    message+="<br />"+obj4;
+                                }
+                            }
+                        }
+
+                    }
+                }
 
                 $('#message').html(mssgWrapperCallback('danger', message));
             }
         });
     });
 }
+
+function show(evnt, elem, modalElem, dynamicDataContainerElem)
+{
+    $(elem).on(evnt, function(e) {
+        e.preventDefault();
+
+        var $this = $(this);
+        var href = $this.attr('data-href');
+
+        $.ajax({
+            url: href,
+            dataType: 'json',
+            type: 'get',
+            success: function(data) {
+                showModal(modalElem, $(modalElem+' '+dynamicDataContainerElem).html(data.html));
+            },
+            error: function(jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    });
+}
+
+function showModal(elem)
+{
+    $(elem).modal({
+        show : true
+    });
+}
+
+$(document).ready(function() {
+    $(".delete").on("submit", function () {
+        return confirm("Do you want to delete this item?");
+    });
+
+    formSubmission('submit', "form[name='permission']", 'post', messageWrapper);
+
+    show('click', '.show-permission', '#bootstrap-modal-placeholder', '#modal-content');
+    show('click', '.edit-permission', '#bootstrap-modal-placeholder', '#modal-content');
+});

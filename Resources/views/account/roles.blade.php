@@ -38,8 +38,8 @@
                         <td class="text-center">{{ \Carbon\Carbon::parse($role->updated_at)->format('d F, Y') }}</td>
                         <td class="text-center">{{ \Carbon\Carbon::parse($role->created_at)->format('d F, Y') }}</td>
                         <td class="text-center">
-                            @acl('roles.show', 'id' => $role->id)
-                            <a href="#" data-href="{{ route('roles.show', ['id' => $role->id]) }}" class="btn btn-link custom-color"><i class="fa fa-lg fa-eye"></i></a>
+                            @acl('account.roles.show', 'id' => $role->id)
+                                <a href="#" data-href="{{ route('account.roles.show', ['id' => $role->id]) }}" class="btn btn-link custom-color show-role"><i class="fa fa-lg fa-eye"></i></a>
                             @endacl
                             @acl('roles.edit', 'id' => $role->id)
                             <a href="#" data-href="{{ route('roles.edit', ['id' => $role->id]) }}" class="btn btn-link custom-color"><i class="fa fa-lg fa-edit"></i></a>

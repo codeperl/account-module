@@ -1,1 +1,1 @@
-require('./externals');
+require('jquery');

@@ -31,6 +31,13 @@ Route::prefix('account')->group(function() {
         Route::post('assign-roles-to-users/tab/assign','AccountController@rolesToUsersAssign')->name('account.assignRolesToUsers.assign');
         Route::post('assign-permissions-to-users/tab/assign','AccountController@permissionsToUsersAssign')->name('account.assignPermissionsToUsers.assign');
 
+        Route::get('resources/tab/{resource}/show','AccountController@resourceShow')->name('account.resources.show');
+        Route::get('permissions/tab/{permission}/show','AccountController@permissionShow')->name('account.permissions.show');
+        Route::get('roles/tab/{role}/show','AccountController@roleShow')->name('account.roles.show');
+
+        Route::get('permissions/tab/{permission}/edit','AccountController@permissionEdit')->name('account.permissions.edit');
+        Route::match(['put', 'patch'], 'permissions/tab/{id}','AccountController@permissioUpdate')->name('account.permissions.update');
+
         Route::resource('roles','RolesController');
 
         Route::resource('permissions','PermissionsController');

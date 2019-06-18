@@ -8,30 +8,35 @@ $fa-font-path: '../webfonts';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 
-.bg-primary {
-  color: white;
-}
+//.bg-primary {
+//  color: white;
+//}
+//
+//.darkred {
+//  color: #b31e23;
+//}
+//
+//.darkgreen {
+//  color: darkgreen;
+//}
+//
+//.skyblue {
+//  color: #3490dc;
+//}
+//
+//.yellow {
+//  color: yellow;
+//}
+//
+//.yellowgreen {
+//  color: yellowgreen;
+//}
+//
+//.custom-color {
+//  color: #673ab7;
+//}
 
-.darkred {
-  color: #b31e23;
-}
-
-.darkgreen {
-  color: darkgreen;
-}
-
-.skyblue {
-  color: #3490dc;
-}
-
-.yellow {
-  color: yellow;
-}
-
-.yellowgreen {
-  color: yellowgreen;
-}
-
-.custom-color {
-  color: #673ab7;
-}
+//ul#permission-list li { list-style-type: none; font-weight: 600; }
+//ul#permission-list li:after { content: ", "; }
+//ul#permission-list li:last-child:before { content: "and "; }
+//ul#permission-list li:last-child:after { content: "."; }

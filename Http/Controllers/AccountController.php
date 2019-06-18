@@ -5,6 +5,7 @@ namespace Modules\Account\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Account\Entities\Permission;
 use Modules\Account\Managers\PermissionHasResourceManager;
 use Modules\Account\Managers\ResourcesManager;
 use Modules\Account\Managers\RoleManager;
@@ -262,29 +263,31 @@ class AccountController extends Controller
      */
     public function permissionsStore(Request $request)
     {
-        $request->validate([
-            'name' => 'required|unique:permissions,name',
-        ]);
+        if ($request->ajax()) {
+            $request->validate([
+                'name' => 'required|unique:permissions,name',
+            ]);
 
-        $result = $this->permissionRepository->create(['name' => $request->input('name'),
-            'guard_name' => $request->input('guard_name')]);
+            $result = $this->permissionRepository->create(['name' => $request->input('name'),
+                'guard_name' => $request->input('guard_name')]);
 
-        if($result) {
-            $jsonArray = [
-                'message' => [
-                    'success' => 'Permission created successfully.'
-                ],
-                'permission' => $result
-            ];
-        } else {
-            $jsonArray = [
-                'message' => [
-                    'error' => 'Permission creation failed.'
-                ]
-            ];
+            if ($result) {
+                $jsonArray = [
+                    'message' => [
+                        'success' => 'Permission created successfully.'
+                    ],
+                    'permission' => $result
+                ];
+            } else {
+                $jsonArray = [
+                    'message' => [
+                        'error' => 'Permission creation failed.'
+                    ]
+                ];
+            }
+
+            return response()->json($jsonArray);
         }
-
-        return response()->json($jsonArray);
     }
 
     /**
@@ -293,34 +296,36 @@ class AccountController extends Controller
      */
     public function resourcesToPermissionsAssign(Request $request)
     {
-        $request->validate(
-            [
-                'permission' => ['required'],
-                'resource' => ['required']
-            ]
-        );
-
-        $result = $this->permissionHasResourceRepository->save(
-            $this->permissionRepository->findOrFail($request->post('permission')),
-            $request->post('resource')
-        );
-
-        if($result) {
-            $jsonArray = [
-                'message' => [
-                    'success' => 'Resource assigned to permission successfully.'
-                ],
-                'permissionHasResource' => $result
-            ];
-        } else {
-            $jsonArray = [
-                'message' => [
-                    'error' => 'Resource assigned to permission failed.'
+        if ($request->ajax()) {
+            $request->validate(
+                [
+                    'permission' => ['required'],
+                    'resource' => ['required']
                 ]
-            ];
-        }
+            );
 
-        return response()->json($jsonArray);
+            $result = $this->permissionHasResourceRepository->save(
+                $this->permissionRepository->findOrFail($request->post('permission')),
+                $request->post('resource')
+            );
+
+            if ($result) {
+                $jsonArray = [
+                    'message' => [
+                        'success' => 'Resource assigned to permission successfully.'
+                    ],
+                    'permissionHasResource' => $result
+                ];
+            } else {
+                $jsonArray = [
+                    'message' => [
+                        'error' => 'Resource assigned to permission failed.'
+                    ]
+                ];
+            }
+
+            return response()->json($jsonArray);
+        }
     }
 
     /**
@@ -329,31 +334,33 @@ class AccountController extends Controller
      */
     public function rolesStore(Request $request)
     {
-        $request->validate([
-            'name' => 'required|unique:roles,name',
-            'permission' => 'required',
-        ]);
+        if ($request->ajax()) {
+            $request->validate([
+                'name' => 'required|unique:roles,name',
+                'permission' => 'required',
+            ]);
 
-        $role = $this->roleRepository->create(['name' => $request->input('name'),
-            'guard_name' => $request->input('guard_name')]);
-        $result = $role->syncPermissions($request->input('permission'));
+            $role = $this->roleRepository->create(['name' => $request->input('name'),
+                'guard_name' => $request->input('guard_name')]);
+            $result = $role->syncPermissions($request->input('permission'));
 
-        if($result) {
-            $jsonArray = [
-                'message' => [
-                    'success' => 'Role created successfully.'
-                ],
-                'role' => $result
-            ];
-        } else {
-            $jsonArray = [
-                'message' => [
-                    'error' => 'Role creation failed.'
-                ]
-            ];
+            if ($result) {
+                $jsonArray = [
+                    'message' => [
+                        'success' => 'Role created successfully.'
+                    ],
+                    'role' => $result
+                ];
+            } else {
+                $jsonArray = [
+                    'message' => [
+                        'error' => 'Role creation failed.'
+                    ]
+                ];
+            }
+
+            return response()->json($jsonArray);
         }
-
-        return response()->json($jsonArray);
     }
 
     /**
@@ -362,34 +369,36 @@ class AccountController extends Controller
      */
     public function rolesToUsersAssign(Request $request)
     {
-        $request->validate(
-            [
-                'user' => ['required'],
-                'role' => ['required']
-            ]
-        );
-
-        $result = $this->userManager->assignRole(
-            $request->post('user'),
-            $this->roleRepository->findOrFail($request->post('role'))
-        );
-
-        if($result) {
-            $jsonArray = [
-                'message' => [
-                    'success' => 'Role assigned to user successfully.'
-                ],
-                'user' => $result
-            ];
-        } else {
-            $jsonArray = [
-                'message' => [
-                    'error' => 'Role assigned to user failed.'
+        if ($request->ajax()) {
+            $request->validate(
+                [
+                    'user' => ['required'],
+                    'role' => ['required']
                 ]
-            ];
-        }
+            );
 
-        return response()->json($jsonArray);
+            $result = $this->userManager->assignRole(
+                $request->post('user'),
+                $this->roleRepository->findOrFail($request->post('role'))
+            );
+
+            if ($result) {
+                $jsonArray = [
+                    'message' => [
+                        'success' => 'Role assigned to user successfully.'
+                    ],
+                    'user' => $result
+                ];
+            } else {
+                $jsonArray = [
+                    'message' => [
+                        'error' => 'Role assigned to user failed.'
+                    ]
+                ];
+            }
+
+            return response()->json($jsonArray);
+        }
     }
 
     /**
@@ -398,28 +407,142 @@ class AccountController extends Controller
      */
     public function permissionsToUsersAssign(Request $request)
     {
-        $request->validate(
+        if ($request->ajax()) {
+            $request->validate(
+                [
+                    'user' => ['required'],
+                    'permission' => ['required']
+                ]
+            );
+
+            $permission = $this->permissionRepository->findOrFail($request->post('permission'));
+
+            $result = $this->userManager->givePermissionTo($request->post('user'), $permission);
+
+            if ($result) {
+                $jsonArray = [
+                    'message' => [
+                        'success' => 'Permission assigned to user successfully.'
+                    ],
+                    'user' => $result
+                ];
+            } else {
+                $jsonArray = [
+                    'message' => [
+                        'error' => 'Permission assigned to user failed.'
+                    ]
+                ];
+            }
+
+            return response()->json($jsonArray);
+        }
+    }
+
+    public function resourceShow($resource)
+    {
+        if (request()->ajax()) {
+            $resource = $this->resourceRepository->findOrFail($resource);
+
+            if($resource) {
+                $jsonArray = [
+                    'html' => view('account::account.resourceShow')->with('resource', $resource)->render()
+                ];
+            } else {
+                $jsonArray = [
+                    'message' => [
+                        'error' => 'Resource not found.'
+                    ]
+                ];
+            }
+
+            return response()->json($jsonArray);
+        }
+    }
+
+    public function permissionShow(Permission $permission)
+    {
+        if (request()->ajax()) {
+            if($permission) {
+                $jsonArray = [
+                    'html' => view('account::account.permissionShow')->with('permission', $permission)->render()
+                ];
+            } else {
+                $jsonArray = [
+                    'message' => [
+                        'error' => 'Permission not found.'
+                    ]
+                ];
+            }
+        }
+
+        return response()->json($jsonArray);
+    }
+
+    public function roleShow($id)
+    {
+        if (request()->ajax()) {
+            $role = $this->roleRepository->findOrFail($id);
+            $rolePermissions = $this->roleRepository->getRoleWithPermissionsById($id);
+
+            if($role) {
+                $jsonArray = [
+                    'html' => view('account::account.roleShow', ['role' => $role, 'rolePermissions' => $rolePermissions])->render()
+                ];
+            } else {
+                $jsonArray = [
+                    'message' => [
+                        'error' => 'Role not found.'
+                    ]
+                ];
+            }
+
+            return response()->json($jsonArray);
+        }
+    }
+
+    public function permissionEdit(Permission $permission)
+    {
+        if (request()->ajax()) {
+            if($permission) {
+                $jsonArray = [
+                    'html' => view('account::account.permissionEdit', ['permission' => $permission])->render()
+                ];
+            } else {
+                $jsonArray = [
+                    'message' => [
+                        'error' => 'Permission not found.'
+                    ]
+                ];
+            }
+
+            return response()->json($jsonArray);
+        }
+    }
+
+    public function permissionUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $result = $this->permissionRepository->update($id,
             [
-                'user' => ['required'],
-                'permission' => ['required']
+                'name' => $request->input('name'),
+                'guard_name' => $request->input('guard_name')
             ]
         );
 
-        $permission = $this->permissionRepository->findOrFail($request->post('permission'));
-
-        $result = $this->userManager->givePermissionTo($request->post('user'), $permission);
-
-        if($result) {
+        if ($result) {
             $jsonArray = [
                 'message' => [
-                    'success' => 'Permission assigned to user successfully.'
+                    'success' => 'Permission updated successfully.'
                 ],
-                'user' => $result
+                'permission' => $result
             ];
         } else {
             $jsonArray = [
                 'message' => [
-                    'error' => 'Permission assigned to user failed.'
+                    'error' => 'Permission update failed.'
                 ]
             ];
         }

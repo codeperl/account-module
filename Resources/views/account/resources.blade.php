@@ -33,8 +33,8 @@
                         <td>{{ $resource->uri }}</td>
                         <td>{{ $resource->resource }}</td>
                         <td class="text-center" width="15%">
-                            @acl('resources.show', 'resource' => $resource->resource)
-                                <a  id="view-resource" href="#" data-href="{{ route('resources.show', ['resource' => $resource->resource]) }}" class="btn btn-link custom-color"><i class="fa fa-lg fa-eye"></i></a>
+                            @acl('account.resources.show', 'resource' => $resource->resource)
+                                <a  href="#" data-href="{{ route('account.resources.show', ['resource' => $resource->resource]) }}" class="btn btn-link custom-color show-resource"><i class="fa fa-lg fa-eye"></i></a>
                             @endacl
                             @acl('resources.destroy', 'resource' => $resource->resource, 'DELETE')
                                 <form action="{{ route('resources.destroy', ['resource' => $resource->resource]) }}" method="POST" class="d-inline delete">
@@ -54,6 +54,13 @@
             </tbody>
         </table>
         {!! $resources->render() !!}
+    </div>
+</div>
+
+<div class="modal fade" id="bootstrap-modal-placeholder" tabindex="-1" role="dialog" aria-labelledby="bootstrap-modal-placeholder-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" id="modal-content">
+        </div>
     </div>
 </div>
 @endsection

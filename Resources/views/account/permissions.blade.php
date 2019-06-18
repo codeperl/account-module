@@ -38,11 +38,11 @@
                         <td class="text-center">{{ \Carbon\Carbon::parse($permission->updated_at)->format('d F, Y') }}</td>
                         <td class="text-center">{{ \Carbon\Carbon::parse($permission->created_at)->format('d F, Y') }}</td>
                         <td class="text-center">
-                            @acl('permissions.show', 'id' => $permission->id)
-                                <a href="#" data-href="{{ route('permissions.show', ['id' => $permission->id]) }}" class="btn btn-link custom-color"><i class="fa fa-lg fa-eye"></i></a>
+                            @acl('account.permissions.show', 'id' => $permission->id)
+                                <a href="#" data-href="{{ route('account.permissions.show', ['id' => $permission->id]) }}" class="btn btn-link custom-color show-permission"><i class="fa fa-lg fa-eye"></i></a>
                             @endacl
-                            @acl('permissions.edit', 'id' => $permission->id)
-                                <a href="#" data-href="{{ route('permissions.edit', ['id' => $permission->id]) }}" class="btn btn-link custom-color"><i class="fa fa-lg fa-edit"></i></a>
+                            @acl('account.permissions.edit', 'id' => $permission->id)
+                                <a href="#" data-href="{{ route('account.permissions.edit', ['id' => $permission->id]) }}" class="btn btn-link custom-color edit-permission"><i class="fa fa-lg fa-edit"></i></a>
                             @endacl
                             @acl('permissions.destroy', 'id' => $permission->id, 'DELETE')
                                 <form action="{{ route('permissions.destroy', ['id' => $permission->id]) }}" method="POST" class="d-inline delete">
@@ -106,6 +106,12 @@
         </div>
     </div>
 @endacl
+<div class="modal fade" id="bootstrap-modal-placeholder" tabindex="-1" role="dialog" aria-labelledby="bootstrap-modal-placeholder-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" id="modal-content">
+        </div>
+    </div>
+</div>
 @endsection
 @section('extrascripts')
     <script src="{{ asset('/js/permissions.js') }}"></script>
