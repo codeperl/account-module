@@ -78,18 +78,18 @@
                     <div id="message"></div>
                     {!! Form::open(array('id' => 'permission', 'name' => 'permission', 'route' => 'account.permissions.store','method'=>'POST')) !!}
                     <div class="form-group row">
-                        <label for="name" class="col-sm-4 col-form-label text-md-right">{{ __('permission.name') }}</label>
+                        <label for="name" class="col-sm-4 col-form-label text-md-right">{{ __('Permission name') }}</label>
 
                         <div class="col-md-6">
-                            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control', 'id' => 'name', 'autofocus' => true)) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="name" class="col-sm-4 col-form-label text-md-right">{{ __('permission.guard_name') }}</label>
+                        <label for="guard_name" class="col-sm-4 col-form-label text-md-right">{{ __('Guard name') }}</label>
 
                         <div class="col-md-6">
-                            {!! Form::text('guard_name', null, array('placeholder' => 'Guard name','class' => 'form-control')) !!}
+                            {!! Form::text('guard_name', null, array('placeholder' => 'Guard name','class' => 'form-control', 'id' => 'guard_name')) !!}
                         </div>
                     </div>
 

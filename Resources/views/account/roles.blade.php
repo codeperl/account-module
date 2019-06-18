@@ -84,14 +84,14 @@
                                     <div class="form-group row">
                                         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Role name') }}</label>
                                         <div class="col-md-6">
-                                            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                                            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control', 'id' => 'name', 'autofocus' => true)) !!}
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Guard name') }}</label>
+                                        <label for="guard_name" class="col-md-4 col-form-label text-md-right">{{ __('Guard name') }}</label>
 
                                         <div class="col-md-6">
-                                            {!! Form::text('guard_name', null, array('placeholder' => 'Guard name','class' => 'form-control')) !!}
+                                            {!! Form::text('guard_name', null, array('placeholder' => 'Guard name','class' => 'form-control', 'id' => 'guard_name')) !!}
                                         </div>
                                     </div>
                                 </div>
@@ -104,8 +104,10 @@
                                 <div class="row" style="padding: 0 30px 0;">
                                     @foreach($permission as $value)
                                         <div class="col-4 py-1 my-1" style="border-bottom: 1px solid #CCCCCC;">
-                                            <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
-                                                {{ $value->name }} ({{$value->guard_name}})</label>
+                                            <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                                                {{ Form::checkbox('permission[]', $value->id, false, array('class' => 'custom-control-input', 'id' => "permission[$value->id]")) }}
+                                                <label  class="custom-control-label" for="{{ "permission[$value->id]" }}">{{ $value->name }} ({{$value->guard_name}})</label>
+                                            </div>
                                         </div>
                                     @endforeach
                                 </div>
