@@ -36,7 +36,10 @@ Route::prefix('account')->group(function() {
         Route::get('roles/tab/{role}/show','AccountController@roleShow')->name('account.roles.show');
 
         Route::get('permissions/tab/{permission}/edit','AccountController@permissionEdit')->name('account.permissions.edit');
-        Route::match(['put', 'patch'], 'permissions/tab/{id}','AccountController@permissioUpdate')->name('account.permissions.update');
+        Route::match(['put', 'patch'], 'permissions/tab/{id}','AccountController@permissionUpdate')->name('account.permissions.update');
+
+        Route::get('roles/tab/{id}/edit','AccountController@roleEdit')->name('account.roles.edit');
+        Route::match(['put', 'patch'], 'roles/tab/{id}','AccountController@roleUpdate')->name('account.roles.update');
 
         Route::resource('roles','RolesController');
 

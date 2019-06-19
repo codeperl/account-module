@@ -105,4 +105,5 @@ $(document).ready(function() {
     formSubmission('submit', "form[name='role']", 'post', messageWrapper);
 
     show('click', '.show-role', '#bootstrap-modal-placeholder', '#modal-content');
+    show('click', '.edit-role', '#bootstrap-modal-placeholder', '#modal-content');
 });

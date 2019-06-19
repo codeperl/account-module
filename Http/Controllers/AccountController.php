@@ -549,4 +549,61 @@ class AccountController extends Controller
 
         return response()->json($jsonArray);
     }
+
+    public function roleEdit($id)
+    {
+        if (request()->ajax()) {
+            $role = $this->roleRepository->findOrFail($id);
+            $permission = $this->permissionRepository->getExceptPublic();
+            $rolePermissions = $this->roleHasPermissionsRepository->getRoleAndPermissions($id);
+
+            if($role) {
+                $jsonArray = [
+                    'html' => view('account::account.roleEdit', ['role' => $role, 'permission' => $permission, 'rolePermissions' => $rolePermissions])->render()
+                ];
+            } else {
+                $jsonArray = [
+                    'message' => [
+                        'error' => 'Role not found.'
+                    ]
+                ];
+            }
+
+            return response()->json($jsonArray);
+        }
+    }
+
+    public function roleUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'permission' => 'required',
+        ]);
+
+        $role = $this->roleRepository->update($id,
+            [
+                'name' => $request->input('name'),
+                'guard_name' => $request->input('guard_name')
+            ]
+        );
+
+        $result = $this->roleManager->sync($this->roleRepository->findOrFail($id), $request->input('permission'));
+
+        if ($result) {
+            $jsonArray = [
+                'message' => [
+                    'success' => 'Role updated successfully.'
+                ],
+                'role' => $result
+            ];
+        } else {
+            $jsonArray = [
+                'message' => [
+                    'error' => 'Role update failed.'
+                ]
+            ];
+        }
+
+        return response()->json($jsonArray);
+    }
 }

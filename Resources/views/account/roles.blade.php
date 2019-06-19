@@ -41,8 +41,8 @@
                             @acl('account.roles.show', 'id' => $role->id)
                                 <a href="#" data-href="{{ route('account.roles.show', ['id' => $role->id]) }}" class="btn btn-link custom-color show-role"><i class="fa fa-lg fa-eye"></i></a>
                             @endacl
-                            @acl('roles.edit', 'id' => $role->id)
-                            <a href="#" data-href="{{ route('roles.edit', ['id' => $role->id]) }}" class="btn btn-link custom-color"><i class="fa fa-lg fa-edit"></i></a>
+                            @acl('account.roles.edit', 'id' => $role->id)
+                            <a href="#" data-href="{{ route('account.roles.edit', ['id' => $role->id]) }}" class="btn btn-link custom-color edit-role"><i class="fa fa-lg fa-edit"></i></a>
                             @endacl
                             @acl('roles.destroy', 'id' => $role->id, 'DELETE')
                                 <form action="{{ route('roles.destroy', ['id' => $role->id]) }}" method="POST" class="d-inline delete">
