@@ -8,5 +8,5 @@ namespace Modules\Account\Enums;
  */
 class Login
 {
-    const IDENTITY_FIELD = 'identity';
+    public const IDENTITY_FIELD = 'identity';
 }

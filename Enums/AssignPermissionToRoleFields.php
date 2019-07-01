@@ -8,8 +8,8 @@ namespace Modules\Account\Enums;
  */
 class AssignPermissionToRoleFields
 {
-    const ROLE = 'role';
-    const ROLE_GUARD_NAME = 'role_guard_name';
-    const PERMISSION = 'permission';
-    const PERMISSION_GUARD_NAME = 'permission_guard_name';
+    public const ROLE = 'role';
+    public const ROLE_GUARD_NAME = 'role_guard_name';
+    public const PERMISSION = 'permission';
+    public const PERMISSION_GUARD_NAME = 'permission_guard_name';
 }

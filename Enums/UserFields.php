@@ -8,8 +8,8 @@ namespace Modules\Account\Enums;
  */
 class UserFields
 {
-    const NAME = 'name';
-    const EMAIL = 'email';
-    const PASSWORD = 'password';
-    const PASSWORD_CONFIRMATION = 'password_confirmation';
+    public const NAME = 'name';
+    public const EMAIL = 'email';
+    public const PASSWORD = 'password';
+    public const PASSWORD_CONFIRMATION = 'password_confirmation';
 }

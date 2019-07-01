@@ -8,7 +8,7 @@ namespace Modules\Account\Enums;
  */
 class AssignResourceToPermissionFields
 {
-    const PERMISSION = 'permission';
-    const PERMISSION_GUARD_NAME = 'permission_guard_name';
-    const RESOURCE = 'resource';
+    public const PERMISSION = 'permission';
+    public const PERMISSION_GUARD_NAME = 'permission_guard_name';
+    public const RESOURCE = 'resource';
 }

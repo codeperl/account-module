@@ -8,6 +8,6 @@ namespace Modules\Account\Enums;
  */
 class PermissionFields
 {
-    const NAME = 'name';
-    const GUARD_NAME = 'guard_name';
+    public const NAME = 'name';
+    public const GUARD_NAME = 'guard_name';
 }

@@ -8,7 +8,7 @@ namespace Modules\Account\Enums;
  */
 class AssignPermissionToUserFields
 {
-    const USER = 'name';
-    const PERMISSION = 'permission';
-    const PERMISSION_GUARD_NAME = 'permission_guard_name';
+    public const USER = 'name';
+    public const PERMISSION = 'permission';
+    public const PERMISSION_GUARD_NAME = 'permission_guard_name';
 }

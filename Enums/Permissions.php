@@ -5,6 +5,6 @@ namespace Modules\Account\Enums;
 
 class Permissions
 {
-    const PUBLIC = 'public';
-    const PERMIT_ALL = 'Permit all';
+    public const PUBLIC = 'public';
+    public const PERMIT_ALL = 'Permit all';
 }

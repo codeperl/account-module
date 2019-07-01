@@ -5,5 +5,5 @@ namespace Modules\Account\Enums;
 
 class Guards
 {
-    const WEB = 'web';
+    public const WEB = 'web';
 }
