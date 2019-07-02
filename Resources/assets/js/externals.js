@@ -41,10 +41,6 @@ $(document).ready(function() {
         $(this).tab('show');
     });
 
-    $(".delete").on("submit", function () {
-        return confirm("Do you want to delete this item?");
-    });
-
     $('#generate-resources').on('click', function(e) {
         e.preventDefault();
         var $this = $(this);
