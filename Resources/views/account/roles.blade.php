@@ -42,7 +42,7 @@
                                 <a href="#" data-href="{{ route('account.roles.show', ['id' => $role->id]) }}" class="btn btn-link custom-color show-role"><i class="fa fa-lg fa-eye"></i></a>
                             @endacl
                             @acl('account.roles.edit', 'id' => $role->id)
-                            <a href="#" data-href="{{ route('account.roles.edit', ['id' => $role->id]) }}" class="btn btn-link custom-color edit-role"><i class="fa fa-lg fa-edit"></i></a>
+                                <a href="#" data-href="{{ route('account.roles.edit', ['id' => $role->id]) }}" class="btn btn-link custom-color edit-role"><i class="fa fa-lg fa-edit"></i></a>
                             @endacl
                             @acl('roles.destroy', 'id' => $role->id, 'DELETE')
                                 <form action="{{ route('roles.destroy', ['id' => $role->id]) }}" method="POST" class="d-inline delete">
@@ -127,6 +127,12 @@
         </div>
     </div>
 @endacl
+<div class="modal fade" id="bootstrap-modal-placeholder" tabindex="-1" role="dialog" aria-labelledby="bootstrap-modal-placeholder-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 850px!important;">
+        <div class="modal-content" id="modal-content">
+        </div>
+    </div>
+</div>
 @endsection
 @section('extrascripts')
     <script src="{{ asset('/js/roles.js') }}"></script>

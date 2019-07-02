@@ -84,7 +84,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="bootstrap-modal-placeholder" tabindex="-1" role="dialog" aria-labelledby="bootstrap-modal-placeholder-title" aria-hidden="true">
+    <div class="modal fade" id="bootstrap-modal-placeholder-account" tabindex="-1" role="dialog" aria-labelledby="bootstrap-modal-placeholder-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" id="modal-content">
             </div>

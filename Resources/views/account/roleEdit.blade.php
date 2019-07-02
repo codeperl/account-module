@@ -37,7 +37,7 @@
                     @foreach($permission as $value)
                         <div class="col-4 py-1 my-1" style="border-bottom: 1px solid #CCCCCC;">
                             <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                                {{ Form::checkbox('permission[]', $value->id, false, array('class' => 'custom-control-input', 'id' => "permission[$value->id]")) }}
+                                {{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'custom-control-input', 'id' => "permission[$value->id]")) }}
                                 <label  class="custom-control-label" for="{{ "permission[$value->id]" }}">{{ $value->name }} ({{$value->guard_name}})</label>
                             </div>
                         </div>
