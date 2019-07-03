@@ -93,5 +93,4 @@
 @endsection
 @section('extrascripts')
     <script src="{{ asset('/js/account.js') }}"></script>
-    <script src="{{ asset('/js/resources.js') }}"></script>
 @stop
